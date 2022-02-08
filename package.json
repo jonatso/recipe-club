@@ -1,0 +1,15 @@
+{
+  "name": "recipe-club",
+  "version": "1.0.0",
+  "description": "Recipe Club er en web-applikasjon hvor man kan dele sine egne mat oppskrifter og finne inspirasjon til sin neste middag.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.stud.idi.ntnu.no/tdt4140-2022/landsby-3/gruppe_51/recipe-club.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
