@@ -23,6 +23,9 @@ const dummyRecipes = [
             },
         ],
         description: "This pizza is delicious",
+        method: "Make the dough. Put the tomato and cheese in the dough. Bake for 20 minutes",
+        difficulty: "Hard",
+        image: "https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/tbagzeanc4qhrnlanzgi/pizza-med-pepperoni"
     },
     {
         id: 2,
@@ -49,6 +52,9 @@ const dummyRecipes = [
             },
         ],
         description: "This burger is the best. My favourite recipe",
+        method: "Make the dough. Put the tomato and cheese in the dough. Bake for 20 minutes",
+        difficulty: "easy",
+        image: "https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/abt0dcva6rkllmw3w9kg/klassisk-angusburger-med-cheddar-bacon-og-sprostekt-lok"
     },
     {
         id: 3,
@@ -85,7 +91,10 @@ const dummyRecipes = [
                 unit: "kg",
             },
         ],
-        description: "This pasta is delicious with EXTRA dough!"
+        description: "This pasta is delicious with EXTRA dough!",
+        method: "Make the dough. Put the tomato and cheese in the dough. Bake for 20 minutes",
+        difficulty: "medium",
+        image: "https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/tulcxcntmwnys5ndgqvk/pasta-alfredo"
         }
 ]
 

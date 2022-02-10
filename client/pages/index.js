@@ -12,7 +12,7 @@ export default function Home() {
 	return (
 		<div>
 			{recipes.map((recipe) => (
-				<RecipeCard name={recipe.name} description={recipe.description} id={recipe.id}/>
+				<RecipeCard name={recipe.name} description={recipe.description} id={recipe.id} image={recipe.image}/>
 			))}
 		</div>
 	);
