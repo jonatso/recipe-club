@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
-const Pages = [{name: "Home", link: "/"}, {name: "Recipes", link: "/recipes"}, {name: "About", link: "/about"}];
+const Pages = [{name: "Home", link: "/"}, {name: "About", link: "/about"}];
 
 const NavLink = ({ children}) => (
   <Link
@@ -50,7 +50,6 @@ export default function NavBar() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>Recipe Club</Box>
             <HStack
               as={'nav'}
               spacing={4}
