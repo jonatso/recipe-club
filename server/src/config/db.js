@@ -1,4 +1,4 @@
-const pgp = require("pg-promise")(/* options */);
-const db = pgp(process.env.DATABASE_URL);
+const Sequelize = require("sequelize")
+const sequelize = new Sequelize(process.env.DATABASE_URL)
 
-module.exports = db;
+module.exports = sequelize;
