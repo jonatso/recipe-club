@@ -95,6 +95,46 @@ const dummyRecipes = [
         method: "Make the dough. Put the tomato and cheese in the dough. Bake for 20 minutes",
         difficulty: "medium",
         image: "https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/tulcxcntmwnys5ndgqvk/pasta-alfredo"
+        },
+        {
+        id: 4,
+        name: "Taco",
+        ingredients: [
+            {
+                id: 4,
+                name: "Dough",
+                quantity: "1",
+                unit: "kg",
+            },
+            {
+                id: 2,
+                name: "Tomato",
+                quantity: "1",
+                unit: "kg",
+            },
+            {
+                id: 3,
+                name: "Cheese",
+                quantity: "1",
+                unit: "kg",
+            },
+            {
+                id: 4,
+                name: "Pasta",
+                quantity: "1",
+                unit: "kg",
+            },
+            {
+                id: 5,
+                name: "Salt",
+                quantity: "1",
+                unit: "kg",
+            },
+        ],
+        description: "This taco is delicious with EXTRA dough!",
+        method: "Make the dough. Put the tomato and cheese in the dough. Cook for 20 minutes",
+        difficulty: "easy",
+        image: "https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/tulcxcntmwnys5ndgqvk/pasta-alfredo"
         }
 ]
 

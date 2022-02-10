@@ -18,6 +18,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
+import { FaShoppingCart } from 'react-icons/fa';
 
 const Pages = [{name: "Home", link: "/"}, {name: "About", link: "/about"}];
 
@@ -78,8 +79,8 @@ export default function NavBar() {
               colorScheme={'teal'}
               size={'sm'}
               mr={4}
-              leftIcon={<AddIcon />}>
-              New Recipe
+              leftIcon={<FaShoppingCart />}>
+              Shopping List
             </Button>
             <Menu>
               <MenuButton
@@ -129,8 +130,6 @@ export default function NavBar() {
           </Box>
         ) : null}
       </Box>
-
-        {/* <Box p={4}>Main Content Here</Box> */}
     </>
   );
 }

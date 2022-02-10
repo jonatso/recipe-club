@@ -34,7 +34,7 @@ import {
         <SimpleGrid
           columns={{ base: 1, lg: 2 }}
           spacing={{ base: 8, md: 10 }}
-          py={{ base: 18, md: 24 }}>
+          py={{ base: 18, md: 10 }}>
           <Flex>
             <Image
               rounded={'md'}
@@ -132,8 +132,6 @@ import {
               }}>
               Add ingredients to shopping list
             </Button>
-  
-            
           </Stack>
         </SimpleGrid>
       </Container>
