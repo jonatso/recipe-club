@@ -43,7 +43,7 @@ export default function RecipeCard({name, description, id, image}) {
                 fontWeight={800}
                 fontSize={'sm'}
                 letterSpacing={1.1}>
-                Blog
+                Type
             </Text>
             <Heading
                 color={useColorModeValue('gray.700', 'white')}

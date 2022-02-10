@@ -17,9 +17,11 @@ import {
     useColorModeValue,
     VStack,
     Select,
+    Grid,
   } from '@chakra-ui/react';
   import React from 'react';
   import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from 'react-icons/bs';
+import { FaPlus } from 'react-icons/fa';
   import { MdEmail, MdOutlineEmail } from 'react-icons/md';
 
 export default function NewRecipe() {
@@ -73,8 +75,19 @@ export default function NewRecipe() {
                     
                     <FormControl isRequired>
                       <FormLabel>Ingredients</FormLabel>
-                      
-                        <Input type="text" name="ingredients" placeholder="Ingredients" />
+                      <Grid templateColumns='repeat(3, 1fr)' gap={4}>
+                        <Input type="text" name="ingredientname" placeholder="Ingredient" />
+                        <Input type="text" name="amount" placeholder="Amount" />
+                        <Input type="text" name="unit" placeholder="Unit" />
+                      </Grid>
+                      <Button
+                        variant={'solid'}
+                        colorScheme={'teal'}
+                        size={'sm'}
+                        mr={4}
+                        leftIcon={<FaPlus />}>
+                        Add ingredient
+                        </Button>
                     </FormControl>  
                     <FormControl isRequired>
                       <FormLabel>Description</FormLabel>
