@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import NextLink from 'next/link';
 import {
   Box,
   Flex,
@@ -18,9 +19,9 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
-const Links = ['Home', 'Recipes', 'About'];
+const Pages = [{name: "Home", link: "/"}, {name: "Recipes", link: "/recipes"}, {name: "About", link: "/about"}];
 
-const NavLink = ({ children }) => (
+const NavLink = ({ children}) => (
   <Link
     px={2}
     py={1}
@@ -29,7 +30,7 @@ const NavLink = ({ children }) => (
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
     }}
-    href={'#'}>
+    >
     {children}
   </Link>
 );
@@ -54,8 +55,21 @@ export default function NavBar() {
               as={'nav'}
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+              {Pages.map((page) => (
+                <NextLink href={page.link} passHref>
+                  <Link
+                    px={2}
+                    py={1}
+                    rounded={'md'}
+                    _hover={{
+                      textDecoration: 'none',
+                      bg: useColorModeValue('gray.200', 'gray.700'),
+                    }}
+                    key={page.name}
+                    >
+                    {page.name}
+                  </Link>
+                </NextLink>
               ))}
             </HStack>
           </HStack>
@@ -83,10 +97,10 @@ export default function NavBar() {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>Link 1</MenuItem>
+                <MenuItem>View Profile</MenuItem>
                 <MenuItem>Link 2</MenuItem>
                 <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
+                <MenuItem>Sign Out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
@@ -95,8 +109,22 @@ export default function NavBar() {
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+              {Pages.map((page) => (
+                <NextLink href={page.link} passHref>
+                  <Link
+                    px={2}
+                    py={1}
+                    rounded={'md'}
+                    _hover={{
+                      textDecoration: 'none',
+                      bg: useColorModeValue('gray.200', 'gray.700'),
+                    }}
+                    key={page.name}
+                    >
+                    {page.name}
+                  </Link>
+                </NextLink>
+
               ))}
             </Stack>
           </Box>
