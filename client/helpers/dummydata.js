@@ -134,7 +134,7 @@ const dummyRecipes = [
         description: "This taco is delicious with EXTRA dough!",
         method: "Make the dough. Put the tomato and cheese in the dough. Cook for 20 minutes",
         difficulty: "easy",
-        image: "https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/tulcxcntmwnys5ndgqvk/pasta-alfredo"
+        image: "https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/jffnb4pcmzdollfqub0h/klassisk-norsk-taco-fersk-og-hjemmelaget"
         }
 ]
 

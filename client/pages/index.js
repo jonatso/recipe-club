@@ -3,6 +3,7 @@ import { Box, SimpleGrid, IconButton, Center } from "@chakra-ui/react";
 import RecipeCard from "../components/recipecard";
 import dummyRecipes from "../helpers/dummydata";
 import { FaPlus } from "react-icons/fa";
+import NextLink from 'next/link';
 
 export default function Home() {
 	const [data, setData] = useState(null);
@@ -17,17 +18,16 @@ export default function Home() {
 				<RecipeCard name={recipe.name} description={recipe.description} id={recipe.id} image={recipe.image}/>
 			))}
 			</SimpleGrid>
-			<Center>
-				<IconButton
-					colorScheme='teal'
-					size='lg'
-					icon={<FaPlus />}
-					isRound={true}
-					position="fixed"
-					right="10px"
-					bottom="10px"
-				/>
-			</Center>
+			<NextLink href="/recipes/new">
+			<IconButton
+				colorScheme='teal'
+				size='lg'
+				icon={<FaPlus />}
+				isRound={true}
+				position="fixed"
+				right="10px"
+				bottom="10px"
+			/></NextLink>
 		</div>
-	);''
+	);
 }
