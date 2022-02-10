@@ -15,7 +15,16 @@ import {
     VisuallyHidden,
     List,
     ListItem,
+    Table,
+    Thead,
+    Tbody,
+    Tfoot,
+    Tr,
+    Th,
+    Td,
+    TableCaption,
   } from '@chakra-ui/react';
+
   import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
   import { MdLocalShipping } from 'react-icons/md';
   
@@ -86,19 +95,26 @@ import {
                   mb={'4'}>
                   Ingredients
                 </Text>
-  
-                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-                  <List spacing={2}>
-                    <ListItem>Chronograph</ListItem>
-                    <ListItem>Master Chronometer Certified</ListItem>{' '}
-                    <ListItem>Tachymeter</ListItem>
-                  </List>
-                  <List spacing={2}>
-                    <ListItem>Anti‑magnetic</ListItem>
-                    <ListItem>Chronometer</ListItem>
-                    <ListItem>Small seconds</ListItem>
-                  </List>
-                </SimpleGrid>
+                <Table variant='simple'>
+                  <TableCaption>Imperial to metric conversion factors</TableCaption>
+                  <Thead>
+                    <Tr>
+                      <Th>Ingredient</Th>
+                      <Th isNumeric>Amount</Th>
+                      <Th >Unit</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {recipe.ingredients.map(ingredient => (
+                      <Tr key={ingredient.id}>
+                        <Td>{ingredient.name}</Td>
+                        <Td isNumeric>{ingredient.quantity}</Td>
+                        <Td>{ingredient.unit}</Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+                
               </Box>
               <Box>
                 <Text
