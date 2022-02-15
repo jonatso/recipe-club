@@ -28,6 +28,13 @@ export const CreateRecipe = () => {
 				setTimeout(() => {
 					alert(JSON.stringify(values, null, 2));
 					actions.setSubmitting(false);
+					fetch('http://localhost:4000/recipe', {
+						method: 'POST',
+						headers: {
+						  'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(values, null, 2),
+					  })
 				}, 500);
 			}}
 		>
