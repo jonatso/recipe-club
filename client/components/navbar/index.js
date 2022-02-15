@@ -18,11 +18,13 @@ import {
   MenuDivider,
   useDisclosure,
   useColorModeValue,
+  useColorMode,
   Stack,
   Spacer,
   Tooltip,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon, AddIcon, SearchIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, AddIcon, SearchIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { FaShoppingCart } from 'react-icons/fa';
 
 const Pages = [{name: "Home", link: "/"}, {name: "About", link: "/about"}];
 
@@ -41,6 +43,8 @@ const NavLink = ({ children}) => (
 );
 
 export default function NavBar() {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -91,8 +95,13 @@ export default function NavBar() {
               size={'sm'}
               mr={4}
               width='200px'
-              leftIcon={<AddIcon />}>
-              New recipe
+              leftIcon={<FaShoppingCart />}>
+              Shopping List
+            </Button>
+            <Button 
+              onClick={toggleColorMode}
+              mr={4}>
+              {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
             </Button>
             <Menu>
               <MenuButton
@@ -141,8 +150,6 @@ export default function NavBar() {
           </Box>
         ) : null}
       </Box>
-
-        {/* <Box p={4}>Main Content Here</Box> */}
     </>
   );
 }
