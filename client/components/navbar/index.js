@@ -83,7 +83,7 @@ export default function NavBar() {
                   pointerEvents='none'
                   children={<SearchIcon color='gray.300' />}
               />
-              <Input type='search for recipe' placeholder='Search' />
+              <Input type='search' placeholder='Search for recipe' />
             </InputGroup>
             <Button
               variant={'solid'}
