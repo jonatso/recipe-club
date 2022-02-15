@@ -7,6 +7,9 @@ import {
   HStack,
   Link,
   IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
   Button,
   Menu,
   MenuButton,
@@ -16,8 +19,10 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
+  Spacer,
+  Tooltip,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, AddIcon, SearchIcon } from '@chakra-ui/icons';
 
 const Pages = [{name: "Home", link: "/"}, {name: "About", link: "/about"}];
 
@@ -72,14 +77,22 @@ export default function NavBar() {
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={'center'}>
+          <HStack spacing={6} alignItems={'center'}>
+            <InputGroup>
+              <InputLeftElement
+                  pointerEvents='none'
+                  children={<SearchIcon color='gray.300' />}
+              />
+              <Input type='search for recipe' placeholder='Search' />
+            </InputGroup>
             <Button
               variant={'solid'}
               colorScheme={'teal'}
               size={'sm'}
               mr={4}
+              width='200px'
               leftIcon={<AddIcon />}>
-              New Recipe
+              New recipe
             </Button>
             <Menu>
               <MenuButton
@@ -97,14 +110,13 @@ export default function NavBar() {
               </MenuButton>
               <MenuList>
                 <MenuItem>View Profile</MenuItem>
-                <MenuItem>Link 2</MenuItem>
+                <MenuItem>My recipes</MenuItem>
                 <MenuDivider />
                 <MenuItem>Sign Out</MenuItem>
               </MenuList>
             </Menu>
+            </HStack>
           </Flex>
-        </Flex>
-
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
