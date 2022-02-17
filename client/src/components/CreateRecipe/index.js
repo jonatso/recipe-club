@@ -9,7 +9,7 @@ import {
 	FormErrorMessage,
 	Textarea,
 } from "@chakra-ui/react";
-import { InputField } from "../InputField";
+import { InputField } from "../../../components/form/InputField";
 
 // TODO: Validations, Styling, Connect to db
 

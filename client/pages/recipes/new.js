@@ -1,3 +1,7 @@
+import React from "react";
+import NextLink from 'next/link';
+import { BiLeftArrowAlt } from 'react-icons/bi';
+import { Formik, Form, Field, FieldArray } from "formik";
 import {
     Box,
     Button,
@@ -19,15 +23,29 @@ import {
     Select,
     Grid,
   } from '@chakra-ui/react';
-  import React from 'react';
-  import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from 'react-icons/bs';
-import { FaPlus } from 'react-icons/fa';
-  import { MdEmail, MdOutlineEmail } from 'react-icons/md';
+import { InputField } from "../../components/form/InputField";
+import { FaTrash, FaPlus } from "react-icons/fa";
 
-export default function NewRecipe() {
-      
-    return (
-      <Flex
+// TODO: Validations, Styling, Connect to db
+
+export default function CreateRecipe() {
+	const ingredientValues = { name: "", quantity: 1, unit: "" };
+
+	return (
+		<>
+		<NextLink href="/"> 
+            <Button
+              variant={'solid'}
+              colorScheme={'teal'}
+              size={'sm'}
+              mr={4}
+              marginLeft={50}
+              marginTop={10}
+              leftIcon={<BiLeftArrowAlt />}>
+                Back
+            </Button>
+        </NextLink>
+		<Flex
       
         align="center"
         justify="center"
@@ -55,72 +73,127 @@ export default function NewRecipe() {
                   p={8}
                   color={useColorModeValue('gray.700', 'whiteAlpha.900')}
                   shadow="base">
-                  <VStack spacing={5}>
-                    <FormControl isRequired>
-                      <FormLabel>Recipe Name</FormLabel>
-  
-                      
-                        <Input type="text" name="name" placeholder="Recipe Name" />
-                      
-                    </FormControl>
-                    
-                    <FormControl isRequired>
-                      <FormLabel htmlFor='type'>Type</FormLabel>
-                        <Select id='type' placeholder='Choose type'>
-                            <option>Pizza</option>
-                            <option>Pasta</option>
-                            <option>Vegetar</option>
-                        </Select>
-                    </FormControl>
-                    
-                    <FormControl isRequired>
-                      <FormLabel>Ingredients</FormLabel>
-                      <Grid templateColumns='repeat(3, 1fr)' gap={4}>
-                        <Input type="text" name="ingredientname" placeholder="Ingredient" />
-                        <Input type="text" name="amount" placeholder="Amount" />
-                        <Input type="text" name="unit" placeholder="Unit" />
-                      </Grid>
-                      <Button
-                        variant={'solid'}
-                        colorScheme={'teal'}
-                        size={'sm'}
-                        mr={4}
-                        leftIcon={<FaPlus />}>
-                        Add ingredient
-                        </Button>
-                    </FormControl>  
-                    <FormControl isRequired>
-                      <FormLabel>Description</FormLabel>
-  
-                        <Input
-                          type="description"
-                          name="description"
-                          placeholder="Description"
-                        />
-                    </FormControl>
-  
-                    <FormControl isRequired>
-                      <FormLabel>Method</FormLabel>
-  
-                      <Textarea
-                        name="method"
-                        placeholder="Add your method here"
-                        rows={6}
-                        resize="none"
-                      />
-                    </FormControl>
-  
-                    <Button
-                      colorScheme="teal"
-                      isFullWidth>
-                      Add recipe
-                    </Button>
-                  </VStack>
-                </Box>
-            </VStack>
-          </Box>
+			<Formik
+						initialValues={{
+							name: "",
+							description: "",
+							ingredients: [{ name: "", quantity: 1, unit: "" }],
+							method: "",
+							picture: "",
+							difficulty: "",
+						}}
+						onSubmit={(values, actions) => {
+							//button doesn't spin anymore :(
+							actions.setSubmitting(true);
+							fetch('http://localhost:4000/recipe', {
+								method: 'POST',
+								headers: {
+								'Content-Type': 'application/json',
+								},
+								body: JSON.stringify(values, null, 2),
+							}).then(actions.setSubmitting(false))
+						}}
+					>
+						{(props) => (
+							<Form>
+								<VStack spacing={5}>
+								<InputField name="name" placeholder="name" label="Name" type="name" />
+								<InputField
+									textarea
+									name="description"
+									placeholder="description"
+									label="Description"
+									type="description"
+								/>
+								
+								<FieldArray name="ingredients">
+									{(arrayHelpers) => (
+										<div>
+											<FormLabel>
+												Ingredients
+											</FormLabel>
+											{props.values.ingredients.map((ingredient, index) => {
+												return (
+													<Box key={index}>
+														<Grid templateColumns='45% 15% 15% auto' gap={4}>
+															<InputField
+																placeholder="ingredient"
+																name={`ingredients.${index}.name`}
+															/>
+															<InputField
+																name={`ingredients.${index}.quantity`}
+																placeholder="1"
+																type="number"
+															/>
+															<InputField
+																name={`ingredients.${index}.unit`}
+																placeholder="unit"
+															/>
+															<IconButton 
+															onClick={() => arrayHelpers.remove(index)}
+															marginTop="auto"
+															variant={'solid'}
+															colorScheme={'red'}
+															icon={<FaTrash />}
+															/>
+					
+															
+														</Grid>
+														
+													</Box>
+												);
+												
+											})}
+											<Button
+												marginTop="10px"
+												onClick={() => arrayHelpers.push(ingredientValues)}
+												variant={'solid'}
+												colorScheme={'teal'}
+												size={'sm'}
+												mr={4}
+												leftIcon={<FaPlus />}
+											>
+												Add ingredient
+											</Button>
+										</div>
+									)}
+								</FieldArray>
+								<InputField
+									textarea
+									name="method"
+									placeholder="method"
+									label="Method"
+									type="method"
+								/>
+								<InputField
+									name="picture"
+									placeholder="picture url"
+									label="Picture"
+								/>
+								<InputField
+									name="difficulty"
+									placeholder="difficulty"
+									label="difficulty"
+								/>
+								<Button
+									mt={4}
+									colorScheme="teal"
+									isLoading={props.isSubmitting}
+									type="submit"
+									isFullWidth
+								>
+									Submit
+								</Button>
+							</VStack>
+							</Form>
+						)}
+					</Formik>
+				
+				</Box>
+			</VStack>
+			</Box>
         </Box>
       </Flex>
-    );
-
-}
+	  </>
+	);
+};
