@@ -94,7 +94,7 @@ export default function NavBar() {
               colorScheme={'teal'}
               size={'sm'}
               mr={4}
-              width='200px'
+              width='220px'
               leftIcon={<FaShoppingCart />}>
               Shopping List
             </Button>

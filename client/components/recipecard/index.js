@@ -51,8 +51,11 @@ export default function RecipeCard({name, description, id, picture}) {
                 fontFamily={'body'}>
                 {name}
             </Heading>
-            <Text color={'gray.500'}>
-                {description}
+            <Text 
+                color={'gray.500'} 
+                isTruncated
+            >
+                {description || '---no description---'}
             </Text>
             </Stack>
             <Stack mt={6} direction={'row'} spacing={4} align={'center'}>

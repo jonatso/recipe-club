@@ -37,6 +37,7 @@ export default function Home() {
 				position="fixed"
 				right="10px"
 				bottom="10px"
+				boxShadow='2xl'
 			/></NextLink>
 		</div>
 	);
