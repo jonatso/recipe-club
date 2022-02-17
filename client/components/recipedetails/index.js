@@ -55,9 +55,11 @@ import {
                 {recipe.name}
               </Heading>
               <Text
-                color={useColorModeValue('gray.900', 'gray.400')}
-                fontWeight={300}
-                fontSize={'2xl'}>
+                color={'green.500'}
+                textTransform={'uppercase'}
+                fontWeight={800}
+                fontSize={'xl'}
+                letterSpacing={1.1}>
                 {recipe.difficulty}
               </Text>
             </Box>
