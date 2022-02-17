@@ -13,10 +13,11 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  Stack,
   useDisclosure,
   useColorModeValue,
   useColorMode,
-  Stack,
+  
 
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, } from '@chakra-ui/icons';
@@ -108,7 +109,9 @@ export default function NavBar() {
               </MenuButton>
               <MenuList>
                 <MenuItem>View Profile</MenuItem>
+                <NextLink href="/login"> 
                 <MenuItem>Login</MenuItem>
+                </NextLink>
                 <MenuDivider />
                 <MenuItem>Sign Out</MenuItem>
               </MenuList>
