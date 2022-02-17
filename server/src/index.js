@@ -1,8 +1,8 @@
 require("dotenv-safe").config();
 const express = require("express");
-const pgp = require("pg-promise")(/* options */);
 const cors = require("cors");
-const db = pgp(process.env.DATABASE_URL);
+const db = require("./api/models");
+const routes = require("./api/routes");
 
 const app = express();
 app.use(express.json());
@@ -12,13 +12,10 @@ app.use(
 	})
 );
 
+app.use(routes);
 
-app.get("/", (req, res) => {
-	res
-		.status(200)
-		.json({ message: `Server is running on port ${process.env.PORT}` });
-});
-
-app.listen(4000, () => {
-	console.log(`Server running on port ${process.env.PORT}`);
+db.sequelize.sync().then(() => {
+	app.listen(4000, () => {
+		console.log(`Server running on port ${process.env.PORT}`);
+	});
 });
