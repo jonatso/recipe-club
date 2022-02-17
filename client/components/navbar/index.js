@@ -24,7 +24,7 @@ import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, } from '@chakra-ui/icons';
 import { FaShoppingCart } from 'react-icons/fa';
 
 const Pages = [{name: "Home", link: "/"}, {name: "About", link: "/about"}];
-const loginPages = [{name: "View profile", link: "/profile"}, {name: "Login", link: "/login"}];
+const loginPages = [{name: "View profile", link: "/profile"}, {name: "Log in", link: "/login"}, {name: "Sign up", link: "/signup"}];
 
 const NavLink = ({ children}) => (
   <Link
@@ -111,6 +111,9 @@ export default function NavBar() {
                 <MenuItem>View Profile</MenuItem>
                 <NextLink href="/login"> 
                 <MenuItem>Login</MenuItem>
+                </NextLink>
+                <NextLink href="/signup"> 
+                <MenuItem>Sign up</MenuItem>
                 </NextLink>
                 <MenuDivider />
                 <MenuItem>Sign Out</MenuItem>
