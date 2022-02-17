@@ -10,8 +10,8 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-export default function RecipeCard({name, description, id, picture}) {
-  return (
+export default function RecipeCard({name, description, id, picture, createdAt, difficulty}) {
+    return (
     <Center py={6}>
         <NextLink href={"/recipes/" + id}>
             
@@ -45,7 +45,7 @@ export default function RecipeCard({name, description, id, picture}) {
                     fontWeight={800}
                     fontSize={'sm'}
                     letterSpacing={1.1}>
-                    Type
+                    {difficulty}
                 </Text>
                 <Heading
                     color={useColorModeValue('gray.700', 'white')}
@@ -67,7 +67,7 @@ export default function RecipeCard({name, description, id, picture}) {
                 /> */}
                 <Stack direction={'column'} spacing={0} fontSize={'sm'}>
                     <Text fontWeight={600}>Achim Rolle</Text>
-                    <Text color={'gray.500'}>Feb 08, 2021 · 6min read</Text>
+                    <Text color={'gray.500'}>{new Date(createdAt).toLocaleDateString("no-NO")}</Text>
                 </Stack>
                 </Stack>
             </Box>

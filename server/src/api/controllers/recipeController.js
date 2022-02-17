@@ -4,7 +4,7 @@ const Recipe = require("../models/Recipe");
 const getRecipes = async (req, res) => {
 	try {
 		const recipes = await Recipe.findAll(
-			{attributes: ['id', 'name', 'description', 'picture', 'difficulty']}
+			{attributes: ['id', 'name', 'description', 'picture', 'difficulty', 'createdAt']}
 		);
 		res.json(recipes);
 	} catch (err) {
