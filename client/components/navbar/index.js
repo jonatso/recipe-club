@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import NextLink from 'next/link';
 import {
   Box,
@@ -7,6 +7,9 @@ import {
   HStack,
   Link,
   IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
   Button,
   Menu,
   MenuButton,
@@ -17,9 +20,10 @@ import {
   useColorModeValue,
   useColorMode,
   Stack,
-
+  Spacer,
+  Tooltip,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, AddIcon, SearchIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { FaShoppingCart } from 'react-icons/fa';
 
 const Pages = [{name: "Home", link: "/"}, {name: "About", link: "/about"}];
@@ -77,12 +81,20 @@ export default function NavBar() {
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={'center'}>
+          <HStack spacing={6} alignItems={'center'}>
+            <InputGroup>
+              <InputLeftElement
+                  pointerEvents='none'
+                  children={<SearchIcon color='gray.300' />}
+              />
+              <Input type='search' placeholder='Search for recipe' />
+            </InputGroup>
             <Button
               variant={'solid'}
               colorScheme={'teal'}
               size={'sm'}
               mr={4}
+              width='200px'
               leftIcon={<FaShoppingCart />}>
               Shopping List
             </Button>
@@ -107,14 +119,13 @@ export default function NavBar() {
               </MenuButton>
               <MenuList>
                 <MenuItem>View Profile</MenuItem>
-                <MenuItem>Link 2</MenuItem>
+                <MenuItem>My recipes</MenuItem>
                 <MenuDivider />
                 <MenuItem>Sign Out</MenuItem>
               </MenuList>
             </Menu>
+            </HStack>
           </Flex>
-        </Flex>
-
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>

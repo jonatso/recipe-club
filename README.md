@@ -62,18 +62,15 @@ I server har vi følgende struktur:
 ```
 DATABASE_URL=
 PORT=
+CORS_ORIGIN_URL=
 ```
-som skal ha følgende struktur:
-```
-DATABASE_URL=postgresql://[user:password][hostspec][/dbname][?paramspec]
-PORT=
-```
-for eksempel:
+som skal ha følgende struktur for eksempel:
 ```
 DATABASE_URL=postgresql://bruker:passord@localhost:5432/databasenavn
 PORT=4000
+CORS_ORIGIN_URL=http://localhost:3000
 ```
-(Her må du finne ut av database brukeren din, og du bør ha en bruker `postgres` som har tilgang til alle databaser du har med et passord du valgte når du installerte). Porten kan du velge selv, men standard valg er `PORT=4000`.
+(Her må du finne ut av database brukeren din, og du bør ha en bruker `postgres` som har tilgang til alle databaser du har med et passord du valgte når du installerte). Porten kan du velge selv, men standard valg er `PORT=4000`. Cors origin skal være hvor clienten kjører. 
 
 I client har vi
 ```
