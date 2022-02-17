@@ -26,6 +26,8 @@ import { FaShoppingCart } from 'react-icons/fa';
 const Pages = [{name: "Home", link: "/"}, {name: "About", link: "/about"}];
 const LoginPages = [{name: "View profile", link: "/profile"}, {name: "Log in", link: "/login"}, {name: "Sign up", link: "/signup"}];
 
+
+//denne brukes ikke?
 const NavLink = ({ children}) => (
   <Link
     px={2}
