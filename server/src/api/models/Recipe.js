@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize")
 const db = require("../../config/db")
+const dummyRecipes = require("../../helpers/dummydata")
 
 const Recipe = db.define('Recipe', {
     name: {
@@ -16,11 +17,24 @@ const Recipe = db.define('Recipe', {
     },
     method: {
         type: DataTypes.STRING
+    },
+    picture: {
+        type: DataTypes.STRING
+    },
+    difficulty: {
+        type: DataTypes.STRING
     }
 })
 
-
 const sync = async () => {await db.sync({ force: true });}
-sync()
+
+
+
+sync().then(() => {
+    console.log('Database synced, inserting dummy data');
+    Recipe.bulkCreate(
+		dummyRecipes
+	)
+});
 
 module.exports = Recipe;

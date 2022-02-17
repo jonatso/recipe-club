@@ -14,15 +14,17 @@ import { InputField } from "../InputField";
 // TODO: Validations, Styling, Connect to db
 
 export const CreateRecipe = () => {
-	const ingredientValues = { name: "", quantity: "" };
+	const ingredientValues = { name: "", quantity: "", unit: "" };
 
 	return (
 		<Formik
 			initialValues={{
 				name: "",
 				description: "",
-				ingredients: [{ name: "", quantity: "" }],
+				ingredients: [{ name: "", quantity: "", unit: "" }],
 				method: "",
+				picture: "",
+				difficulty: "",
 			}}
 			onSubmit={(values, actions) => {
 				setTimeout(() => {
@@ -65,6 +67,11 @@ export const CreateRecipe = () => {
 												name={`ingredients.${index}.quantity`}
 												placeholder="quantity"
 											/>
+											<InputField
+												name={`ingredients.${index}.unit`}
+												placeholder="unit"
+											/>
+											
 											<Button onClick={() => arrayHelpers.remove(index)}>
 												x
 											</Button>
@@ -80,6 +87,16 @@ export const CreateRecipe = () => {
 						placeholder="method"
 						label="Method"
 						type="method"
+					/>
+					<InputField
+						name="picture"
+						placeholder="picture url"
+						label="Picture"
+					/>
+					<InputField
+						name="difficulty"
+						placeholder="difficulty"
+						label="difficulty"
 					/>
 					<Button
 						mt={4}

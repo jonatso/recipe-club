@@ -3,34 +3,41 @@ const Recipe = require("../models/Recipe");
 
 const getRecipes = async (req, res) => {
 	try {
-		const data = await db.query("SELECT * FROM \"Recipes\"");
-		res.send(200).json(data);
+		const recipes = await Recipe.findAll(
+			{attributes: ['id', 'name', 'description', 'picture', 'difficulty']}
+		);
+		res.json(recipes);
 	} catch (err) {
 		console.log("message", err);
 	}
 };
 
-const createRecipe = async (req, res) => {
-	console.log(req)
+const getRecipe = async (req, res) => {
 	try {
-		// const recipeInput = await db.query(
-		// 	"INSERT INTO \"Recipes\" (name, description, ingredients, method) values (\"test\", \"test\", \"test\", \"test\")"
-		// 	// [
-		// 	// 	req.body.name,
-		// 	// 	req.body.description,
-		// 	// 	req.body.ingredients,
-		// 	// 	req.body.method,
-		// 	// ]
-		// );
+		const recipe = await Recipe.findOne({
+			where: {
+				id: req.params.id,
+			},
+		});
+		res.json(recipe);
+	} catch (err) {
+		console.log("message", err);
+	}
+}
+
+const createRecipe = async (req, res) => {
+	try {
 		const recipeInput = await Recipe.create(
 			{
 				name: req.body.name,
 				description: req.body.description,
 				ingredients: req.body.ingredients,
 				method: req.body.method,
+				picture: req.body.picture,
+				difficulty: req.body.difficulty,
 			}
 		)
-		res.send(201).json(data);
+		res.sendStatus(201);
 	} catch (err) {
 		console.log("message", err);
 	}
@@ -39,4 +46,5 @@ const createRecipe = async (req, res) => {
 module.exports = {
 	getRecipes,
 	createRecipe,
+	getRecipe,
 };

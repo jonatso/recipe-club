@@ -7,6 +7,8 @@ router.get("/recipe", recipeController.getRecipes);
 
 router.post("/recipe", recipeController.createRecipe);
 
+router.get("/recipe/:id", recipeController.getRecipe);
+
 router.put("/recipe", (req, res) => {
 	res.send({ message: "Recipe updated" });
 });
