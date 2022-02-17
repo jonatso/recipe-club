@@ -8,14 +8,24 @@ import NextLink from 'next/link';
 export default function Home() {
 	const [data, setData] = useState(null);
 	const [isLoading, setLoading] = useState(false);
-	const [recipes, setRecipes] = useState(dummyRecipes);
+	const [recipes, setRecipes] = useState([]);
 
+	useEffect(() => {
+		setLoading(true);
+		fetch("http://localhost:4000/recipe")
+			.then(res => res.json())
+			.then(data => {
+				setRecipes(data);
+			});
+		setLoading(false);
+	}, []);
+	
 	
 	return (
 		<div>
 			<SimpleGrid columns={[1, 2, 3]} spacing={3}>
 			{recipes.map((recipe) => (
-				<RecipeCard name={recipe.name} description={recipe.description} id={recipe.id} image={recipe.image}/>
+				<RecipeCard name={recipe.name} description={recipe.description} id={recipe.id} picture={recipe.picture}/>
 			))}
 			</SimpleGrid>
 			<NextLink href="/recipes/new">

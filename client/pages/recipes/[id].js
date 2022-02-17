@@ -4,12 +4,22 @@ import RecipeDetails from "../../components/recipedetails"
 import NextLink from 'next/link';
 import { Button, IconButton, Link } from '@chakra-ui/react';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
+import { useState, useEffect } from "react";
 
 
 export default function Recipe() {
     const router = useRouter()
     const { id } = router.query
-    const recipe = dummyRecipes.find(recipe => recipe.id == id)
+    const [recipe, setRecipe] = useState({})
+
+    useEffect(() => {
+		fetch("http://localhost:4000/recipe/" + id)
+			.then(res => res.json())
+			.then(data => {
+				setRecipe(data);
+			});
+	}, []);
+    
 
     return (
     <>
@@ -26,7 +36,7 @@ export default function Recipe() {
                 Back
             </Button>
         </NextLink>
-        <RecipeDetails recipe={recipe} />
+        {Object.keys(recipe).length !== 0 && <RecipeDetails recipe={recipe} />}
     </>
     )
 }

@@ -39,7 +39,7 @@ import {
             <Image
               rounded={'md'}
               alt={'product image'}
-              src={recipe.image}
+              src={recipe.picture}
               fit={'cover'}
               align={'center'}
               w={'100%'}

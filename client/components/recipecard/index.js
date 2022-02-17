@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-export default function RecipeCard({name, description, id, image}) {
+export default function RecipeCard({name, description, id, picture}) {
   return (
     <NextLink href={"/recipes/" + id}>
         <Center py={6}>
@@ -30,7 +30,7 @@ export default function RecipeCard({name, description, id, image}) {
             mb={6}
             pos={'relative'}>
             <Image
-                src={image
+                src={picture
                 }
                 layout={'fill'}
                 objectFit={'cover'}
