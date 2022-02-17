@@ -24,7 +24,7 @@ import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, } from '@chakra-ui/icons';
 import { FaShoppingCart } from 'react-icons/fa';
 
 const Pages = [{name: "Home", link: "/"}, {name: "About", link: "/about"}];
-const loginPages = [{name: "View profile", link: "/profile"}, {name: "Log in", link: "/login"}, {name: "Sign up", link: "/signup"}];
+const LoginPages = [{name: "View profile", link: "/profile"}, {name: "Log in", link: "/login"}, {name: "Sign up", link: "/signup"}];
 
 const NavLink = ({ children}) => (
   <Link
@@ -39,6 +39,7 @@ const NavLink = ({ children}) => (
     {children}
   </Link>
 );
+
 
 export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -108,14 +109,20 @@ export default function NavBar() {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>View Profile</MenuItem>
-                <NextLink href="/login"> 
-                <MenuItem>Login</MenuItem>
+              {LoginPages.map((page) => (
+                <NextLink href={page.link} passHref>
+                  <Link
+                    _hover={{
+                      textDecoration: 'none',
+                      bg: useColorModeValue('gray.200', 'gray.700'),
+                    }}
+                    key={page.name}
+                    >
+                    <MenuItem>{page.name}</MenuItem>
+                  </Link>
                 </NextLink>
-                <NextLink href="/signup"> 
-                <MenuItem>Sign up</MenuItem>
-                </NextLink>
-                <MenuDivider />
+              ))}
+              <MenuDivider />
                 <MenuItem>Sign Out</MenuItem>
               </MenuList>
             </Menu>
