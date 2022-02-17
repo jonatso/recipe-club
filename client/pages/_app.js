@@ -4,7 +4,7 @@ import NavBar from "../components/navbar";
 function MyApp({ Component, pageProps }) {
 	return (
 		<ChakraProvider>
-			<NavBar />
+			<NavBar/>
 			<Component {...pageProps} />
 		</ChakraProvider>
 	);

@@ -12,8 +12,17 @@ import {
     Text,
     useColorModeValue,
   } from '@chakra-ui/react';
+import { useState } from 'react';
+import NavBar from '../../components/navbar';
   
   export default function LoginCard() {
+
+    // const [isLoggedIn, setLoggedIn] = useState(false);
+
+    // const login = () =>{
+    //   setLoggedIn(!isLoggedIn);
+    // }
+
     return (
       <Flex
         minH={'100vh'}
@@ -22,7 +31,7 @@ import {
         bg={useColorModeValue('gray.50', 'gray.800')}>
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}>
-            <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+            <Heading fontSize={'4xl'}>Log in to your account</Heading>
           </Stack>
           <Box
             rounded={'lg'}
@@ -47,10 +56,11 @@ import {
                   <Link color={'blue.400'}>Forgot password?</Link>
                 </Stack>
                 <Button
+                  // onClick={login}
                   color={'white'}
                   colorScheme={'teal'}
                   >
-                  Sign in
+                  Log in
                 </Button>
               </Stack>
             </Stack>

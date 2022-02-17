@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode , useState} from 'react';
 import NextLink from 'next/link';
 import {
   Box,
@@ -16,15 +16,14 @@ import {
   Stack,
   useDisclosure,
   useColorModeValue,
-  useColorMode,
+  useColorMode
   
-
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, } from '@chakra-ui/icons';
 import { FaShoppingCart } from 'react-icons/fa';
 
 const Pages = [{name: "Home", link: "/"}, {name: "About", link: "/about"}];
-const LoginPages = [{name: "View profile", link: "/profile"}, {name: "Log in", link: "/login"}, {name: "Sign up", link: "/signup"}];
+const LoginPages = [{name: "View profile", link: "/profile"}];
 
 
 //denne brukes ikke?
@@ -45,8 +44,12 @@ const NavLink = ({ children}) => (
 
 export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
-
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const login = () =>{
+    setLoggedIn(!isLoggedIn);
+  }
 
   return (
     <>
@@ -84,6 +87,7 @@ export default function NavBar() {
           </HStack>
           <Flex alignItems={'center'}>
             <Button
+              onClick={login}
               variant={'solid'}
               colorScheme={'teal'}
               size={'sm'}
@@ -96,6 +100,7 @@ export default function NavBar() {
               mr={4}>
               {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
             </Button>
+            {isLoggedIn ? (
             <Menu>
               <MenuButton
                 as={Button}
@@ -127,7 +132,37 @@ export default function NavBar() {
               <MenuDivider />
                 <MenuItem>Sign Out</MenuItem>
               </MenuList>
-            </Menu>
+           </Menu> ) 
+            : 
+            <Stack
+              flex={{ base: 1, md: 0 }}
+              justify={'flex-end'}
+              direction={'row'}
+              spacing={6}>
+                <NextLink href={"/login"}><Button
+                  as={'a'}
+                  fontSize={'sm'}
+                  fontWeight={400}
+                  variant={'link'}
+                  href={'#'}>
+                  Log in
+                </Button>
+                </NextLink>
+                <NextLink href={"/signup"}><Button
+                  display={{ base: 'none', md: 'inline-flex' }}
+                  fontSize={'sm'}
+                  fontWeight={600}
+                  color={'white'}
+                  bg={'orange.400'}
+                  href={'#'}
+                  _hover={{
+                    bg: 'orange.300',
+                  }}>
+                  Sign Up
+                </Button>
+                </NextLink>
+            </Stack>
+            }
           </Flex>
         </Flex>
 

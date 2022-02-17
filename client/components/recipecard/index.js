@@ -15,6 +15,7 @@ export default function RecipeCard({name, description, id, image}) {
     <NextLink href={"/recipes/" + id}>
         <Center py={6}>
         <Box
+            cursor={'pointer'}
             maxW={'445px'}
             w={'full'}
             bg={useColorModeValue('white', 'gray.900')}
