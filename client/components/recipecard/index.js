@@ -38,7 +38,7 @@ export default function RecipeCard({name, description, id, picture, createdAt, d
                 </Box>
                 <Stack>
                 <Text
-                    color={'green.500'}
+                    color={difficulty == 'easy' ? 'green.500': difficulty == 'medium' ? 'yellow.500' : 'red.500'}
                     textTransform={'uppercase'}
                     fontWeight={800}
                     fontSize={'sm'}

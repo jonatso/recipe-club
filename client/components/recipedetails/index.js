@@ -55,7 +55,7 @@ import {
                 {recipe.name}
               </Heading>
               <Text
-                color={'green.500'}
+                color={recipe.difficulty == 'easy' ? 'green.500': recipe.difficulty == 'medium' ? 'yellow.500' : 'red.500'}
                 textTransform={'uppercase'}
                 fontWeight={800}
                 fontSize={'xl'}

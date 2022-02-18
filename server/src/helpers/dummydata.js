@@ -20,7 +20,7 @@ const dummyRecipes = [
         ],
         description: "This pizza is delicious",
         method: "Make the dough. Put the tomato and cheese in the dough. Bake for 20 minutes",
-        difficulty: "Hard",
+        difficulty: "hard",
         picture: "https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/tbagzeanc4qhrnlanzgi/pizza-med-pepperoni"
     },
     {
