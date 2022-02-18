@@ -9,26 +9,26 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
+import { useState } from 'react';
 
 export default function RecipeCard({name, description, id, picture, createdAt, difficulty}) {
+    const [isHoveredOver, setIsHoveredOver] = useState(false);
     return (
         <NextLink href={"/recipes/" + id}>
             
             <Box
+                onMouseEnter={() => setIsHoveredOver(true)}
+                onMouseLeave={() => setIsHoveredOver(false)}
                 cursor='pointer'
                 maxW={'445px'}
                 minW={'350px'}
                 w={'full'}
-                bg={useColorModeValue('white', 'gray.900')}
-                boxShadow={'base'}
+                bg={isHoveredOver ? useColorModeValue('gray.50', 'whiteAlpha.50') : useColorModeValue('white', 'gray.900')}
+                boxShadow={isHoveredOver ? 'md' : 'base'}
                 rounded={'md'}
                 p={6}
                 overflow={'hidden'}
-                _hover={{
-                    bg: useColorModeValue('gray.50', 'whiteAlpha.50'),
-                    transform: 'translateY(-2px)',
-                    boxShadow: 'md',
-                  }}
+                transform={isHoveredOver ? 'translateY(-2px)' : 'translateY(0px)'}
                 >
                     
                 <Box
@@ -57,7 +57,8 @@ export default function RecipeCard({name, description, id, picture, createdAt, d
                 <Heading
                     color={useColorModeValue('gray.700', 'white')}
                     fontSize={'2xl'}
-                    fontFamily={'body'}>
+                    fontFamily={'body'}
+                    textDecoration={isHoveredOver ? 'underline' : 'none'}>
                     {name}
                 </Heading>
                 <Text 
