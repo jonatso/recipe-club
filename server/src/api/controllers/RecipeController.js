@@ -5,9 +5,9 @@ const { RecipeValidator } = require("../validations");
 const getRecipes = async (req, res) => {
 	try {
 		const recipes = await Recipe.findAll({ order: [["createdAt", "DESC"]] });
-		res.json(recipes);
+		return res.status(200).json(recipes);
 	} catch (err) {
-		res.json({ error: err.message });
+		return res.status(404).json({ error: err.message });
 	}
 };
 
@@ -22,9 +22,12 @@ const getRecipe = async (req, res) => {
 				id,
 			},
 		});
-		res.json(recipe);
+		if (!recipe) {
+			throw new Error("no recipe with that id found");
+		}
+		return res.status(200).json(recipe);
 	} catch (err) {
-		res.json({ error: err.message });
+		return res.status(404).json({ error: err.message });
 	}
 };
 
@@ -32,9 +35,9 @@ const createRecipe = async (req, res) => {
 	try {
 		RecipeValidator.validateInput({ ...req.body });
 		const recipe = await Recipe.create({ ...req.body });
-		res.json(recipe);
+		return res.status(201).json(recipe);
 	} catch (err) {
-		res.json({ error: err.message });
+		return res.status(400).json({ error: err.message });
 	}
 };
 
@@ -49,9 +52,9 @@ const deleteRecipe = async (req, res) => {
 				id,
 			},
 		});
-		res.json({ message: "Post deleted" });
+		return res.status(200).json({ message: "Post deleted" });
 	} catch (err) {
-		res.json({ error: err.message });
+		return res.status(400).json({ error: err.message });
 	}
 };
 
@@ -63,9 +66,9 @@ const updateRecipe = async (req, res) => {
 		}
 		RecipeValidator.validateInput({ ...req.body });
 		await Recipe.update({ ...req.body }, { where: { id } });
-		res.json({ message: "Post updated" });
+		return res.status(200).json({ message: "Post updated" });
 	} catch (err) {
-		res.json({ error: err.message });
+		return res.status(400).json({ error: err.message });
 	}
 };
 
