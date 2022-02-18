@@ -7,6 +7,7 @@ import {
     Image,
     Flex,
     VStack,
+    HStack,
     Button,
     Heading,
     SimpleGrid,
@@ -23,12 +24,15 @@ import {
     Th,
     Td,
     TableCaption,
+    IconButton,
   } from '@chakra-ui/react';
 
-  import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+  import { FaPlus, FaMinus} from 'react-icons/fa';
   import { MdLocalShipping } from 'react-icons/md';
+  import { useState } from 'react';
   
   export default function RecipeDetails({recipe}) {
+    const [numPortions, setNumPortions] = useState(4);
     return (
       <Container maxW={'7xl'}>
         <SimpleGrid
@@ -77,6 +81,7 @@ import {
                 {recipe.description}
                 </Text>
               </VStack>
+              
               <Box>
                 <Text
                   fontSize={{ base: '16px', lg: '18px' }}
@@ -86,6 +91,37 @@ import {
                   mb={'4'}>
                   Ingredients
                 </Text>
+                <HStack 
+                  bg={useColorModeValue('gray.200', 'gray.600')}
+                  width='fit-content'
+                  padding='1'
+                  borderRadius='md'
+                >
+                  <IconButton 
+                    colorScheme='teal' 
+                    icon={<FaMinus />} 
+                    onClick={() => setNumPortions(numPortions - 1)}
+                    isRound
+                  />
+                  <Text 
+                    fontSize={'lg'} 
+                    bg={useColorModeValue('white', 'gray.800')} 
+                    pl='6' 
+                    pr='6'
+                    pt='2'
+                    pb='2'
+                    borderRadius='md'
+                    color={useColorModeValue('gray.800', 'white')}
+                  >
+                    {numPortions}
+                  </Text>
+                  <IconButton 
+                    colorScheme='teal' 
+                    icon={<FaPlus />} 
+                    onClick={() => setNumPortions(numPortions + 1)}
+                    isRound
+                  />
+                </HStack>
                 <Table variant='simple'>
                   <Thead>
                     <Tr>
@@ -98,7 +134,7 @@ import {
                     {recipe.ingredients.map(ingredient => (
                       <Tr key={ingredient.id}>
                         <Td>{ingredient.name}</Td>
-                        <Td isNumeric>{ingredient.quantity}</Td>
+                        <Td isNumeric>{ingredient.quantity * numPortions}</Td>
                         <Td>{ingredient.unit}</Td>
                       </Tr>
                     ))}
