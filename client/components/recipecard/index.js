@@ -12,12 +12,10 @@ import NextLink from 'next/link';
 
 export default function RecipeCard({name, description, id, picture, createdAt, difficulty}) {
     return (
-    <Center py={6}>
         <NextLink href={"/recipes/" + id}>
             
             <Box
                 cursor='pointer'
-                maxW={'445px'}
                 w={'full'}
                 bg={useColorModeValue('white', 'gray.900')}
                 boxShadow={'2xl'}
@@ -73,7 +71,6 @@ export default function RecipeCard({name, description, id, picture, createdAt, d
             </Box>
             
         </NextLink>
-    </Center>
 
   );
 }

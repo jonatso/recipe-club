@@ -23,7 +23,11 @@ export default function Home() {
 	
 	return (
 		<div>
-			<SimpleGrid columns={[1, 2, 3]} spacing={3}>
+			<SimpleGrid 
+			minChildWidth='350px'
+			spacing={3}
+			m={3}
+			>
 			{recipes.map((recipe) => (
 				<RecipeCard name={recipe.name} description={recipe.description} id={recipe.id} picture={recipe.picture} createdAt={recipe.createdAt} difficulty={recipe.difficulty}/>
 			))}
