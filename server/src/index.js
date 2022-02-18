@@ -1,6 +1,6 @@
 const config = require("../config/config");
 const db = require("./api/models");
-const createServer = require("./api/helpers");
+const createServer = require("./api/helpers/server");
 
 const app = createServer();
 
