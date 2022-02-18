@@ -51,18 +51,16 @@ beforeEach(async () => {
 	await db.sequelize.sync({ force: true });
 });
 
-afterAll(async (done) => {
-	db.sequelize.close();
-	done();
+afterAll(async () => {
+	await db.sequelize.close();
 });
 
 // END BLOCK
 
-test("Given no recipes exist, getRecipes statusCode is 200 and sends an empty array", async () => {
-	expect.assertions(2);
+test("Given no recipes exist, getRecipes statusCode is 404", async () => {
+	expect.assertions(1);
 	const { statusCode, body } = await supertest(app).get(`/recipes/`);
-	expect(statusCode).toBe(200);
-	expect(body).toStrictEqual([]);
+	expect(statusCode).toBe(404);
 });
 
 test("Given a recipe exists, getRecipes statusCode is 200 and sends an array with one recipe", async () => {

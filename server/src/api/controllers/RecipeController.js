@@ -5,6 +5,10 @@ const { RecipeValidator } = require("../validations");
 const getRecipes = async (req, res) => {
 	try {
 		const recipes = await Recipe.findAll({ order: [["createdAt", "DESC"]] });
+		console.log(recipes);
+		if (recipes === undefined || recipes.length == 0) {
+			throw new Error("could not find any recipes");
+		}
 		return res.status(200).json(recipes);
 	} catch (err) {
 		return res.status(404).json({ error: err.message });
