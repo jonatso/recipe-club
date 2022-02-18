@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, SimpleGrid, IconButton, Center } from "@chakra-ui/react";
+import { Box, SimpleGrid, IconButton, Center, Flex} from "@chakra-ui/react";
 import RecipeCard from "../components/recipecard";
 import dummyRecipes from "../helpers/dummydata";
 import { FaPlus } from "react-icons/fa";
@@ -23,15 +23,16 @@ export default function Home() {
 	
 	return (
 		<div>
-			<SimpleGrid 
-			minChildWidth='350px'
-			spacing={3}
-			m={3}
+			<Flex 
+			flexWrap='wrap'
+			justifyContent='center'
+			margin={3}
+			gap={3}
 			>
 			{recipes.map((recipe) => (
 				<RecipeCard name={recipe.name} description={recipe.description} id={recipe.id} picture={recipe.picture} createdAt={recipe.createdAt} difficulty={recipe.difficulty}/>
 			))}
-			</SimpleGrid>
+			</Flex>
 			<NextLink href="/recipes/new">
 			<IconButton
 				colorScheme='teal'

@@ -16,6 +16,8 @@ export default function RecipeCard({name, description, id, picture, createdAt, d
             
             <Box
                 cursor='pointer'
+                maxW={'445px'}
+                minW={'350px'}
                 w={'full'}
                 bg={useColorModeValue('white', 'gray.900')}
                 boxShadow={'2xl'}
