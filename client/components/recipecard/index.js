@@ -20,10 +20,17 @@ export default function RecipeCard({name, description, id, picture, createdAt, d
                 minW={'350px'}
                 w={'full'}
                 bg={useColorModeValue('white', 'gray.900')}
-                boxShadow={'2xl'}
+                boxShadow={'base'}
                 rounded={'md'}
                 p={6}
-                overflow={'hidden'}>
+                overflow={'hidden'}
+                _hover={{
+                    bg: useColorModeValue('gray.50', 'whiteAlpha.50'),
+                    transform: 'translateY(-2px)',
+                    boxShadow: 'md',
+                  }}
+                >
+                    
                 <Box
                 h={'210px'}
                 bg={'gray.100'}
