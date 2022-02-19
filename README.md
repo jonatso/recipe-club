@@ -72,6 +72,8 @@ CORS_ORIGIN_URL=http://localhost:3000
 ```
 (Her må du finne ut av database brukeren din, og du bør ha en bruker `postgres` som har tilgang til alle databaser du har med et passord du valgte når du installerte). Porten kan du velge selv, men standard valg er `PORT=4000`. Cors origin skal være hvor clienten kjører. 
 
+Vi har en `test.env` og en `dev.env` som kan settes til å være like, men dersom du ikke ønsker å slette dataen i databasen og fortsatt ønsker å teste koden din, vil det være smart å sette `test.env` til en ny database, e.g. `recipeclub-test` (i samme format som tidligere URL). 
+
 I client har vi
 ```
 NEXT_PUBLIC_API_URL=
@@ -118,3 +120,6 @@ Man behøver ikke nødvendigvis å skrive testen før, men før en merge request
 Se mer informasjon om testskriving i jest [her](https://www.google.com/search?q=jest+testing), og i cypress [her](https://www.google.com/search?q=cypress+testing).
 
 (Pipelinen settes opp på torsdag, så arbeid i egne grener frem til da).
+
+### Om User tabllen i Postgres
+Tabellen i User i Postgres er for *database* brukerene (e.g. postgres superbrukeren din). Dersom du ønsker å opprette en User tabell for brukere til applikasjonen, må du definere en ny tabell (e.g. user, eller Bruker). 
