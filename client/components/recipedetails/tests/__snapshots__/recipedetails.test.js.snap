@@ -1,0 +1,254 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render 1`] = `
+<div
+  className="chakra-container css-1vizhg4"
+  data-testid="container"
+>
+  <div
+    className="css-og9kbp"
+  >
+    <div
+      className="css-k008qs"
+    >
+      <img
+        alt="product image"
+        className="chakra-image css-15gs0hi"
+      />
+    </div>
+    <div
+      className="chakra-stack css-1njkgkd"
+    >
+      <header
+        className="css-0"
+      >
+        <h2
+          className="chakra-heading css-13pddq7"
+          data-testid="header"
+        >
+          Pizza
+        </h2>
+        <p
+          className="chakra-text css-lhkkkb"
+        >
+          Hard
+        </p>
+      </header>
+      <div
+        className="chakra-stack css-j7qwjs"
+      >
+        <div
+          className="chakra-stack css-y9xd3o"
+        >
+          <p
+            className="chakra-text css-1ezsviu"
+          >
+            This pizza is delicious
+          </p>
+        </div>
+        <div
+          className="chakra-stack__divider css-5jvgu1"
+        />
+        <div
+          className="css-0"
+        >
+          <p
+            className="chakra-text css-1kalvma"
+          >
+            Ingredients
+          </p>
+          <div
+            className="chakra-stack css-15v7qga"
+          >
+            <button
+              className="chakra-button css-e5btmz"
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                aria-hidden={true}
+                fill="currentColor"
+                focusable={false}
+                height="1em"
+                stroke="currentColor"
+                strokeWidth="0"
+                style={
+                  Object {
+                    "color": undefined,
+                  }
+                }
+                viewBox="0 0 448 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                />
+              </svg>
+            </button>
+            <p
+              className="chakra-text css-3jo7rv"
+              data-testid="portions-text"
+            >
+              4
+            </p>
+            <button
+              className="chakra-button css-e5btmz"
+              data-testid="increment-portions"
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                aria-hidden={true}
+                fill="currentColor"
+                focusable={false}
+                height="1em"
+                stroke="currentColor"
+                strokeWidth="0"
+                style={
+                  Object {
+                    "color": undefined,
+                  }
+                }
+                viewBox="0 0 448 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                />
+              </svg>
+            </button>
+          </div>
+          <table
+            className="chakra-table css-0"
+            data-testid="ingredient-table"
+            role="table"
+          >
+            <thead
+              className="css-0"
+            >
+              <tr
+                className="css-0"
+                role="row"
+              >
+                <th
+                  className="css-0"
+                >
+                  Ingredient
+                </th>
+                <th
+                  className="css-0"
+                  data-is-numeric={true}
+                >
+                  Amount
+                </th>
+                <th
+                  className="css-0"
+                >
+                  Unit
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              className="css-0"
+            >
+              <tr
+                className="css-0"
+                role="row"
+              >
+                <td
+                  className="css-0"
+                  role="gridcell"
+                >
+                  Dough
+                </td>
+                <td
+                  className="css-0"
+                  data-is-numeric={true}
+                  role="gridcell"
+                >
+                  4
+                </td>
+                <td
+                  className="css-0"
+                  role="gridcell"
+                >
+                  kg
+                </td>
+              </tr>
+              <tr
+                className="css-0"
+                role="row"
+              >
+                <td
+                  className="css-0"
+                  role="gridcell"
+                >
+                  Tomato
+                </td>
+                <td
+                  className="css-0"
+                  data-is-numeric={true}
+                  role="gridcell"
+                >
+                  4
+                </td>
+                <td
+                  className="css-0"
+                  role="gridcell"
+                >
+                  kg
+                </td>
+              </tr>
+              <tr
+                className="css-0"
+                role="row"
+              >
+                <td
+                  className="css-0"
+                  role="gridcell"
+                >
+                  Cheese
+                </td>
+                <td
+                  className="css-0"
+                  data-is-numeric={true}
+                  role="gridcell"
+                >
+                  4
+                </td>
+                <td
+                  className="css-0"
+                  role="gridcell"
+                >
+                  kg
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          className="chakra-stack__divider css-5jvgu1"
+        />
+        <div
+          className="css-0"
+        >
+          <p
+            className="chakra-text css-1kalvma"
+          >
+            Method
+          </p>
+          Make the dough. Put the tomato and cheese in the dough. Bake for 20 minutes
+        </div>
+      </div>
+      <button
+        className="chakra-button css-4ik4jo"
+        type="button"
+      >
+        Add ingredients to shopping list
+      </button>
+    </div>
+  </div>
+</div>
+`;
