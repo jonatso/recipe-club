@@ -12,8 +12,23 @@ import {
     Text,
     useColorModeValue,
   } from '@chakra-ui/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import NavBar from '../../components/navbar';
+
+//dette bare tester jeg ut, fram til ..
+  /* state = {
+    status: false,
+  }
+
+  handleChange = () => {
+    this.setState((prevState) => {
+      return {
+          ...prevState,
+          status: !prevState.status
+      }
+    })
+  } */
+  // .. hit
   
   export default function LoginCard() {
 
@@ -29,7 +44,7 @@ import NavBar from '../../components/navbar';
         align={'center'}
         justify={'center'}
         bg={useColorModeValue('gray.50', 'gray.800')}>
-        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack data-testid="loginContainer" spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}>
             <Heading fontSize={'4xl'}>Log in to your account</Heading>
           </Stack>
@@ -39,27 +54,27 @@ import NavBar from '../../components/navbar';
             boxShadow={'lg'}
             p={8}>
             <Stack spacing={4}>
-              <FormControl id="email">
+              <FormControl id="email" >
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" />
+                <Input data-testid="email" type="email" />
               </FormControl>
-              <FormControl id="password">
+              <FormControl id="password" >
                 <FormLabel>Password</FormLabel>
-                <Input type="password" />
+                <Input data-testid="password" type="password" />
               </FormControl>
               <Stack spacing={10}>
                 <Stack
                   direction={{ base: 'column', sm: 'row' }}
                   align={'start'}
                   justify={'space-between'}>
-                  <Checkbox>Remember me</Checkbox>
+                  <Checkbox data-testid="checkbox" /*onChange={this.handleChange}*/> Remember me</Checkbox>
                   <Link color={'blue.400'}>Forgot password?</Link>
                 </Stack>
                 <Button
+                  data-testid = "login"
                   // onClick={login}
                   color={'white'}
-                  colorScheme={'teal'}
-                  >
+                  colorScheme={'teal'}>
                   Log in
                 </Button>
               </Stack>
