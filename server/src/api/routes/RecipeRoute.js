@@ -3,6 +3,8 @@ const { RecipeController } = require("../controllers");
 
 const router = Router();
 
+router.get("/search", RecipeController.searchRecipe);
+
 router.get("/", RecipeController.getRecipes);
 
 router.get("/:id", RecipeController.getRecipe);

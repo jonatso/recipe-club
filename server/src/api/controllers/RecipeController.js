@@ -1,6 +1,7 @@
 const { Recipe } = require("../models");
 const { validateParseInt } = require("../helpers");
 const { RecipeValidator } = require("../validations");
+const { Op } = require("sequelize");
 
 const getRecipes = async (req, res) => {
 	try {
@@ -24,6 +25,33 @@ const getRecipe = async (req, res) => {
 		const recipe = await Recipe.findOne({
 			where: {
 				id,
+			},
+		});
+		if (!recipe) {
+			throw new Error("no recipe with that id found");
+		}
+		return res.status(200).json(recipe);
+	} catch (err) {
+		return res.status(404).json({ error: err.message });
+	}
+};
+
+const searchRecipe = async (req, res) => {
+	try {
+		const recipe = await Recipe.findAll({
+			where: {
+				[Op.or] : [
+					{
+						name: {
+							[Op.like]: '%' + req.query.q + '%'
+						}
+					},
+					{
+						description: {
+							[Op.like]: '%' + req.query.q + '%'
+						}
+					}
+				]
 			},
 		});
 		if (!recipe) {
@@ -80,6 +108,7 @@ module.exports = {
 	getRecipes,
 	createRecipe,
 	getRecipe,
+	searchRecipe,
 	deleteRecipe,
 	updateRecipe,
 };
