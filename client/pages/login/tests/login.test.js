@@ -40,9 +40,13 @@ component
     //     expect(emailField).toBe(true);
     // });
 
-    test("login container exists", () => {
+    test("elements exist", () => {
         const {getByTestId} = render(<LoginCard />);
         const container = getByTestId("loginContainer");
         const emailField = getByTestId("email");
+        const checkbox = getByTestId("checkbox");
+        const passwordField = getByTestId("password");
         expect(container).toContainElement(emailField);
+        expect(container).toContainElement(checkbox);
+        expect(container).toContainElement(passwordField);
     });
