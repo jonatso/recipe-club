@@ -10,7 +10,7 @@
       "test:watch": "cross-env NODE_ENV=test jest --runInBand --watch",
       "test:coverage": "cross-env NODE_ENV=test jest --runInBand --coverage",
       "dev": "cross-env NODE_ENV=dev nodemon index.js",
-      "start": "node index.js"
+      "build": "node index.js"
    },
    "author": "",
    "license": "ISC",

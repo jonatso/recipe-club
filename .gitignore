@@ -7,6 +7,7 @@
 
 # testing
 */coverage
+builds/
 
 # next.js
 */.next/
