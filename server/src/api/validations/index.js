@@ -1,3 +1,7 @@
 const RecipeValidator = require("./RecipeValidator");
+const UsersValidator = require("./UsersValidator");
 
-module.exports = { RecipeValidator };
+module.exports = {
+	RecipeValidator,
+	UsersValidator,
+};
