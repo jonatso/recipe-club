@@ -8,4 +8,5 @@ module.exports = {
 	DATABASE_URL: `${process.env.DATABASE_URL}`,
 	PORT: process.env.PORT,
 	CORS_ORIGIN_URL: process.env.CORS_ORIGIN,
+	SESSION_SECRET: process.env.SESSION_SECRET,
 };

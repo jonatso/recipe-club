@@ -1,8 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+const session = require("express-session");
+const sequelizeStore = require("connect-session-sequelize")(session.Store);
 const config = require("../../../config/config");
-
 const routes = require("../routes");
+const { sequelize } = require("../models");
 
 const createServer = () => {
 	const app = express();
@@ -10,6 +12,27 @@ const createServer = () => {
 	app.use(
 		cors({
 			origin: [config.CORS_ORIGIN_URL],
+			credentials: true,
+		})
+	);
+	app.use(
+		session({
+			name: "qid",
+			store: new sequelizeStore({
+				db: sequelize,
+				disableTouch: true,
+			}),
+			cookie: {
+				maxAge: 1000 * 60 * 60 * 24 * 30, // one month
+				httpOnly: true,
+				sameSite: "lax",
+				// secure: __prod__,
+				// domain: undefined
+				// Not required since only dev
+			},
+			saveUninitialized: false,
+			secret: config.SESSION_SECRET,
+			resave: false,
 		})
 	);
 

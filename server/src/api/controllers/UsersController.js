@@ -35,7 +35,7 @@ const getUser = async (req, res) => {
 	}
 };
 
-const createUser = async (req, res) => {
+const register = async (req, res) => {
 	try {
 		UsersValidator.validateInput({ ...req.body });
 		const hash = await argon2.hash(req.body.password);
@@ -89,10 +89,45 @@ const updateUser = async (req, res) => {
 	}
 };
 
+const loginUser = async (req, res) => {
+	try {
+		const user = await Users.findOne(
+			req.body.usernameOrEmail.includes("@")
+				? { where: { email: usernameOrEmail } }
+				: { where: { username: usernameOrEmail } }
+		);
+
+		if (!user) {
+			throw new Error("That user does not exist");
+		}
+
+		const valid = await argon2.verify(user.password, req.body.password);
+		if (!valid) {
+			throw new Error("Incorrect password");
+		}
+
+		req.session.userID = user.id;
+		return res.status(200).json(user);
+	} catch (err) {
+		return res.status(400).json({ error: err.message });
+	}
+};
+
+// useful to check which user is logged in, not a route so might move it
+const me = async (req, res) => {
+	if (!req.session.userID) {
+		return undefined;
+	}
+	const user = await Users.findOne(req.session.userID);
+	return user;
+};
+
 module.exports = {
 	getUsers,
-	createUser,
+	register,
 	getUser,
 	deleteUser,
 	updateUser,
+	loginUser,
+	me,
 };
