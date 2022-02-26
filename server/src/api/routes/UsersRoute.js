@@ -13,6 +13,10 @@ router.delete("users/delete/:id", UsersController.deleteUser);
 
 router.post("/login", UsersController.loginUser);
 
+router.post("/logout", UsersController.logoutUser);
+
 router.post("/register", UsersController.register);
+
+router.get("/me", UsersController.me);
 
 module.exports = router;

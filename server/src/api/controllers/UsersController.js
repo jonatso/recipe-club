@@ -113,13 +113,28 @@ const loginUser = async (req, res) => {
 	}
 };
 
+const logoutUser = async (req, res) => {
+	return new Promise((resolve) => {
+		req.session.destroy((err) => {
+			res.clearCookie("qid");
+			if (err) {
+				console.log(err);
+				resolve(false);
+				return;
+			}
+
+			resolve(true);
+		});
+	});
+};
+
 // useful to check which user is logged in, not a route so might move it
 const me = async (req, res) => {
 	if (!req.session.userID) {
-		return undefined;
+		return res.status(200).json(undefined);
 	}
 	const user = await Users.findOne(req.session.userID);
-	return user;
+	return res.status(200).json({ me: user });
 };
 
 module.exports = {
@@ -129,5 +144,6 @@ module.exports = {
 	deleteUser,
 	updateUser,
 	loginUser,
+	logoutUser,
 	me,
 };

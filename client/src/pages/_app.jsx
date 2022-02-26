@@ -1,10 +1,10 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import NavBar from "../components/navbar";
+import NavBar from "../components/navbar/index.jsx";
 
 function MyApp({ Component, pageProps }) {
 	return (
 		<ChakraProvider>
-			<NavBar/>
+			<NavBar />
 			<Component {...pageProps} />
 		</ChakraProvider>
 	);
