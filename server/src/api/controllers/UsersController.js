@@ -44,6 +44,9 @@ const register = async (req, res) => {
 			email: req.body.email,
 			password: hash,
 		});
+
+		req.session.userID = user.id;
+		res.cookie("qid", req.session.cookie);
 		return res.status(201).json(user);
 	} catch (err) {
 		return res.status(400).json({ error: err.message });
@@ -107,6 +110,7 @@ const loginUser = async (req, res) => {
 		}
 
 		req.session.userID = user.id;
+		res.cookie("qid", req.session.cookie);
 		return res.status(200).json(user);
 	} catch (err) {
 		return res.status(400).json({ error: err.message });
