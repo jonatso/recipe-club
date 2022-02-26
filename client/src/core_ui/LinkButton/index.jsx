@@ -8,6 +8,7 @@ export default function LinkButton({
 	bgColor,
 	bgColorHover,
 	url,
+	...props
 }) {
 	return (
 		<NextLink href={url}>
@@ -21,6 +22,7 @@ export default function LinkButton({
 				_hover={{
 					bg: bgColorHover,
 				}}
+				{...props}
 			>
 				{text}
 			</Button>
