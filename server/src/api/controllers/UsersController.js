@@ -94,11 +94,16 @@ const updateUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
 	try {
-		const user = await Users.findOne(
-			req.body.usernameOrEmail.includes("@")
-				? { where: { email: usernameOrEmail } }
-				: { where: { username: usernameOrEmail } }
-		);
+		let user = null;
+		if (req.body.usernameOrEmail.includes("@")) {
+			user = await Users.findOne({
+				where: { email: req.body.usernameOrEmail },
+			});
+		} else {
+			user = await Users.findOne({
+				where: { username: req.body.usernameOrEmail },
+			});
+		}
 
 		if (!user) {
 			throw new Error("That user does not exist");

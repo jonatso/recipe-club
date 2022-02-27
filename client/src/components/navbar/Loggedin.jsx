@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@chakra-ui/react";
 import Shopping from "./Shopping";
 import { useMutation, useQueryClient } from "react-query";
