@@ -10,8 +10,6 @@ const { sequelize } = require("../models");
 const createServer = () => {
 	const app = express();
 	app.use(express.json());
-	app.use(express.urlencoded({ extended: true }));
-	app.use(cookieParser());
 	app.use(
 		cors({
 			origin: config.CORS_ORIGIN_URL,
@@ -29,7 +27,7 @@ const createServer = () => {
 			cookie: {
 				maxAge: 1000 * 60 * 60 * 24 * 30, // one month
 				httpOnly: true,
-				secure: true,
+				secure: false,
 			},
 			saveUninitialized: false,
 			secret: config.SESSION_SECRET,

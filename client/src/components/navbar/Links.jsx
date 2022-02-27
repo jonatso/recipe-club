@@ -1,6 +1,7 @@
 import React from "react";
 import { Stack, Box } from "@chakra-ui/react";
-import useSWR, { useSWRConfig } from "swr";
+import axios from "axios";
+import { useQuery } from "react-query";
 import NavLink from "./NavLink";
 import Loggedin from "./Loggedin";
 import LoginRegister from "./LoginRegister";
@@ -9,13 +10,15 @@ import MoonSun from "./MoonSun";
 const Pages = [{ name: "About", url: "/about" }];
 
 export default function Links({ isOpen, toggleColorMode, color }) {
-	const { mutate } = useSWRConfig();
-
-	const { data, error } = useSWR("http://localhost:4000/me");
-
-	const logoutMutation = async () => {
-		await mutate("http://localhost:4000/logout");
+	const fetchMe = async () => {
+		const response = await axios.get("http://localhost:4000/me", {
+			withCredentials: true,
+		});
+		return response.data;
 	};
+
+	const { data } = useQuery("me", fetchMe);
+
 	return (
 		<Box
 			display={{ base: isOpen ? "block" : "none", md: "block" }}
@@ -33,11 +36,7 @@ export default function Links({ isOpen, toggleColorMode, color }) {
 					<NavLink key={page.name} name={page.name} url={page.url} />
 				))}
 
-				{data ? (
-					<Loggedin logoutMutation={logoutMutation} />
-				) : (
-					<LoginRegister />
-				)}
+				{data ? <Loggedin /> : <LoginRegister />}
 			</Stack>
 		</Box>
 	);

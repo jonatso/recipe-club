@@ -45,8 +45,8 @@ const register = async (req, res) => {
 			password: hash,
 		});
 
-		req.session.userID = user.id;
-		res.cookie("qid", req.session.cookie);
+		req.session.userId = user.id;
+		res.cookie("qid", req.session);
 		return res.status(201).json(user);
 	} catch (err) {
 		return res.status(400).json({ error: err.message });
@@ -109,8 +109,8 @@ const loginUser = async (req, res) => {
 			throw new Error("Incorrect password");
 		}
 
-		req.session.userID = user.id;
-		res.cookie("qid", req.session.cookie);
+		req.session.userId = user.id;
+		res.cookie("qid", req.session);
 		return res.status(200).json(user);
 	} catch (err) {
 		return res.status(400).json({ error: err.message });
@@ -118,27 +118,24 @@ const loginUser = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-	return new Promise((resolve) => {
-		req.session.destroy((err) => {
-			res.clearCookie("qid");
-			if (err) {
-				console.log(err);
-				resolve(false);
-				return;
-			}
-
-			resolve(true);
-		});
+	console.log(req.session);
+	req.session.destroy((err) => {
+		res.clearCookie("qid");
+		if (err) {
+			console.log(err);
+			return;
+		}
+		res.status(200).json({ message: "User logged out" });
 	});
 };
 
 // useful to check which user is logged in, not a route so might move it
 const me = async (req, res) => {
-	if (!req.session.userID) {
+	if (!req.session.userId) {
 		return res.status(200).json(undefined);
 	}
-	const user = await Users.findOne(req.session.userID);
-	return res.status(200).json({ me: user });
+	const user = await Users.findOne({ where: { id: req.session.userId } });
+	return res.status(200).json(user);
 };
 
 module.exports = {

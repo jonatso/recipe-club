@@ -11,12 +11,9 @@ import {
 } from "@chakra-ui/react";
 import Router from "next/router";
 import NextLink from "next/link";
-import useSWR, { useSWRConfig } from "swr";
 import InputField from "../../core_ui/InputField";
 
 export default function Register() {
-	const { data, mutate, error } = useSWR("http://localhost:4000/register");
-
 	const [showPassword, setShowPassword] = useState(false);
 	const passwordToggle = () => {
 		setShowPassword(!showPassword);

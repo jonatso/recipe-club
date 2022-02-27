@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
-import { Link, Text, useColorModeValue } from "@chakra-ui/react";
+import { Link, Text } from "@chakra-ui/react";
 
 export default function NavLink({ name, url }) {
 	const isCurrent = useRouter().route === url;
