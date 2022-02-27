@@ -40,10 +40,13 @@ export default function Register() {
 		} catch (err) {
 			if (!err?.response) {
 				setErrMsg("No server");
+				return err;
 			} else if (err.response?.status === 400) {
 				setErrMsg("Username or Email already taken");
+				return err;
 			} else {
 				setErrMsg("Register faild");
+				return err;
 			}
 		}
 	});
@@ -56,15 +59,20 @@ export default function Register() {
 				password: "",
 			}}
 			onSubmit={async (values, actions) => {
-				actions.setSubmitting(true);
-				await registerMutation.mutate(values, {
-					onSuccess: () => {
+				try {
+					actions.setSubmitting(true);
+					const error = await registerMutation.mutateAsync(values, {
+						onSuccess: () => {
+							queryClient.invalidateQueries("me");
+						},
+					});
+					if (!error) {
 						Router.push("/");
-						queryClient.invalidateQueries("me");
-					},
-				});
-				registerMutation.reset();
-				actions.setSubmitting(false);
+					}
+				} catch (err) {
+					registerMutation.reset();
+					actions.setSubmitting(false);
+				}
 			}}
 		>
 			{(props) => (
