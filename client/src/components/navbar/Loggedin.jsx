@@ -2,16 +2,23 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Button } from "@chakra-ui/react";
 import Shopping from "./Shopping";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 export default function Loggedin() {
-	// TODO: REACT-QUERY PLS
-	const logoutMutation = useMutation(async () => {
-		return await axios("http://localhost:4000/logout", {
-			method: "POST",
-			withCredentials: true,
-		});
-	});
+	const queryClient = useQueryClient();
+	const logoutMutation = useMutation(
+		async () => {
+			return await axios("http://localhost:4000/logout", {
+				method: "POST",
+				withCredentials: true,
+			});
+		},
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries("me");
+			},
+		}
+	);
 
 	return (
 		<>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import {
 	Link,
@@ -12,12 +12,41 @@ import {
 import Router from "next/router";
 import NextLink from "next/link";
 import InputField from "../../core_ui/InputField";
+import { useMutation, useQueryClient } from "react-query";
+import axios from "axios";
 
 export default function Register() {
 	const [showPassword, setShowPassword] = useState(false);
 	const passwordToggle = () => {
 		setShowPassword(!showPassword);
 	};
+	const [errMsg, setErrMsg] = useState("");
+
+	useEffect(() => {
+		setErrMsg("");
+	}, []);
+
+	const queryClient = useQueryClient();
+
+	const registerMutation = useMutation(async (newUser) => {
+		try {
+			const response = await axios.post(
+				"http://localhost:4000/register",
+				{ ...newUser },
+				{
+					withCredentials: true,
+				}
+			);
+		} catch (err) {
+			if (!err?.response) {
+				setErrMsg("No server");
+			} else if (err.response?.status === 400) {
+				setErrMsg("Username or Email already taken");
+			} else {
+				setErrMsg("Register faild");
+			}
+		}
+	});
 
 	return (
 		<Formik
@@ -26,26 +55,16 @@ export default function Register() {
 				email: "",
 				password: "",
 			}}
-			onSubmit={async (values, { setErrors }) => {
-				try {
-					const response = await fetch("http://localhost:4000/register", {
-						method: "POST",
-						headers: {
-							"Access-Control-Allow-Origin": `${process.env.NEXT_PUBLIC_API_URL}`,
-							"Content-Type": "application/json",
-						},
-						credentials: "include",
-						body: JSON.stringify(values),
-					});
-
-					if (response.status !== 200) {
-						throw new Error("Could not register user");
-					}
-				} catch (err) {
-					setErrors(err);
-				}
-
-				Router.push("/");
+			onSubmit={async (values, actions) => {
+				actions.setSubmitting(true);
+				await registerMutation.mutate(values, {
+					onSuccess: () => {
+						Router.push("/");
+						queryClient.invalidateQueries("me");
+					},
+				});
+				registerMutation.reset();
+				actions.setSubmitting(false);
 			}}
 		>
 			{(props) => (
@@ -54,6 +73,7 @@ export default function Register() {
 						<Heading fontSize={"4xl"} textAlign={"center"}>
 							Sign up
 						</Heading>
+
 						<Box
 							rounded={"lg"}
 							bg={useColorModeValue("gray.100", "gray.700")}
@@ -61,6 +81,11 @@ export default function Register() {
 							p={8}
 						>
 							<Stack spacing={4}>
+								{errMsg === "" ? null : (
+									<Box rounded={"lg"} bg={"red.400"} boxShadow={"lg"} p={8}>
+										{errMsg}
+									</Box>
+								)}
 								<InputField
 									name="username"
 									placeholder="username"
@@ -93,7 +118,6 @@ export default function Register() {
 								>
 									Register
 								</Button>
-
 								<Text align={"center"}>
 									Already a user?{" "}
 									<NextLink href={"/login"} passHref>
