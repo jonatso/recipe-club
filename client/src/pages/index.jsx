@@ -1,21 +1,38 @@
-import React, { useState } from "react";
-import { SimpleGrid, IconButton } from "@chakra-ui/react";
+import React from "react";
+import { SimpleGrid, Icon } from "@chakra-ui/react";
 import RecipeCard from "../components/recipecard";
-import dummyRecipes from "../helpers/dummydata.jsx";
 import { FaPlus } from "react-icons/fa";
-import NextLink from "next/link";
+import axios from "axios";
+import { useQuery } from "react-query";
 import PageContainer from "../core_ui/pageContainer";
 import LinkButton from "../core_ui/LinkButton";
 
 export default function Home() {
-	const [data, setData] = useState(null);
-	const [isLoading, setLoading] = useState(false);
-	const [recipes, setRecipes] = useState(dummyRecipes);
+	const fetchRecipes = async () => {
+		try {
+			const response = await axios.get("http://localhost:4000/recipes", {
+				withCredentials: true,
+			});
+			return response.data;
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const { data, isLoading, isError } = useQuery("recipes", fetchRecipes);
+
+	if (isLoading) {
+		return <span>Loading...</span>;
+	}
+
+	if (isError) {
+		return <span>Error: {error.message}</span>;
+	}
 
 	return (
 		<PageContainer>
 			<SimpleGrid columns={[1, 2, 3]} spacing={3}>
-				{recipes.map((recipe) => (
+				{data.map((recipe) => (
 					<RecipeCard key={recipe.name} recipe={recipe} />
 				))}
 			</SimpleGrid>
@@ -28,7 +45,7 @@ export default function Home() {
 				right="1em"
 				bottom="1em"
 				url={"/recipes/new"}
-				icon={<FaPlus />}
+				icon={<Icon as={FaPlus} />}
 			/>
 		</PageContainer>
 	);
