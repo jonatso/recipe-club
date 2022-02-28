@@ -1,3 +1,5 @@
+const Recipe = require("./RecipeModel");
+
 module.exports = (sequelize, DataTypes) => {
    const Users = sequelize.define("Users", {
       id: {
@@ -22,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
          allowNull: false,
       },
    });
+
+   Users.associate = (models) => {
+      Users.hasMany(models.Recipe, { as: "recipes" });
+   };
 
    return Users;
 };

@@ -27,15 +27,13 @@ export default function Home() {
    }
 
    if (isError) {
-      return <span>Error: {error.message}</span>;
+      return <span>Error: {error}</span>;
    }
-
+   console.log(data);
    return (
       <PageContainer>
          <SimpleGrid columns={[1, 2, 3]} spacing={3}>
-            {data.map((recipe) => (
-               <RecipeCard key={recipe.name + recipe.id} recipe={recipe} />
-            ))}
+            {data ? data.map((recipe) => <RecipeCard key={recipe.name + recipe.id} recipe={recipe} />) : null}
          </SimpleGrid>
 
          <LinkButton

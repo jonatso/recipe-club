@@ -53,12 +53,12 @@ export default function Register() {
          onSubmit={async (values, actions) => {
             try {
                actions.setSubmitting(true);
-               const error = await loginMutation.mutateAsync(values, {
+               const response = await loginMutation.mutateAsync(values, {
                   onSuccess: () => {
                      queryClient.invalidateQueries("me");
                   },
                });
-               if (!error) {
+               if (response.id) {
                   Router.push("/");
                }
             } catch (err) {

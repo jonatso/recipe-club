@@ -1,4 +1,4 @@
-const { Recipe } = require("../models");
+const { Recipe, Users } = require("../models");
 const { validateParseInt } = require("../helpers");
 const { RecipeValidator } = require("../validations");
 
@@ -38,6 +38,9 @@ const createRecipe = async (req, res) => {
    try {
       RecipeValidator.validateInput({ ...req.body });
       const recipe = await Recipe.create({ ...req.body });
+      const creator = await Users.findOne({ where: { id: req.session.userId } });
+      console.log(creator);
+      await recipe.setCreator(creator);
       return res.status(201).json(recipe);
    } catch (err) {
       return res.status(400).json({ error: err.message });

@@ -12,7 +12,7 @@ const createServer = () => {
    app.use(
       cors({
          origin: config.CORS_ORIGIN_URL,
-         methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+         methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS", "HEAD"],
          credentials: true,
       })
    );

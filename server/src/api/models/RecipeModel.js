@@ -1,3 +1,5 @@
+const Users = require("./UsersModel");
+
 module.exports = (sequelize, DataTypes) => {
    const Recipe = sequelize.define("Recipe", {
       id: {
@@ -32,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
          allowNull: false,
       },
    });
+
+   Recipe.associate = (models) => {
+      Recipe.belongsTo(models.Users, { foreignKey: "UserId", as: "creator" });
+   };
 
    return Recipe;
 };

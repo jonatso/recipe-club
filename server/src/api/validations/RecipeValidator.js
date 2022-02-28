@@ -3,7 +3,6 @@ const { validateParseInt, validatePictureFile } = require("../helpers");
 
 const validateInput = (body) => {
    for (let i = 0; i < body.ingredients.length; i++) {
-      console.log(body.ingredients[i]);
       if (!body.ingredients[i].name || body.ingredients[i].name === "") {
          throw new Error(`name is missing from ingredient ${i + 1}`);
       }
