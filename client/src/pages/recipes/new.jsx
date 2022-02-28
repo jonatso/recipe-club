@@ -28,14 +28,13 @@ export default function NewRecipe() {
 
 	const recipeMutation = useMutation(async (newRecipe) => {
 		try {
-			const response = await axios.post(
+			await axios.post(
 				"http://localhost:4000/recipes/create",
 				{ ...newRecipe },
 				{
 					withCredentials: true,
 				}
 			);
-			console.log(response);
 		} catch (err) {
 			if (!err?.response) {
 				setErrMsg("No server");
