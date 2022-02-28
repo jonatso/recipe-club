@@ -31,6 +31,7 @@ export default function Recipe() {
 				bgColorHover={"organge.300"}
 				url={"Back"}
 				leftIcon={<ArrowBackIcon />}
+				ml={5}
 			/>
 			{!data ? (
 				<div>Could not fetch curret recipe</div>
