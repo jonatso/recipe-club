@@ -4,10 +4,10 @@ import RecipePicture from "./RecipePicture";
 import RecipeInfo from "./RecipeInfo";
 
 export default function RecipeDetails({ recipe }) {
-	return (
-		<Container>
-			<RecipePicture picture={recipe.picture} />
-			<RecipeInfo recipe={recipe} />
-		</Container>
-	);
+   return (
+      <Container>
+         <RecipePicture picture={recipe.picture} />
+         <RecipeInfo recipe={recipe} />
+      </Container>
+   );
 }

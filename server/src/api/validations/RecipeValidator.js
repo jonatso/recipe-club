@@ -2,24 +2,24 @@ const isValidPath = require("is-valid-path");
 const { validateParseInt, validatePictureFile } = require("../helpers");
 
 const validateInput = (body) => {
-	for (let i = 0; i < body.ingredients.length; i++) {
-		console.log(body.ingredients[i]);
-		if (!body.ingredients[i].name || body.ingredients[i].name === "") {
-			throw new Error(`name is missing from ingredient ${i + 1}`);
-		}
-		if (!body.ingredients[i].quantity || body.ingredients[i].quantity === 0) {
-			throw new Error(`quantity is missing from ingredient ${i + 1}`);
-		}
-		if (!validateParseInt(body.ingredients[i].quantity)) {
-			throw new Error(`quantity in ingredient ${i + 1} is not an integer`);
-		}
-		if (!body.ingredients[i].unit || body.ingredients[i].unit === "") {
-			throw new Error(`unit is missing from ingredient ${i + 1}`);
-		}
-	}
-	// There should be some more validation (perhaps in the frontend?) to check if the file actually exists
-	// In the first sprint the picture will be a url
-	/* if (!isValidPath(body.picture)) {
+   for (let i = 0; i < body.ingredients.length; i++) {
+      console.log(body.ingredients[i]);
+      if (!body.ingredients[i].name || body.ingredients[i].name === "") {
+         throw new Error(`name is missing from ingredient ${i + 1}`);
+      }
+      if (!body.ingredients[i].quantity || body.ingredients[i].quantity === 0) {
+         throw new Error(`quantity is missing from ingredient ${i + 1}`);
+      }
+      if (!validateParseInt(body.ingredients[i].quantity)) {
+         throw new Error(`quantity in ingredient ${i + 1} is not an integer`);
+      }
+      if (!body.ingredients[i].unit || body.ingredients[i].unit === "") {
+         throw new Error(`unit is missing from ingredient ${i + 1}`);
+      }
+   }
+   // There should be some more validation (perhaps in the frontend?) to check if the file actually exists
+   // In the first sprint the picture will be a url
+   /* if (!isValidPath(body.picture)) {
 		throw new Error("picture path is not a valid path");
 	}
 	if (!validatePictureFile(body.picture)) {

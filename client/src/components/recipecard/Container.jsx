@@ -1,10 +1,10 @@
 import React from "react";
-import { Box, useColorModeValue, Center } from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 import NextLink from "next/link";
 
 export default function Container({ children, id }) {
    return (
-      <NextLink href={"/recipes/" + id}>
+      <NextLink href={`/recipes/${id}`}>
          <Box
             cursor={"pointer"}
             bg={useColorModeValue("white", "gray.900")}

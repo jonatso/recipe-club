@@ -1,26 +1,28 @@
 import React from "react";
-import RecipeDetails from "../../components/recipedetails";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useRouter } from "next/router";
-import LinkButton from "../../core_ui/LinkButton";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import LinkButton from "../../core_ui/LinkButton";
+import RecipeDetails from "../../components/RecipeDetails";
 
 export default function Recipe() {
    const router = useRouter();
-   const id = router.query.id;
+   const { pid } = router.query;
+
    const fetchRecipe = async (id) => {
       try {
-         const response = await axios.get("http://localhost:4000/recipes/" + id, {
+         const response = await axios.get(`http://localhost:4000/recipes/${id}`, {
             withCredentials: true,
          });
          return response.data;
       } catch (err) {
          console.log(err);
+         return err;
       }
    };
 
-   const { data } = useQuery("recipe", () => fetchRecipe(id), {
+   const { data } = useQuery("recipe", () => fetchRecipe(pid), {
       enabled: router.isReady,
    });
    return (

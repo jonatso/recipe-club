@@ -1,7 +1,7 @@
 import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
-import NavBar from "../components/NavBar";
 import { QueryClientProvider, QueryClient } from "react-query";
+import NavBar from "../components/NavBar";
 
 const queryClient = new QueryClient();
 
