@@ -8,7 +8,7 @@ import RecipeDetails from "../../components/RecipeDetails";
 
 export default function Recipe() {
    const router = useRouter();
-   const { pid } = router.query;
+   const pid = router.query.id;
 
    const fetchRecipe = async (id) => {
       try {

@@ -53,10 +53,10 @@ export default function NewRecipe() {
          onSubmit={async (values, actions) => {
             try {
                actions.setSubmitting(true);
-               const error = await recipeMutation.mutateAsync(values, {
+               const response = await recipeMutation.mutateAsync(values, {
                   onSuccess: () => {},
                });
-               if (!error) {
+               if (response.id) {
                   Router.push("/");
                }
             } catch (err) {

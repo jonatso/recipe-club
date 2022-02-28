@@ -34,7 +34,7 @@ export default function Home() {
       <PageContainer>
          <SimpleGrid columns={[1, 2, 3]} spacing={3}>
             {data.map((recipe) => (
-               <RecipeCard key={recipe.name} recipe={recipe} />
+               <RecipeCard key={recipe.name + recipe.id} recipe={recipe} />
             ))}
          </SimpleGrid>
 
