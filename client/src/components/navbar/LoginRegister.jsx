@@ -1,6 +1,6 @@
 import React from "react";
 import NavLink from "./NavLink";
-import LinkButton from "../../core_ui/linkButton";
+import LinkButton from "../../core_ui/LinkButton";
 
 export default function LoginRegister() {
 	return (

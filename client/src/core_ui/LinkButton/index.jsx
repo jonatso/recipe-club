@@ -1,6 +1,6 @@
 import React from "react";
 import NextLink from "next/link";
-import { Button } from "@chakra-ui/react";
+import { Button, IconButton } from "@chakra-ui/react";
 
 export default function LinkButton({
 	text,
@@ -8,24 +8,39 @@ export default function LinkButton({
 	bgColor,
 	bgColorHover,
 	url,
+	icon,
 	...props
 }) {
 	return (
 		<NextLink href={url}>
-			<Button
-				display={{ base: "block", md: "block" }}
-				fontSize={"md"}
-				fontWeight={500}
-				color={textColor}
-				bg={bgColor}
-				href={url}
-				_hover={{
-					bg: bgColorHover,
-				}}
-				{...props}
-			>
-				{text}
-			</Button>
+			{icon ? (
+				<IconButton
+					fontSize={"md"}
+					fontWeight={500}
+					color={textColor}
+					bg={bgColor}
+					href={url}
+					_hover={{
+						bg: bgColorHover,
+					}}
+					icon={icon}
+					{...props}
+				/>
+			) : (
+				<Button
+					fontSize={"md"}
+					fontWeight={500}
+					color={textColor}
+					bg={bgColor}
+					href={url}
+					_hover={{
+						bg: bgColorHover,
+					}}
+					{...props}
+				>
+					{text}
+				</Button>
+			)}
 		</NextLink>
 	);
 }

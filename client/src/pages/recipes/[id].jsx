@@ -2,7 +2,7 @@ import RecipeDetails from "../../components/recipedetails";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useRouter } from "next/router";
-import LinkButton from "../../core_ui/linkButton";
+import LinkButton from "../../core_ui/LinkButton";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export default function Recipe() {
