@@ -29,7 +29,7 @@ export default function Recipe() {
 				textColor={"white"}
 				bgColor={"orange.400"}
 				bgColorHover={"organge.300"}
-				url={"Back"}
+				url={"/"}
 				leftIcon={<ArrowBackIcon />}
 				ml={5}
 			/>

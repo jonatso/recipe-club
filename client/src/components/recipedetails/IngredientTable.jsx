@@ -33,7 +33,7 @@ export default function IngredientTable({ ingredients }) {
 				</Thead>
 				<Tbody>
 					{ingredients.map((ingredient) => (
-						<Tr key={ingredient.id}>
+						<Tr key={ingredient.name}>
 							<Td>{ingredient.name}</Td>
 							<Td isNumeric>{ingredient.quantity}</Td>
 							<Td>{ingredient.unit}</Td>
