@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		picture: {
 			// Path to picture
+			// In the first sprint this will be a url
 			type: DataTypes.STRING,
 			allowNull: false,
 		},

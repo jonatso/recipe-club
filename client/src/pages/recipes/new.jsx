@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Box,
 	Button,
@@ -14,9 +14,41 @@ import {
 import { Formik, Form, FieldArray, Field } from "formik";
 import InputField from "../../core_ui/InputField";
 import { DeleteIcon } from "@chakra-ui/icons";
+import { useMutation } from "react-query";
+import axios from "axios";
 
 export default function NewRecipe() {
 	const ingredientValues = { name: "", quantity: "", unit: "" };
+
+	const [errMsg, setErrMsg] = useState("");
+
+	useEffect(() => {
+		setErrMsg("");
+	}, []);
+
+	const recipeMutation = useMutation(async (newRecipe) => {
+		try {
+			const response = await axios.post(
+				"http://localhost:4000/recipes/create",
+				{ ...newRecipe },
+				{
+					withCredentials: true,
+				}
+			);
+			console.log(response);
+		} catch (err) {
+			if (!err?.response) {
+				setErrMsg("No server");
+				return err;
+			} else if (err.response?.status === 400) {
+				setErrMsg("Could not create recipe");
+				return err;
+			} else {
+				setErrMsg("We can't resovle your creation at this moment");
+				return err;
+			}
+		}
+	});
 
 	return (
 		<Formik
@@ -25,13 +57,22 @@ export default function NewRecipe() {
 				description: "",
 				ingredients: [ingredientValues],
 				method: "",
+				picture: "",
 				difficulty: "",
 			}}
-			onSubmit={(values, actions) => {
-				setTimeout(() => {
-					alert(JSON.stringify(values, null, 2));
+			onSubmit={async (values, actions) => {
+				try {
+					actions.setSubmitting(true);
+					const error = await recipeMutation.mutateAsync(values, {
+						onSuccess: () => {},
+					});
+					if (!error) {
+						Router.push("/");
+					}
+				} catch (err) {
+					recipeMutation.reset();
 					actions.setSubmitting(false);
-				}, 500);
+				}
 			}}
 		>
 			{(props) => (
@@ -47,7 +88,12 @@ export default function NewRecipe() {
 							p={8}
 							spacing={2}
 						>
-							<Stack spacing={3}>
+							<Stack spacing={4}>
+								{errMsg === "" ? null : (
+									<Box rounded={"lg"} bg={"red.400"} boxShadow={"lg"} p={8}>
+										{errMsg}
+									</Box>
+								)}
 								<InputField
 									name="name"
 									placeholder="name"
@@ -130,6 +176,12 @@ export default function NewRecipe() {
 									label="Method"
 									type="method"
 									isRequired={true}
+								/>
+								<InputField
+									name="picture"
+									placeholder="picture url"
+									label="Picture url"
+									type="url"
 								/>
 								<FormControl isRequired={true}>
 									<FormLabel id="difficulty" htmlFor="difficulty">

@@ -18,12 +18,13 @@ const validateInput = (body) => {
 		}
 	}
 	// There should be some more validation (perhaps in the frontend?) to check if the file actually exists
-	if (!isValidPath(body.picture)) {
+	// In the first sprint the picture will be a url
+	/* if (!isValidPath(body.picture)) {
 		throw new Error("picture path is not a valid path");
 	}
 	if (!validatePictureFile(body.picture)) {
 		throw new Error("picture is must be either .jpg or .png");
-	}
+	} */
 
 	if (!validateParseInt(body.difficulty)) {
 		throw new Error("difficulty is not an integer");
