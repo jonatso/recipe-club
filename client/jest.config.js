@@ -3,11 +3,11 @@ const config = {
    verbose: true,
    testPathIgnorePatterns: ignoreFiles,
    collectCoverageFrom: [
-      "./src/api/**/*.{js,jsx}",
+      "./src/**/*.{js,jsx}",
       "!**/node_modules/**",
       "!**/vendor/**",
       "!**/coverage/**",
-      "!**/migrations/**",
+      "!**/.next/**",
       `!${ignoreFiles[0]}`,
    ],
 };

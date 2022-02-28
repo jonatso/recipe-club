@@ -1,27 +1,17 @@
 {
-   "extends": [
-      "next",
-      "next/core-web-vitals",
-      "airbnb-base",
-      "eslint:recommended",
-      "prettier",
-      "plugin:react/recommended",
-      "plugin:import/errors",
-      "plugin:import/warnings"
-   ],
    "env": {
       "browser": true,
-      "es2020": true,
+      "es2021": true,
       "node": true,
       "jest": true
    },
+   "extends": ["airbnb-base", "eslint:recommended", "prettier", "plugin:import/errors", "plugin:import/warnings"],
    "parserOptions": {
-      "ecmaVersion": "12",
+      "ecmaVersion": "latest",
       "sourceType": "module"
    },
    "plugins": ["prettier", "import"],
    "rules": {
-      "react/prop-types": ["off"],
       "prettier/prettier": "error",
       "import/extensions": "off",
       "no-console": "off",
@@ -37,5 +27,5 @@
       ],
       "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
    },
-   "ignorePatterns": ["node_modules/", ".next/"]
+   "ignorePatterns": ["node_modules/", "/migrations", "src/api/models/index.js"]
 }

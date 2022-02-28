@@ -26,12 +26,12 @@ const validateInput = (body) => {
 		throw new Error("picture is must be either .jpg or .png");
 	} */
 
-	if (!validateParseInt(body.difficulty)) {
-		throw new Error("difficulty is not an integer");
-	}
-	// We could add more validation of the types, but it should not be necessary as they convert nicely into strings regardless, but it might not make sense if the user can input numbers as units or similar. This will largely depend on frontend implementation..
+   if (!validateParseInt(body.difficulty)) {
+      throw new Error("difficulty is not an integer");
+   }
+   // We could add more validation of the types, but it should not be necessary as they convert nicely into strings regardless, but it might not make sense if the user can input numbers as units or similar. This will largely depend on frontend implementation..
 };
 
 module.exports = {
-	validateInput,
+   validateInput,
 };

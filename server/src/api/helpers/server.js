@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
 const sequelizeStore = require("connect-session-sequelize")(session.Store);
-const cookieParser = require("cookie-parser");
 const config = require("../../../config/config");
 const routes = require("../routes");
 const { sequelize } = require("../models");
@@ -35,8 +34,8 @@ const createServer = () => {
 		})
 	);
 
-	app.use(routes);
-	return app;
+   app.use(routes);
+   return app;
 };
 
 module.exports = createServer;

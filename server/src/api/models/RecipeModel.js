@@ -33,5 +33,5 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	});
 
-	return Recipe;
+   return Recipe;
 };
