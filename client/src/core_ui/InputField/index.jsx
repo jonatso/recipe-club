@@ -25,9 +25,11 @@ export default function InputField({
 	const [field, { error }] = useField(props);
 	return (
 		<FormControl isInvalid={!!error} isRequired={isRequired}>
-			<FormLabel id={field.name} htmlFor={field.name}>
-				{label}
-			</FormLabel>
+			{!label ? null : (
+				<FormLabel id={field.name} htmlFor={field.name}>
+					{label}
+				</FormLabel>
+			)}
 			{textarea ? (
 				<Textarea
 					{...field}
