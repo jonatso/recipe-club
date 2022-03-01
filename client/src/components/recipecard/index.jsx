@@ -18,7 +18,7 @@ export default function RecipeCard({ recipe }) {
             isHoveredOver={isHoveredOver}
             difficulty={recipe.difficulty}
          />
-         <Details owner={recipe.User.username} date={date} />
+         <Details owner={recipe.creator.username} date={date} />
       </Container>
    );
 }

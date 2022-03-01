@@ -25,7 +25,7 @@ const getRecipes = async (req, res) => {
 
 const getRecipe = async (req, res) => {
    try {
-      const id = req.params.id;
+      const { id } = req.params;
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
@@ -70,7 +70,7 @@ const createRecipe = async (req, res) => {
 
 const deleteRecipe = async (req, res) => {
    try {
-      const id = req.params.id;
+      const { id } = req.params;
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
@@ -87,7 +87,7 @@ const deleteRecipe = async (req, res) => {
 
 const updateRecipe = async (req, res) => {
    try {
-      const id = req.params.id;
+      const { id } = req.params;
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
