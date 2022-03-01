@@ -9,6 +9,7 @@ const getRecipes = async (req, res) => {
             {
                model: Users,
                required: true,
+               as: "creator",
             },
          ],
          order: [["createdAt", "DESC"]],
@@ -36,6 +37,7 @@ const getRecipe = async (req, res) => {
             {
                model: Users,
                required: true,
+               as: "creator",
             },
          ],
       });
@@ -50,13 +52,18 @@ const getRecipe = async (req, res) => {
 
 const createRecipe = async (req, res) => {
    try {
+      console.log(req.body);
       RecipeValidator.validateInput({ ...req.body });
+      console.log("---userid---");
+      console.log(req.session.userId);
       const recipe = await Recipe.create({ ...req.body });
+
       const creator = await Users.findOne({ where: { id: req.session.userId } });
       console.log(creator);
       await recipe.setCreator(creator);
       return res.status(201).json(recipe);
    } catch (err) {
+      console.log("rip rip");
       return res.status(400).json({ error: err.message });
    }
 };

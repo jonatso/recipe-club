@@ -51,6 +51,7 @@ export default function NewRecipe() {
             difficulty: "",
          }}
          onSubmit={async (values, actions) => {
+            console.log(values);
             try {
                actions.setSubmitting(true);
                const response = await recipeMutation.mutateAsync(values, {
@@ -159,11 +160,9 @@ export default function NewRecipe() {
                               Difficulty
                            </FormLabel>
                            <Field as={Select} name="difficulty" placeholder="Select difficulty" isRequired={true}>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
+                              <option value="1">Easy</option>
+                              <option value="2">Medium</option>
+                              <option value="3">Hard</option>
                            </Field>
                         </FormControl>
                         <Button mt={4} colorScheme="teal" isLoading={props.isSubmitting} type="submit">
