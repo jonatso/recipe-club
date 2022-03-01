@@ -8,7 +8,12 @@ import Method from "./Method";
 export default function RecipeInfo({ recipe }) {
    return (
       <Stack spacing={{ base: 6, md: 10 }}>
-         <TitleDesc name={recipe.name} difficulty={recipe.difficulty} description={recipe.description} />
+         <TitleDesc
+            name={recipe.name}
+            difficulty={recipe.difficulty}
+            description={recipe.description}
+            username={recipe.User.username}
+         />
          <Stack spacing={{ base: 4, sm: 6 }} direction={"column"}>
             <IngredientTable ingredients={recipe.ingredients} />
             <Method method={recipe.method} />

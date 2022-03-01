@@ -10,7 +10,7 @@ export default function RecipeCard({ recipe }) {
       <Container id={recipe.id}>
          <PreviewPicture picture={recipe.picture} />
          <PreviewInfo name={recipe.name} description={recipe.description} />
-         <Details owner={recipe.owner} date={date} />
+         <Details owner={recipe.User.username} date={date} />
       </Container>
    );
 }

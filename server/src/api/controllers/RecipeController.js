@@ -4,7 +4,15 @@ const { RecipeValidator } = require("../validations");
 
 const getRecipes = async (req, res) => {
    try {
-      const recipes = await Recipe.findAll({ order: [["createdAt", "DESC"]] });
+      const recipes = await Recipe.findAll({
+         include: [
+            {
+               model: Users,
+               required: true,
+            },
+         ],
+         order: [["createdAt", "DESC"]],
+      });
       if (recipes === undefined || recipes.length == 0) {
          throw new Error("could not find any recipes");
       }
@@ -24,6 +32,12 @@ const getRecipe = async (req, res) => {
          where: {
             id,
          },
+         include: [
+            {
+               model: Users,
+               required: true,
+            },
+         ],
       });
       if (!recipe) {
          throw new Error("no recipe with that id found");

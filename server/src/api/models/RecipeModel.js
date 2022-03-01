@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
    });
 
    Recipe.associate = (models) => {
-      Recipe.belongsTo(models.Users, { foreignKey: "UserId", as: "creator" });
+      Recipe.belongsTo(models.Users, { foreignKey: "UserId", targetKey: "id" });
    };
 
    return Recipe;
