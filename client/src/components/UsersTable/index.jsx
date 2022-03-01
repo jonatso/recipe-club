@@ -20,7 +20,7 @@ export default function UsersTable({ users }) {
                   <Td>{user.username}</Td>
                   <Td>{user.email}</Td>
                   <Td>
-                     <UserButtons />
+                     <UserButtons id={user.id} />
                   </Td>
                </Tr>
             ))}

@@ -32,7 +32,7 @@ export default function Users() {
 
    return (
       <PageContainer>
-         <UsersTable users={users} />
+         {users.isSuccess && users.data[0] ? <UsersTable users={users} /> : <span>Could not find any users</span>}
       </PageContainer>
    );
 }

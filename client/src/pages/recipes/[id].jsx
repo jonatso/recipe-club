@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
-import { Button } from "@chakra-ui/react";
+import { Button, ButtonGroup } from "@chakra-ui/react";
 import { ArrowBackIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import LinkButton from "../../core_ui/LinkButton";
 import RecipeDetails from "../../components/RecipeDetails";
@@ -72,55 +72,57 @@ export default function Recipe() {
    const recipeData = recipe.data;
    return (
       <>
-         <LinkButton
-            text={"Back"}
-            textColor={"white"}
-            bgColor={"orange.400"}
-            bgColorHover={"organge.300"}
-            url={"/"}
-            leftIcon={<ArrowBackIcon />}
-            ml={5}
-         />
-         {me.isSuccess && recipe.isSuccess ? (
-            <>
-               {meData.id === recipeData.UserId ? (
-                  <>
-                     <Button
-                        colorScheme={"red"}
-                        size={"md"}
-                        ml={2}
-                        onClick={async () => {
-                           try {
-                              const response = await deleteMutation.mutateAsync(pid, {
-                                 onSuccess: () => {
-                                    queryClient.invalidateQueries("recipes");
-                                 },
-                              });
-                              if (response.message) {
-                                 router.push("/");
+         <ButtonGroup>
+            <LinkButton
+               text={"Back"}
+               textColor={"white"}
+               bgColor={"orange.400"}
+               bgColorHover={"organge.300"}
+               url={"/"}
+               leftIcon={<ArrowBackIcon />}
+               ml={5}
+            />
+            {me.isSuccess && recipe.isSuccess && meData !== null ? (
+               <>
+                  {meData.id === recipeData.UserId ? (
+                     <>
+                        <Button
+                           colorScheme={"red"}
+                           size={"md"}
+                           ml={2}
+                           onClick={async () => {
+                              try {
+                                 const response = await deleteMutation.mutateAsync(pid, {
+                                    onSuccess: () => {
+                                       queryClient.invalidateQueries("recipes");
+                                    },
+                                 });
+                                 if (response.message) {
+                                    router.push("/");
+                                 }
+                              } catch (err) {
+                                 console.log(err);
+                                 deleteMutation.reset();
                               }
-                           } catch (err) {
-                              console.log(err);
-                              deleteMutation.reset();
-                           }
-                        }}
-                        leftIcon={<DeleteIcon />}
-                     >
-                        Delete
-                     </Button>
-                     <LinkButton
-                        text={"Edit"}
-                        textColor={"white"}
-                        bgColor={"yellow.400"}
-                        bgColorHover={"yellow.300"}
-                        url={"/"}
-                        leftIcon={<EditIcon />}
-                        ml={2}
-                     />
-                  </>
-               ) : null}
-            </>
-         ) : null}
+                           }}
+                           leftIcon={<DeleteIcon />}
+                        >
+                           Delete
+                        </Button>
+                        <LinkButton
+                           text={"Edit"}
+                           textColor={"white"}
+                           bgColor={"yellow.400"}
+                           bgColorHover={"yellow.300"}
+                           url={"/"}
+                           leftIcon={<EditIcon />}
+                           ml={2}
+                        />
+                     </>
+                  ) : null}
+               </>
+            ) : null}
+         </ButtonGroup>
          {!recipeData ? <div>Could not fetch curret recipe</div> : <RecipeDetails recipe={recipeData} />}
       </>
    );

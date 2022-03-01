@@ -1,4 +1,4 @@
-const { Users } = require("../models");
+const { Users, Recipe, sequelize } = require("../models");
 const { validateParseInt } = require("../helpers");
 const { UsersValidator } = require("../validations");
 const argon2 = require("argon2");
@@ -59,11 +59,22 @@ const deleteUser = async (req, res) => {
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
-      await Users.destroy({
-         where: {
-            id,
-         },
+      await sequelize.transaction(async (t) => {
+         await Recipe.destroy({ where: { UserId: id } }, { transaction: t });
+         await Users.destroy(
+            {
+               where: {
+                  id,
+               },
+            },
+            { transaction: t }
+         );
+         throw new Error("Transaction failed");
       });
+
+      if (req.session.userId === id) {
+         await logoutUser(req, res);
+      }
       return res.status(200).json({ message: "User deleted" });
    } catch (err) {
       return res.status(400).json({ error: err.message });
@@ -123,7 +134,6 @@ const loginUser = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-   console.log(req.session);
    req.session.destroy((err) => {
       res.clearCookie("qid");
       if (err) {
