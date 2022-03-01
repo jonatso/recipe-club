@@ -20,7 +20,7 @@ export default function Home() {
       }
    };
 
-   const { data, error, isLoading, isError } = useQuery("recipes", fetchRecipes);
+   const { data, error, isLoading, isError, isSuccess } = useQuery("recipes", fetchRecipes);
 
    if (isLoading) {
       return <span>Loading...</span>;
@@ -33,7 +33,15 @@ export default function Home() {
    return (
       <PageContainer>
          <SimpleGrid columns={[1, 2, 3]} spacing={3}>
-            {data ? data.map((recipe) => <RecipeCard key={recipe.name + recipe.id} recipe={recipe} />) : null}
+            {isSuccess ? (
+               <>
+                  {data[0] ? (
+                     data.map((recipe) => <RecipeCard key={recipe.name + recipe.id} recipe={recipe} />)
+                  ) : (
+                     <span>There are no recipes...</span>
+                  )}
+               </>
+            ) : null}
          </SimpleGrid>
 
          <LinkButton

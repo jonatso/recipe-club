@@ -3,7 +3,7 @@ import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
 import { Button } from "@chakra-ui/react";
-import { ArrowBackIcon, DeleteIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import LinkButton from "../../core_ui/LinkButton";
 import RecipeDetails from "../../components/RecipeDetails";
 
@@ -84,29 +84,40 @@ export default function Recipe() {
          {me.isSuccess && recipe.isSuccess ? (
             <>
                {meData.id === recipeData.UserId ? (
-                  <Button
-                     colorScheme={"red"}
-                     size={"md"}
-                     ml={2}
-                     onClick={async () => {
-                        try {
-                           const response = await deleteMutation.mutateAsync(pid, {
-                              onSuccess: () => {
-                                 queryClient.invalidateQueries("recipes");
-                              },
-                           });
-                           if (response.message) {
-                              router.push("/");
+                  <>
+                     <Button
+                        colorScheme={"red"}
+                        size={"md"}
+                        ml={2}
+                        onClick={async () => {
+                           try {
+                              const response = await deleteMutation.mutateAsync(pid, {
+                                 onSuccess: () => {
+                                    queryClient.invalidateQueries("recipes");
+                                 },
+                              });
+                              if (response.message) {
+                                 router.push("/");
+                              }
+                           } catch (err) {
+                              console.log(err);
+                              deleteMutation.reset();
                            }
-                        } catch (err) {
-                           console.log(err);
-                           deleteMutation.reset();
-                        }
-                     }}
-                     leftIcon={<DeleteIcon />}
-                  >
-                     Delete
-                  </Button>
+                        }}
+                        leftIcon={<DeleteIcon />}
+                     >
+                        Delete
+                     </Button>
+                     <LinkButton
+                        text={"Edit"}
+                        textColor={"white"}
+                        bgColor={"yellow.400"}
+                        bgColorHover={"yellow.300"}
+                        url={"/"}
+                        leftIcon={<EditIcon />}
+                        ml={2}
+                     />
+                  </>
                ) : null}
             </>
          ) : null}
