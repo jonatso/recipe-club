@@ -69,7 +69,7 @@ export default function Register() {
       >
          {(props) => (
             <Form>
-               <Stack spacing={8} mx={"auto"} maxW={"lg"}>
+               <Stack data-testid="loginContainer" spacing={8} mx={"auto"} maxW={"lg"}>
                   <Heading fontSize={"4xl"} textAlign={"center"}>
                      Login
                   </Heading>
@@ -83,6 +83,7 @@ export default function Register() {
                         )}
                         <InputField
                            name="usernameOrEmail"
+                           data-testid="email"
                            placeholder="username or email"
                            label="Username or Email"
                            type="username"
@@ -90,6 +91,7 @@ export default function Register() {
                         />
                         <InputField
                            name="password"
+                           data-testid="password"
                            placeholder="password"
                            label="Password"
                            isRequired={true}
@@ -98,7 +100,7 @@ export default function Register() {
                            showPassword={showPassword}
                            togglePassword={() => passwordToggle()}
                         />
-                        <Button size="lg" colorScheme="teal" isLoading={props.isSubmitting} type="submit">
+                        <Button data-testid = "login" size="lg" colorScheme="teal" isLoading={props.isSubmitting} type="submit">
                            Login
                         </Button>
                         <Text align={"center"}>

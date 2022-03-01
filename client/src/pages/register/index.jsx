@@ -70,7 +70,7 @@ export default function Register() {
       >
          {(props) => (
             <Form>
-               <Stack spacing={8} mx={"auto"} maxW={"lg"}>
+               <Stack data-testid="signupContainer" spacing={8} mx={"auto"} maxW={"lg"}>
                   <Heading fontSize={"4xl"} textAlign={"center"}>
                      Sign up
                   </Heading>
@@ -83,17 +83,19 @@ export default function Register() {
                            </Box>
                         )}
                         <InputField
+                           data-testid="username"
                            name="username"
                            placeholder="username"
                            label="Username"
                            type="username"
                            isRequired={true}
                         />
-                        <InputField name="email" placeholder="email" label="Email" type="email" isRequired={true} />
+                        <InputField name="email" placeholder="email" label="Email" type="email" data-testid="email" isRequired={true} />
                         <InputField
                            name="password"
                            placeholder="password"
                            label="Password"
+                           data-testid="password"
                            isRequired={true}
                            password={true}
                            type={showPassword ? "text" : "password"}
