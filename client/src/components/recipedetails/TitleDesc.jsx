@@ -11,17 +11,18 @@ export default function TitleDesc({ name, difficulty, description, username }) {
             <Text fontSize={"md"} pt={3} pb={3}>
                Created by: {username}
             </Text>
-            <Text color={"green.500"} textTransform={"uppercase"} fontWeight={800} fontSize={"xl"} letterSpacing={1.1}>
-               Difficulty: {difficulty}
+            <Text color={difficulty == 1 ? "green.500" : difficulty == 2 ? "yellow.500" : "red.500"} textTransform={"uppercase"} fontWeight={800} fontSize={"xl"} letterSpacing={1.1}>
+               {difficulty == 1 ? "Easy" : difficulty == 2 ? "Medium" : "Hard"}
             </Text>
          </Box>
          <Box>
             <Text
+
+               fontSize={{ base: "16px", lg: "18px" }}
                color={useColorModeValue("yellow.500", "yellow.300")}
+               fontWeight={"500"}
                textTransform={"uppercase"}
-               fontWeight={800}
-               fontSize={"l"}
-               letterSpacing={1.1}
+               mb={"4"}
             >
                Description:
             </Text>
