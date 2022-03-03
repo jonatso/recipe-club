@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
@@ -11,6 +11,12 @@ export default function Recipe() {
    const router = useRouter();
    const pid = router.query.id;
    const queryClient = useQueryClient();
+
+   const [errMsg, setErrMsg] = useState("");
+
+   useEffect(() => {
+      setErrMsg("");
+   }, []);
 
    const fetchRecipe = async (id) => {
       try {
@@ -97,7 +103,7 @@ export default function Recipe() {
                                        queryClient.invalidateQueries("recipes");
                                     },
                                  });
-                                 if (response.message) {
+                                 if (response.message.includes("Recipe deleted")) {
                                     router.push("/");
                                  }
                               } catch (err) {

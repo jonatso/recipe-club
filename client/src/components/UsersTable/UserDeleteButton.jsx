@@ -75,7 +75,9 @@ export default function UserDeleteButton({ id }) {
                                  queryClient.invalidateQueries("users");
                               },
                            });
-                           if (response.status === 200) {
+                           console.log(response.message);
+                           if (response.message.includes("User deleted")) {
+                              console.log("Hello");
                               Router.push("/");
                            }
                            return response.data;
