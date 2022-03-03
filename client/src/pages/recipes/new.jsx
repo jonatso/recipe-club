@@ -58,7 +58,7 @@ export default function NewRecipe() {
                   onSuccess: () => {},
                });
                if (response.id) {
-                  Router.push("/");
+                  Router.push(`/recipes/${response.id}`);
                }
             } catch (err) {
                recipeMutation.reset();

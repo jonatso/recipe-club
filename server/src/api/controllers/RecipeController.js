@@ -1,6 +1,7 @@
 const { Recipe, Users } = require("../models");
 const { validateParseInt } = require("../helpers");
 const { RecipeValidator } = require("../validations");
+const isAuthorized = require("../helpers/isAuthorized");
 
 const getRecipes = async (req, res) => {
    try {
@@ -59,7 +60,6 @@ const createRecipe = async (req, res) => {
       const recipe = await Recipe.create({ ...req.body });
 
       const creator = await Users.findOne({ where: { id: req.session.userId } });
-      console.log(creator);
       await recipe.setCreator(creator);
       return res.status(201).json(recipe);
    } catch (err) {
@@ -74,12 +74,11 @@ const deleteRecipe = async (req, res) => {
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
-      await Recipe.destroy({
-         where: {
-            id,
-         },
-      });
-      return res.status(200).json({ message: "Post deleted" });
+      const recipe = await Recipe.findOne({ where: { id } });
+      console.log(recipe);
+      isAuthorized(recipe.creatorId, req.session.userId);
+      await recipe.destroy();
+      return res.status(200).json({ message: "Recipe deleted" });
    } catch (err) {
       return res.status(400).json({ error: err.message });
    }
