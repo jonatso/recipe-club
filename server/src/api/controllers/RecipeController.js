@@ -4,7 +4,16 @@ const { RecipeValidator } = require("../validations");
 
 const getRecipes = async (req, res) => {
    try {
-      const recipes = await Recipe.findAll({ order: [["createdAt", "DESC"]] });
+      const recipes = await Recipe.findAll({
+         include: [
+            {
+               model: Users,
+               required: true,
+               as: "creator",
+            },
+         ],
+         order: [["createdAt", "DESC"]],
+      });
       if (recipes === undefined || recipes.length == 0) {
          throw new Error("could not find any recipes");
       }
@@ -16,7 +25,7 @@ const getRecipes = async (req, res) => {
 
 const getRecipe = async (req, res) => {
    try {
-      const id = req.params.id;
+      const { id } = req.params;
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
@@ -24,6 +33,13 @@ const getRecipe = async (req, res) => {
          where: {
             id,
          },
+         include: [
+            {
+               model: Users,
+               required: true,
+               as: "creator",
+            },
+         ],
       });
       if (!recipe) {
          throw new Error("no recipe with that id found");
@@ -36,20 +52,25 @@ const getRecipe = async (req, res) => {
 
 const createRecipe = async (req, res) => {
    try {
+      console.log(req.body);
       RecipeValidator.validateInput({ ...req.body });
+      console.log("---userid---");
+      console.log(req.session.userId);
       const recipe = await Recipe.create({ ...req.body });
+
       const creator = await Users.findOne({ where: { id: req.session.userId } });
       console.log(creator);
       await recipe.setCreator(creator);
       return res.status(201).json(recipe);
    } catch (err) {
+      console.log("rip rip");
       return res.status(400).json({ error: err.message });
    }
 };
 
 const deleteRecipe = async (req, res) => {
    try {
-      const id = req.params.id;
+      const { id } = req.params;
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
@@ -66,7 +87,7 @@ const deleteRecipe = async (req, res) => {
 
 const updateRecipe = async (req, res) => {
    try {
-      const id = req.params.id;
+      const { id } = req.params;
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }

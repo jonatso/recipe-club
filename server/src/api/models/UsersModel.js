@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
    });
 
    Users.associate = (models) => {
-      Users.hasMany(models.Recipe, { as: "recipes" });
+      Users.hasMany(models.Recipe, { as: "creator" });
    };
 
    return Users;
