@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.INTEGER,
          allowNull: false,
       },
+      time: {
+         type: DataTypes.INTEGER,
+         allowNull: false,
+      },
    });
 
    Recipe.associate = (models) => {

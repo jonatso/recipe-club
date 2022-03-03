@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack, Box, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 
-export default function TitleDesc({ name, difficulty, description, username }) {
+export default function TitleDesc({ name, difficulty, description, username, time }) {
    return (
       <Stack spacing={2}>
          <Box>
@@ -12,7 +12,7 @@ export default function TitleDesc({ name, difficulty, description, username }) {
                Created by: {username}
             </Text>
             <Text color={difficulty == 1 ? "green.500" : difficulty == 2 ? "yellow.500" : "red.500"} textTransform={"uppercase"} fontWeight={800} fontSize={"xl"} letterSpacing={1.1}>
-               {difficulty == 1 ? "Easy" : difficulty == 2 ? "Medium" : "Hard"}
+               {difficulty == 1 ? "Easy" : difficulty == 2 ? "Medium" : "Hard"} ({time} min)
             </Text>
          </Box>
          <Box>
