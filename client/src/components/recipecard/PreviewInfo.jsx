@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Heading, Text, Stack, useColorModeValue } from "@chakra-ui/react";
 
-export default function PreviewInfo({ name, description, isHoveredOver, difficulty }) {
+export default function PreviewInfo({ name, description, isHoveredOver, difficulty, time }) {
    return (
       <Stack>
          <Text
@@ -11,7 +11,7 @@ export default function PreviewInfo({ name, description, isHoveredOver, difficul
             fontSize={"sm"}
             letterSpacing={1.1}
          >
-            {difficulty == 1 ? "Easy" : difficulty == 2 ? "Medium" : "Hard"}
+            {difficulty == 1 ? "Easy" : difficulty == 2 ? "Medium" : "Hard"} ({time} min)
          </Text>
          <Heading
             color={useColorModeValue("gray.700", "white")}

@@ -25,6 +25,10 @@ const validateInput = (body) => {
 		throw new Error("picture is must be either .jpg or .png");
 	} */
 
+   if (!body.time || body.time <= 0) {
+      throw new Error(`time estimate is missing or is nonpositive ${i + 1}`);
+   }
+
    if (!validateParseInt(body.difficulty)) {
       throw new Error("difficulty is not an integer");
    }
