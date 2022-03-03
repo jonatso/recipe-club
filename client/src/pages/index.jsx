@@ -20,23 +20,32 @@ export default function Home() {
       }
    };
 
-   const { data, error, isLoading, isError, isSuccess } = useQuery("recipes", fetchRecipes);
+   const recipes = useQuery("recipes", fetchRecipes);
 
-   if (isLoading) {
+   const fetchMe = async () => {
+      const response = await axios.get("http://localhost:4000/me", {
+         withCredentials: true,
+      });
+      return response.data;
+   };
+
+   const me = useQuery("me", fetchMe);
+
+   if (me.isLoading || recipes.isLoading) {
       return <span>Loading...</span>;
    }
 
-   if (isError) {
+   if (me.isError || recipes.isError) {
       return <span>Error: {error}</span>;
    }
-   console.log(data);
+
    return (
       <PageContainer>
          <SimpleGrid columns={[1, 2, 3]} spacing={3}>
-            {isSuccess ? (
+            {recipes.isSuccess ? (
                <>
-                  {data[0] ? (
-                     data.map((recipe) => <RecipeCard key={recipe.name + recipe.id} recipe={recipe} />)
+                  {recipes.data[0] ? (
+                     recipes.data.map((recipe) => <RecipeCard key={recipe.name + recipe.id} recipe={recipe} />)
                   ) : (
                      <span>There are no recipes...</span>
                   )}
@@ -44,16 +53,22 @@ export default function Home() {
             ) : null}
          </SimpleGrid>
 
-         <LinkButton
-            colorScheme="teal"
-            size="lg"
-            isRound={true}
-            position="fixed"
-            right="1em"
-            bottom="1em"
-            url={"/recipes/new"}
-            icon={<Icon as={FaPlus} />}
-         />
+         {me.isSuccess ? (
+            <>
+               {!me.data.id ? null : (
+                  <LinkButton
+                     colorScheme="teal"
+                     size="lg"
+                     isRound={true}
+                     position="fixed"
+                     right="1em"
+                     bottom="1em"
+                     url={"/recipes/new"}
+                     icon={<Icon as={FaPlus} />}
+                  />
+               )}
+            </>
+         ) : null}
       </PageContainer>
    );
 }

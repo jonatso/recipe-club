@@ -20,7 +20,7 @@ export default function RecipeInfo({ recipe }) {
             <Method method={recipe.method} />
          </Stack>
 
-         <AddIngredient />
+         {/* <AddIngredient /> */}
       </Stack>
    );
 }
