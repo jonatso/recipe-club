@@ -55,7 +55,7 @@ export default function Home() {
 
          {me.isSuccess && me.data !== null ? (
             <>
-               {me.data.id === null ? null : (
+               {me.data.id === null || me.data.id === undefined ? null : (
                   <LinkButton
                      colorScheme="teal"
                      size="lg"
