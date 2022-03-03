@@ -11,7 +11,7 @@ export default function Details({ owner, date }) {
          <Stack direction={"column"} spacing={0} fontSize={"sm"}>
             <Text fontWeight={600}>{owner || "Achim Rolle"}</Text>
             {/* It should be possible to make a function for the read time based on length of method */}
-            <Text color={"gray.500"}>{date || "March 3rd 2022"} · 6 min read</Text>
+            <Text color={"gray.500"}>{date}</Text>
          </Stack>
       </Stack>
    );
