@@ -115,7 +115,7 @@ export default function Recipe() {
                         >
                            Delete
                         </Button>
-                        <LinkButton
+                        {/* <LinkButton
                            text={"Edit"}
                            textColor={"white"}
                            bgColor={"yellow.400"}
@@ -123,7 +123,7 @@ export default function Recipe() {
                            url={"/"}
                            leftIcon={<EditIcon />}
                            ml={2}
-                        />
+                        /> */}
                      </>
                   ) : null}
                </>
