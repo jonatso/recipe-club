@@ -9,6 +9,7 @@ import MoonSun from "./MoonSun";
 
 const Pages = [
    /* { name: "About", url: "/about" } */
+   { name: "Users", url: "/users" },
 ];
 
 export default function Links({ isOpen, toggleColorMode, color }) {
