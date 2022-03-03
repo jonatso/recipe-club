@@ -53,9 +53,9 @@ export default function Home() {
             ) : null}
          </SimpleGrid>
 
-         {me.isSuccess ? (
+         {me.isSuccess && me.data !== null ? (
             <>
-               {!me.data.id ? null : (
+               {me.data.id === null ? null : (
                   <LinkButton
                      colorScheme="teal"
                      size="lg"
