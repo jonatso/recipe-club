@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
-import { Button, ButtonGroup } from "@chakra-ui/react";
-import { ArrowBackIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { Button, ButtonGroup, IconButton } from "@chakra-ui/react";
+import { ArrowBackIcon, DeleteIcon, EditIcon, StarIcon } from "@chakra-ui/icons";
 import LinkButton from "../../core_ui/LinkButton";
 import RecipeDetails from "../../components/RecipeDetails";
 
@@ -125,7 +126,10 @@ export default function Recipe() {
                            ml={2}
                         />
                      </>
-                  ) : null}
+                  ) : <IconButton
+                        icon={true ? <AiOutlineStar /> : <AiFillStar />}
+                        color={"white"}
+                     />}
                </>
             ) : null}
          </ButtonGroup>

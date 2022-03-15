@@ -1,4 +1,6 @@
+const { Sequelize } = require("sequelize");
 const { Recipe, Users } = require("../models");
+const db = require("../models");
 const { validateParseInt } = require("../helpers");
 const { RecipeValidator } = require("../validations");
 const isAuthorized = require("../helpers/isAuthorized");
@@ -98,10 +100,70 @@ const updateRecipe = async (req, res) => {
    }
 };
 
+const getSaved = async (req, res) => {
+   try {
+      const { userId } = req.params;
+      if (!validateParseInt(userId)) {
+         throw new Error(`userId is not an integer`);
+      }
+
+      const recipes = await db.sequelize.query(`SELECT "RecipeId" FROM save WHERE "UserId" = :userId`, {
+         replacements: { userId },
+         type: Sequelize.QueryTypes.SELECT,
+      });
+
+      const saved = await Recipe.findAll({
+         where: {
+            id: {
+               [Sequelize.Op.in]: recipes.map((recipe) => recipe.RecipeId),
+            },
+         },
+      });
+
+      return res.status(200).json(saved);
+   } catch (err) {
+      return res.status(400).json({ error: err.message });
+   }
+};
+
+const saveRecipe = async (req, res) => {
+   try {
+      const { recipeId } = req.params;
+
+      if (!validateParseInt(recipeId)) {
+         throw new Error(`recipeId is not an integer`);
+      }
+      const user = await Users.findOne({ where: { id: req.session.userId } });
+      const recipe = await Recipe.findOne({ where: { id: recipeId } });
+      await recipe.addSaver(user);
+      return res.status(200).json({ message: "Recipe saved" });
+   } catch (err) {
+      return res.status(400).json({ error: err.message });
+   }
+};
+
+const deleteSavedRecipe = async (req, res) => {
+   try {
+      const { recipeId } = req.params;
+      if (!validateParseInt(recipeId)) {
+         throw new Error(`recipeId is not an integer`);
+      }
+      const user = await Users.findOne({ where: { id: req.session.userId } });
+      const recipe = await Recipe.findOne({ where: { id: recipeId } });
+      await recipe.removeSaver(user);
+      return res.status(200).json({ message: "Recipe deleted" });
+   } catch (err) {
+      return res.status(400).json({ error: err.message });
+   }
+};
+
 module.exports = {
    getRecipes,
    createRecipe,
    getRecipe,
    deleteRecipe,
    updateRecipe,
+   getSaved,
+   saveRecipe,
+   deleteSavedRecipe,
 };
