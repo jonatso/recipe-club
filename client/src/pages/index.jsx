@@ -20,6 +20,18 @@ export default function Home() {
       }
    };
 
+   const searchRecipes = async (query) => {
+      try {
+         const response = await axios.get(`http://localhost:4000/recipes/search?q=${query}`, {
+            withCredentials: true,
+         });
+         return response.data;
+      } catch (err) {
+         console.log(err);
+         return err;
+      }
+   };
+
    const { data, error, isLoading, isError, isSuccess } = useQuery("recipes", fetchRecipes);
 
    if (isLoading) {
