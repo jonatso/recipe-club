@@ -101,11 +101,11 @@ export default function Register() {
                         <Button size="lg" colorScheme="teal" isLoading={props.isSubmitting} type="submit">
                            Login
                         </Button>
-                        <Text align={"center"}>
+                        {/* <Text align={"center"}>
                            <NextLink href={"/login"} passHref>
                               <Link color={"blue.400"}>Forgot password?</Link>
                            </NextLink>
-                        </Text>
+                        </Text> */}
                      </Stack>
                   </Box>
                </Stack>
