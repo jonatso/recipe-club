@@ -6,11 +6,22 @@ import { useQuery } from "react-query";
 import RecipeCard from "../components/RecipeCard";
 import PageContainer from "../core_ui/PageContainer";
 import LinkButton from "../core_ui/LinkButton";
+import SearchBar from "../components/navbar/Search";
+import { useRouter } from 'next/router'
 
 export default function Home() {
+   const router = useRouter();
+   console.log(router.query);
+   
    const fetchRecipes = async () => {
+      console.log("fetching recipes");
       try {
-         const response = await axios.get("http://localhost:4000/recipes", {
+         let url = `http://localhost:4000/recipes`;
+         if (router.query.q) {
+            url += `/search/?q=${router.query.q}`
+         }
+
+         const response = await axios.get(url, {
             withCredentials: true,
          });
          return response.data;
@@ -41,6 +52,7 @@ export default function Home() {
 
    return (
       <PageContainer>
+         <SearchBar />
          <SimpleGrid columns={[1, 2, 3]} spacing={3}>
             {recipes.isSuccess ? (
                <>

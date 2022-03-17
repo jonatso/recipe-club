@@ -165,6 +165,7 @@ const deleteSavedRecipe = async (req, res) => {
 };
 
 const searchRecipe = async (req, res) => {
+   console.log(req.query);
    try {
       const recipe = await Recipe.findAll({
          where: {

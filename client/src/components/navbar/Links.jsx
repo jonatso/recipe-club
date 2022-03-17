@@ -32,9 +32,9 @@ export default function Links({ isOpen, toggleColorMode, color }) {
             justify={["center", "space-between", "flex-end", "flex-end"]}
             direction={["column", "row", "row", "row"]}
          >
-            <HStack spacing={6} alignItems={"center"}>
+            {/* <HStack spacing={6} alignItems={"center"}>
                <Search />
-            </HStack>
+            </HStack> */}
             <MoonSun toggle={toggleColorMode} color={color} />
             {Pages.map((page) => (
                <NavLink key={page.name} name={page.name} url={page.url} />
