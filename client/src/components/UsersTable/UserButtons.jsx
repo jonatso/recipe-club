@@ -32,7 +32,7 @@ export default function UserButtons({ id }) {
       <>
          {me.isSuccess && me.data !== null ? (
             <>
-               {me.data.id === id ? (
+               {me.data.id === id || me.data.isSuperuser ? (
                   <ButtonGroup>
                      {/*  <Button mr={2}>Edit</Button> */}
                      <UserDeleteButton id={id} />
