@@ -1,11 +1,12 @@
 import React from "react";
-import { Stack, Box } from "@chakra-ui/react";
+import { Stack, Box, HStack } from "@chakra-ui/react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import NavLink from "./NavLink";
 import Loggedin from "./Loggedin";
 import LoginRegister from "./LoginRegister";
 import MoonSun from "./MoonSun";
+import Search from "./Search";
 
 const Pages = [
    /* { name: "About", url: "/about" } */
@@ -31,6 +32,9 @@ export default function Links({ isOpen, toggleColorMode, color }) {
             justify={["center", "space-between", "flex-end", "flex-end"]}
             direction={["column", "row", "row", "row"]}
          >
+            <HStack spacing={6} alignItems={"center"}>
+               <Search />
+            </HStack>
             <MoonSun toggle={toggleColorMode} color={color} />
             {Pages.map((page) => (
                <NavLink key={page.name} name={page.name} url={page.url} />

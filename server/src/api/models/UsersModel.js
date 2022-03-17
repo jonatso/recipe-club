@@ -23,10 +23,16 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.STRING,
          allowNull: false,
       },
+      isSuperuser: {
+         type: DataTypes.BOOLEAN,
+         allowNull: false,
+         defaultValue: false,
+      },
    });
 
    Users.associate = (models) => {
       Users.hasMany(models.Recipe, { as: "creator" });
+      Users.belongsToMany(models.Recipe, { through: "save", as: "saver" });
    };
 
    return Users;

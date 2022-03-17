@@ -40,8 +40,8 @@ module.exports = (sequelize, DataTypes) => {
    });
 
    Recipe.associate = (models) => {
-      // Recipe.belongsTo(models.Users);
       Recipe.belongsTo(models.Users, { as: "creator" });
+      Recipe.belongsToMany(models.Users, { through: "save", as: "saver" });
    };
 
    return Recipe;
