@@ -12,10 +12,6 @@ import {
   } from '@chakra-ui/react';
 
 
-
-
-
-
 export const UserProfile = () => {
     return (<Center py={6}>
         <Stack
