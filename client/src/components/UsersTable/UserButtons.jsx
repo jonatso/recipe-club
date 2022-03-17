@@ -34,7 +34,7 @@ export default function UserButtons({ id }) {
             <>
                {me.data.id === id ? (
                   <ButtonGroup>
-                     <Button mr={2}>Edit</Button>
+                     {/*  <Button mr={2}>Edit</Button> */}
                      <UserDeleteButton id={id} />
                   </ButtonGroup>
                ) : null}

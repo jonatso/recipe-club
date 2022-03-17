@@ -8,7 +8,10 @@ import LoginRegister from "./LoginRegister";
 import MoonSun from "./MoonSun";
 import Search from "./Search";
 
-const Pages = [{ name: "About", url: "/about" }];
+const Pages = [
+   /* { name: "About", url: "/about" } */
+   { name: "Users", url: "/users" },
+];
 
 export default function Links({ isOpen, toggleColorMode, color }) {
    const fetchMe = async () => {

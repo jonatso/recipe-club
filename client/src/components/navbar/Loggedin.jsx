@@ -15,13 +15,14 @@ export default function Loggedin() {
       {
          onSuccess: () => {
             queryClient.invalidateQueries("me");
+            queryClient.invalidateQueries("recipes");
          },
       }
    );
 
    return (
       <>
-         <Shopping />
+         {/* <Shopping /> */}
          <Button
             size="md"
             colorScheme="teal"

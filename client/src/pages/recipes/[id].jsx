@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
-import { Button, ButtonGroup } from "@chakra-ui/react";
-import { ArrowBackIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { Button, ButtonGroup, IconButton } from "@chakra-ui/react";
+import { ArrowBackIcon, DeleteIcon, EditIcon, StarIcon } from "@chakra-ui/icons";
 import LinkButton from "../../core_ui/LinkButton";
 import RecipeDetails from "../../components/RecipeDetails";
 
@@ -90,7 +91,7 @@ export default function Recipe() {
             />
             {me.isSuccess && recipe.isSuccess && meData !== null ? (
                <>
-                  {meData.id === recipeData.creatorId ? (
+                  {meData.id === recipeData.creatorId || meData.isSuperuser ? (
                      <>
                         <Button
                            colorScheme={"red"}
@@ -115,7 +116,7 @@ export default function Recipe() {
                         >
                            Delete
                         </Button>
-                        <LinkButton
+                        {/* <LinkButton
                            text={"Edit"}
                            textColor={"white"}
                            bgColor={"yellow.400"}
@@ -123,9 +124,12 @@ export default function Recipe() {
                            url={"/"}
                            leftIcon={<EditIcon />}
                            ml={2}
-                        />
+                        /> */}
                      </>
-                  ) : null}
+                  ) : <IconButton
+                        icon={true ? <AiOutlineStar /> : <AiFillStar />}
+                        color={"white"}
+                     />}
                </>
             ) : null}
          </ButtonGroup>
