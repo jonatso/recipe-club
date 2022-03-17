@@ -1,65 +1,100 @@
-import {
-    Badge,
-    Button,
-    Center,
-    Flex,
-    Heading,
-    Image,
-    Link,
-    Stack,
-    Text,
-    useColorModeValue,
-  } from '@chakra-ui/react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useRouter } from "next/router";
+import { IconButton } from "@chakra-ui/react";
+import { ArrowBackIcon} from "@chakra-ui/icons";
+import ProfileDetails from "../../components/ProfileDetails";
+import LinkButton from "../../core_ui/LinkButton";
 
 
-export const UserProfile = () => {
-    return (<Center py={6}>
-        <Stack
-          borderWidth="1px"
-          borderRadius="lg"
-          w={{ sm: '100%', md: '540px' }}
-          height={{ sm: '476px', md: '20rem' }}
-          direction={{ base: 'column', md: 'row' }}
-          bg={useColorModeValue('white', 'gray.900')}
-          boxShadow={'2xl'}
-          padding={4}>
-          <Flex flex={1} bg="blue.200">
-            <Image
-              objectFit="cover"
-              boxSize="100%"
-              src={
-                'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
-              }
+
+export default function UserProfile() {
+  const router = useRouter();
+  const pid = router.query.id;
+  const queryClient = useQueryClient();
+
+  const [errMsg, setErrMsg] = useState("");
+
+  useEffect(() => {
+     setErrMsg("");
+    }, []);
+
+    const fetchProfile = async (id) => {
+      try {
+         const response = await axios.get(`http://localhost:4000/profile/${id}`, {
+            withCredentials: true,
+         });
+         return response.data;
+      } catch (err) {
+         console.log(err);
+         return err;
+      }
+   };
+
+   const fetchMe = async () => {
+    const response = await axios.get("http://localhost:4000/me", {
+       withCredentials: true,
+    });
+    return response.data;
+  };
+
+   const profile = useQuery("profile", () => fetchProfile(pid), {
+    enabled: router.isReady,
+    });
+
+    const deleteMutation = useMutation(async (id) => {
+      try {
+         const response = await axios(`http://localhost:4000/profile/delete/${id}`, {
+            method: "DELETE",
+            withCredentials: true,
+         });
+         return response.data;
+      } catch (err) {
+         if (!err?.response) {
+            setErrMsg("No server");
+            return err;
+         }
+         if (err.response?.status === 400) {
+            setErrMsg("Something went wrong");
+            return err;
+         }
+         setErrMsg("We can't resovle your delete at this moment");
+         return err;
+      }
+   });
+
+   const me = useQuery("me", fetchMe, {
+    enabled: router.isReady,
+    });
+
+    if (me.isLoading || profile.isLoading) {
+      return <span>Loading profile...</span>;
+    }
+
+    if (me.isError || profile.isError) {
+      return <span>Error: {error}</span>;
+    }
+
+   const meData = me.data;
+   const profileData = profile.data;
+
+
+
+    return (
+    <>
+    <LinkButton
+               text={"Back"}
+               textColor={"white"}
+               bgColor={"orange.400"}
+               bgColorHover={"organge.300"}
+               url={"/"}
+               leftIcon={<ArrowBackIcon />}
+               ml={5}
             />
-          </Flex>
-          <Stack
-            flex={1}
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            p={1}
-            pt={2}>
-            <Heading fontSize={'2xl'} fontFamily={'body'}>
-              Stack 
-            </Heading>
-            <Text
-              textAlign={'center'}
-              color={useColorModeValue('gray.700', 'gray.400')}
-              px={3}>
-              I like pasta and apples.
-            </Text>
-            <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-            </Stack>
-            <Stack
-              width={'100%'}
-              mt={'2rem'}
-              direction={'row'}
-              padding={2}
-              justifyContent={'space-between'}
-              alignItems={'center'}>
-            </Stack>
-          </Stack>
-        </Stack>
-      </Center>
-    );
+    {!profileData ? <div>Could not fetch this profile</div> : <ProfileDetails profile={profileData} />}
+    
+    
+      </>
+   );
   }

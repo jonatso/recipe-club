@@ -9,8 +9,7 @@ export default function Method({ method }) {
             color={useColorModeValue("yellow.500", "yellow.300")}
             fontWeight={"500"}
             textTransform={"uppercase"}
-            mb={"4"}
-         >
+            mb={"4"}>
             Method
          </Text>
          {method}

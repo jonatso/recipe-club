@@ -24,7 +24,7 @@ export default function Loggedin() {
       <>
          {/* <Shopping /> */}
          <Button
-            size="md"
+            size="sm"
             colorScheme="teal"
             onClick={() => {
                logoutMutation.mutate();
