@@ -1,7 +1,7 @@
+const argon2 = require("argon2");
 const { Users, Recipe, sequelize } = require("../models");
 const { validateParseInt } = require("../helpers");
 const { UsersValidator } = require("../validations");
-const argon2 = require("argon2");
 const isAuthorized = require("../helpers/isAuthorized");
 
 const getUsers = async (req, res) => {
@@ -18,7 +18,7 @@ const getUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
    try {
-      const id = req.params.id;
+      const { id } = req.params;
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
@@ -56,11 +56,11 @@ const register = async (req, res) => {
 
 const deleteUser = async (req, res) => {
    try {
-      const id = req.params.id;
+      const { id } = req.params;
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
-      isAuthorized(parseInt(id), req.session.userId);
+      await isAuthorized(parseInt(id, 10), req.session.userId);
       await sequelize.transaction(async (t) => {
          try {
             await Recipe.destroy({ where: { UserId: id } }, { transaction: t });
@@ -89,11 +89,12 @@ const deleteUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
    try {
-      const id = req.params.id;
+      const { id } = req.params;
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
       UsersValidator.validateInput({ ...req.body });
+      await isAuthorized(parseInt(id, 10), req.session.userId);
       const hashPassword = await argon2.hash(req.body.password);
       await Users.update(
          {
