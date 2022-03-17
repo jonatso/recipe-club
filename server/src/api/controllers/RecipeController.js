@@ -1,10 +1,10 @@
 const { Sequelize } = require("sequelize");
+const { Op } = require("sequelize");
 const { Recipe, Users } = require("../models");
 const db = require("../models");
 const { validateParseInt } = require("../helpers");
 const { RecipeValidator } = require("../validations");
 const isAuthorized = require("../helpers/isAuthorized");
-const { Op } = require("sequelize");
 
 const getRecipes = async (req, res) => {
    try {
@@ -79,7 +79,8 @@ const deleteRecipe = async (req, res) => {
       }
       const recipe = await Recipe.findOne({ where: { id } });
       console.log(recipe);
-      isAuthorized(recipe.creatorId, req.session.userId);
+      await isAuthorized(recipe.creatorId, req.session.userId);
+      console.log("is authorized");
       await recipe.destroy();
       return res.status(200).json({ message: "Recipe deleted" });
    } catch (err) {
@@ -93,7 +94,12 @@ const updateRecipe = async (req, res) => {
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
+      const recipe = await Recipe.findOne({ where: { id } });
+      await isAuthorized(recipe.creatorId, req.session.userId);
       RecipeValidator.validateInput({ ...req.body });
+      if (req.body.userId) {
+         throw new Error("cannot update userId");
+      }
       await Recipe.update({ ...req.body }, { where: { id } });
       return res.status(200).json({ message: "Post updated" });
    } catch (err) {
@@ -157,6 +163,7 @@ const deleteSavedRecipe = async (req, res) => {
       return res.status(400).json({ error: err.message });
    }
 };
+
 const searchRecipe = async (req, res) => {
    try {
       const recipe = await Recipe.findAll({

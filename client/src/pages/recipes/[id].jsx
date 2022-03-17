@@ -91,7 +91,7 @@ export default function Recipe() {
             />
             {me.isSuccess && recipe.isSuccess && meData !== null ? (
                <>
-                  {meData.id === recipeData.creatorId ? (
+                  {meData.id === recipeData.creatorId || meData.isSuperuser ? (
                      <>
                         <Button
                            colorScheme={"red"}
