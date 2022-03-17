@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import { SimpleGrid, Icon } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 import axios from "axios";
@@ -10,17 +10,29 @@ import SearchBar from "../components/navbar/Search";
 import { useRouter } from 'next/router'
 
 export default function Home() {
+   const [recipes, setRecipes] = useState([]);
    const router = useRouter();
-   console.log(router.query);
    
+   useEffect(()=>{
+      if(!router.isReady) return;
+      console.log("Query : ", router.query.q);
+      fetchRecipes().then(res => {
+         console.log(res);
+         setRecipes(res);
+
+      });
+
+   }, [router.isReady]);
+
    const fetchRecipes = async () => {
-      console.log("fetching recipes");
+
+      console.log("fetching recipes", router.query.q);
       try {
          let url = `http://localhost:4000/recipes`;
          if (router.query.q) {
             url += `/search/?q=${router.query.q}`
          }
-
+         console.log(url)
          const response = await axios.get(url, {
             withCredentials: true,
          });
@@ -31,7 +43,10 @@ export default function Home() {
       }
    };
 
-   const recipes = useQuery("recipes", fetchRecipes);
+   // const recipes = useQuery("recipes", fetchRecipes);
+
+
+   console.log(recipes)
 
    const fetchMe = async () => {
       const response = await axios.get("http://localhost:4000/me", {
@@ -54,10 +69,10 @@ export default function Home() {
       <PageContainer>
          <SearchBar />
          <SimpleGrid columns={[1, 2, 3]} spacing={3}>
-            {recipes.isSuccess ? (
+            {true  || recipes.isSuccess ? (
                <>
-                  {recipes.data[0] ? (
-                     recipes.data.map((recipe) => <RecipeCard key={recipe.name + recipe.id} recipe={recipe} />)
+                  {recipes[0] ? (
+                     recipes.map((recipe) => <RecipeCard key={recipe.name + recipe.id} recipe={recipe} />)
                   ) : (
                      <span>There are no recipes...</span>
                   )}

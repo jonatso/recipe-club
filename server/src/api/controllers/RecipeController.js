@@ -182,6 +182,13 @@ const searchRecipe = async (req, res) => {
                },
             ],
          },
+         include: [
+            {
+               model: Users,
+               required: true,
+               as: "creator",
+            },
+         ],
       });
       if (!recipe) {
          throw new Error("no recipe with that id found");
