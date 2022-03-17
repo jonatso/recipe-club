@@ -101,17 +101,18 @@ const updateRecipe = async (req, res) => {
 
 const searchRecipe = async (req, res) => {
    try {
+      const { search } = req.params
       const recipe = await Recipe.findAll({
          where: {
             [Op.or]: [
                {
                   name: {
-                     [Op.like]: "%" + req.query.q + "%",
+                     [Op.like]: "%" + search + "%",
                   },
                },
                {
                   description: {
-                     [Op.like]: "%" + req.query.q + "%",
+                     [Op.like]: "%" + search + "%",
                   },
                },
             ],
