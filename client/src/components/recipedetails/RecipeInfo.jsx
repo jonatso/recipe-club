@@ -14,6 +14,8 @@ export default function RecipeInfo({ recipe }) {
             description={recipe.description}
             username={recipe.creator.username}
             time={recipe.time}
+            userId={recipe.creator.id}
+            picture={recipe.creator.picture}
          />
          <Stack spacing={{ base: 4, sm: 6 }} direction={"column"}>
             <IngredientTable ingredients={recipe.ingredients} />

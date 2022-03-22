@@ -191,6 +191,33 @@ const searchRecipe = async (req, res) => {
    }
 };
 
+const getUserRecipes = async (req, res) => {
+   console.log("FINDING USER RECIPES")
+   const { userId } = req.params;
+   try {
+      const recipes = await Recipe.findAll({
+         where: {
+            creatorId: userId,
+         },
+         include: [
+            {
+               model: Users,
+               required: true,
+               as: "creator",
+            },
+         ],
+         order: [["createdAt", "DESC"]],
+      });
+      if (recipes === undefined || recipes.length == 0) {
+         throw new Error("could not find any recipes");
+      }
+      return res.status(200).json(recipes);
+   } catch (err) {
+      return res.status(404).json({ error: err.message });
+   }
+};
+
+
 module.exports = {
    getRecipes,
    createRecipe,
@@ -201,4 +228,5 @@ module.exports = {
    saveRecipe,
    deleteSavedRecipe,
    searchRecipe,
+   getUserRecipes,
 };

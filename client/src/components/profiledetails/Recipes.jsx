@@ -7,7 +7,7 @@ import axios from "axios";
 export default function Recipes({id}) {
     const fetchRecipes = async () => {
         try {
-           const response = await axios.get("http://localhost:4000/recipes", {
+           const response = await axios.get(`http://localhost:4000/recipes/user/${id}`, {
               withCredentials: true,
            });
            return response.data;
