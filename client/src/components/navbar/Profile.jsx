@@ -63,14 +63,16 @@ export default function Profile({id, picture}) {
                     src={picture || 'https://bit.ly/broken-link'} />
                   </MenuButton>
                   <MenuList>
-                    <MenuItem> <Loggedin /> </MenuItem>
                     <MenuItem>
+                    <Button colorScheme='teal' variant='link'>
                     <NavLink name="Profile" url={`/profile/${me.data.id}`} style={{textDecoration:"none"}}/>
-                    </MenuItem>
+                    </Button> </MenuItem>
+                    <MenuItem> <Loggedin /> </MenuItem>
                     <MenuDivider />
                     <MenuItem>
+                    <Button colorScheme='teal' variant='link'>
                     <NavLink name="Users" url={"/users"} style={{textDecoration:"none"}}/>
-                    </MenuItem>
+                    </Button> </MenuItem>
                   </MenuList>
                 </Menu>
               </Flex>

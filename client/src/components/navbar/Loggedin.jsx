@@ -24,14 +24,13 @@ export default function Loggedin() {
       <>
          {/* <Shopping /> */}
          <Button
-            size="sm"
-            colorScheme="teal"
+            colorScheme='teal' 
+            variant='link'
             onClick={() => {
                logoutMutation.mutate();
             }}
             isLoading={logoutMutation.isLoading}
-            type="submit"
-         >
+            type="submit">
             Logout
          </Button>
       </>
