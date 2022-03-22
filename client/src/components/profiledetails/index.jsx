@@ -3,7 +3,7 @@ import PageContainer from "../../core_ui/PageContainer";
 import ProfilePicture from "./ProfilePicture";
 import UserInfo from "./UserInfo";
 import Recipes from "./Recipes";
-import { HStack, Center, Text, useColorModeValue, Tabs, TabPanel, TabPanels, TabList, Tab } from "@chakra-ui/react";
+import { Stack, HStack, Center, Text, useColorModeValue, Tabs, TabPanel, TabPanels, TabList, Tab } from "@chakra-ui/react";
 //import { Box } from '@chakra-ui/react'
 
 export default function ProfileDetails({ profile }) {
@@ -11,12 +11,13 @@ export default function ProfileDetails({ profile }) {
    return (
 
       <PageContainer>
-      <Center>
+      <Stack spacing='50px'>
+         <Center>
       <HStack spacing='100px'>
          <ProfilePicture picture={profile.picture} />
          <UserInfo profile={profile} />
       </HStack>
-      </Center>
+      </Center>   
       {/* <Center><Text fontSize={{ base: "16px", lg: "18px" }}
                color={useColorModeValue("yellow.500", "yellow.300")}
                fontWeight={"500"}
@@ -24,7 +25,7 @@ export default function ProfileDetails({ profile }) {
                mb={"4"} pt={10}>{profile.username}'s recipes:</Text>
       </Center> */}
          
-      <Tabs /* align='center' */ isFitted variant='enclosed' onChange={(index) => setTabIndex(index)}>
+      <Tabs spacing='100px' isFitted variant='enclosed' onChange={(index) => setTabIndex(index)}>
          <TabList>
             <Tab fontSize={{ base: "16px", lg: "18px" }}
                color={useColorModeValue("yellow.500", "yellow.300")}
@@ -40,8 +41,7 @@ export default function ProfileDetails({ profile }) {
          </Tabs>
          <Recipes id={profile.id} getSaved={tabIndex!==0}/>
 
-
-      
+       </Stack>
    </PageContainer>
    );
 }
