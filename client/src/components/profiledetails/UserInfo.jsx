@@ -1,8 +1,7 @@
 import React from "react";
-import { Stack, Box, Heading, Text, useColorModeValue, Button } from "@chakra-ui/react";
-import {FaFacebook } from "react-icons/fa";
-
-
+import { Stack, Box, Heading, Text, useColorModeValue, Button, HStack } from "@chakra-ui/react";
+import {FaEnvelope, FaFacebook, FaMailBulk, FaMailchimp } from "react-icons/fa";
+import { Link } from '@chakra-ui/react'
 export default function UserInfo({profile}) {
    return (
     <Stack spacing={2}>
@@ -10,10 +9,6 @@ export default function UserInfo({profile}) {
             <Heading lineHeight={1.1} fontWeight={800} fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}>
                {profile.username}
             </Heading>
-            <Text fontSize={"md"} pt={3} pb={3}>
-               {profile.email}
-            </Text>
-
         </Box>
          <Box>
             <Text
@@ -24,11 +19,20 @@ export default function UserInfo({profile}) {
                mb={"4"}>
                Bio
             </Text>
-            <Text>{profile.bio || "no bio..."}</Text>
+            <Text>{profile.biography || "no bio..."}</Text>
          </Box>
-         {profile.facebook_username && <Button colorScheme='facebook' leftIcon={<FaFacebook />}>
-            Contact {profile.username}
-         </Button>}
+         
+
+         <HStack width='fit-content'>
+            <Link href={"mailto:" + profile.email}>
+               <Button colorScheme='twitter' leftIcon={<FaEnvelope />}>
+                  Send {profile.username} an e-mail
+               </Button>
+            </Link>
+            {profile.facebook_username && <Link href={"https://www.facebook.com/" + profile.facebook_username}><Button colorScheme='facebook' leftIcon={<FaFacebook />}>
+            {profile.username} on Facebook</Button></Link>}
+            
+         </HStack>
     </Stack>
     
    );

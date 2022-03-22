@@ -19,7 +19,7 @@ export default function RecipeCard({ recipe }) {
             difficulty={recipe.difficulty}
             time={recipe.time}
          />
-         <Details owner={recipe.creator.username} date={date} />
+         <Details owner={recipe.creator.username} date={date} picture={recipe.creator.picture} />
       </Container>
    );
 }

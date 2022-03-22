@@ -71,6 +71,9 @@ export default function UserProfile() {
                bgColorHover={"organge.300"}
                url={"/"}
                leftIcon={<ArrowBackIcon />}
+               onClick={() => {
+                  router.back();
+               }}
                ml={5}
             />
     {!profileData ? <div>Could not fetch this profile</div> : <ProfileDetails profile={profileData} />}
