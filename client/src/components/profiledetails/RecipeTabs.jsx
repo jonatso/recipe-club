@@ -36,7 +36,7 @@ export default function RecipeTabs({id, profile}) {
 
      console.log(userRecipes);
     return (
-      <Tabs /* align='center' */ isFitted variant='enclosed'>
+      <Tabs align='center'  colorScheme='teal' pt={5}>
       <TabList>
          <Tab fontSize={{ base: "16px", lg: "18px" }}
             color={useColorModeValue("yellow.500", "yellow.300")}
@@ -51,7 +51,7 @@ export default function RecipeTabs({id, profile}) {
       </TabList>
       <TabPanels>
          <TabPanel>
-         <SimpleGrid columns={[1, 2, 3]} spacing={3} pt={10} pb={10}>
+         <SimpleGrid columns={[1, 2, 3]} spacing={3}>
             {userRecipes.isSuccess ? (
                <>
                   {userRecipes.data[0] ? (
@@ -64,7 +64,7 @@ export default function RecipeTabs({id, profile}) {
          </SimpleGrid>
          </TabPanel>
          <TabPanel>
-         <SimpleGrid columns={[1, 2, 3]} spacing={3} pt={10} pb={10}>
+         <SimpleGrid columns={[1, 2, 3]} spacing={3}>
             {savedRecipes.isSuccess ? (
                <>
                   {savedRecipes.data[0] ? (
