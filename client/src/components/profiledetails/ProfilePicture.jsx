@@ -1,17 +1,16 @@
 import React from "react";
-import { Image, Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+import { Image, Avatar, AvatarBadge, AvatarGroup, Box } from '@chakra-ui/react'
 
 
 export default function ProfilePicture({ picture }) {
    return (
 
     <Avatar src='https://bit.ly/broken-link' 
-      size={"full"}
+      boxSize="300px"
       alt={"profile picture"}
       fit={"cover"}
       align={"center"}
        />
-   
    /*
    {!picture ? Avatar : Image} noe sånt noe
    
