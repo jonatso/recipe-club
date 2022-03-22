@@ -19,10 +19,24 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import Loggedin from "./Loggedin";
 import NavLink from "./NavLink";
+import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 export default function Profile() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const fetchMe = async () => {
+      const response = await axios.get("http://localhost:4000/me", {
+         withCredentials: true,
+      });
+      return response.data;
+   };
+   const me = useQuery("me", fetchMe, {
+    enabled: router.isReady,
+ });
 
     return (
         <>
@@ -51,7 +65,7 @@ export default function Profile() {
                   <MenuList>
                     <MenuItem> <Loggedin /> </MenuItem>
                     <MenuItem>
-                    <NavLink name="Profile" url={"/profile"} style={{textDecoration:"none"}}/>
+                    <NavLink name="Profile" url={`/profile/${me.data.id}`} style={{textDecoration:"none"}}/>
                     </MenuItem>
                     <MenuDivider />
                     <MenuItem>

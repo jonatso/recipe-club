@@ -1,15 +1,17 @@
 import React from "react";
-import { Stack, Box, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import { Stack, Box, Heading, Text, useColorModeValue, Button } from "@chakra-ui/react";
+import {FaFacebook } from "react-icons/fa";
 
-export default function UserInfo({name, email, bio }) {
+
+export default function UserInfo({profile}) {
    return (
     <Stack spacing={2}>
        <Box>
             <Heading lineHeight={1.1} fontWeight={800} fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}>
-               Name here {name}
+               {profile.username}
             </Heading>
             <Text fontSize={"md"} pt={3} pb={3}>
-               Email here {email}
+               {profile.email}
             </Text>
 
         </Box>
@@ -22,8 +24,11 @@ export default function UserInfo({name, email, bio }) {
                mb={"4"}>
                Bio
             </Text>
-            <Text>{bio}</Text>
+            <Text>{profile.bio || "no bio..."}</Text>
          </Box>
+         {profile.facebook_username && <Button colorScheme='facebook' leftIcon={<FaFacebook />}>
+            Contact {profile.username}
+         </Button>}
     </Stack>
     
    );

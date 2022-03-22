@@ -28,6 +28,18 @@ module.exports = (sequelize, DataTypes) => {
          allowNull: false,
          defaultValue: false,
       },
+      biography: {
+         type: DataTypes.STRING,
+         allowNull: true
+      },
+      picture: {
+         type: DataTypes.STRING,
+         allowNull: true
+      },
+      facebook_username: {
+         type: DataTypes.STRING,
+         allowNull: true
+      }
    });
 
    Users.associate = (models) => {

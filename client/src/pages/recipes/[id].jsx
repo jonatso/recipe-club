@@ -133,7 +133,7 @@ export default function Recipe() {
                </>
             ) : null}
          </ButtonGroup>
-         {!recipeData ? <div>Could not fetch curret recipe</div> : <RecipeDetails recipe={recipeData} />}
+         {!recipeData ? <div>Could not fetch current recipe</div> : <RecipeDetails recipe={recipeData} />}
       </>
    );
 }
