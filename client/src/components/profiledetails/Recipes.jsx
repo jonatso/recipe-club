@@ -4,10 +4,13 @@ import { useQuery } from "react-query";
 import RecipeCard from "../RecipeCard";
 import axios from "axios";
 
-export default function Recipes({id}) {
+export default function Recipes({id, getSaved}) {
+    console.log("getting recipes:", getSaved)
     const fetchRecipes = async () => {
+        console.log("fetching:", getSaved)
+
         try {
-           const response = await axios.get(`http://localhost:4000/recipes/user/${id}`, {
+           const response = await axios.get(`http://localhost:4000/recipes/${getSaved ? "saved" : "user"}/${id}`, {
               withCredentials: true,
            });
            return response.data;
@@ -18,6 +21,7 @@ export default function Recipes({id}) {
      };
   
      const recipes = useQuery("recipes", fetchRecipes);
+     console.log(recipes);
     return (
         <SimpleGrid columns={[1, 2, 3]} spacing={3} pt={10} pb={10}>
             {recipes.isSuccess ? (

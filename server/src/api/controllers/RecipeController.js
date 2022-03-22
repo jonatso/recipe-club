@@ -125,6 +125,13 @@ const getSaved = async (req, res) => {
                [Sequelize.Op.in]: recipes.map((recipe) => recipe.RecipeId),
             },
          },
+         include: [
+            {
+               model: Users,
+               required: true,
+               as: "creator",
+            },
+         ],
       });
 
       return res.status(200).json(saved);
@@ -192,7 +199,6 @@ const searchRecipe = async (req, res) => {
 };
 
 const getUserRecipes = async (req, res) => {
-   console.log("FINDING USER RECIPES")
    const { userId } = req.params;
    try {
       const recipes = await Recipe.findAll({
