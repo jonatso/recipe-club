@@ -23,7 +23,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-export default function Profile() {
+export default function Profile({id, picture}) {
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -60,7 +60,7 @@ export default function Profile() {
                     minW={0}>
                     <Avatar 
                     size={"sm"}
-                    src='https://bit.ly/broken-link' />
+                    src={picture || 'https://bit.ly/broken-link'} />
                   </MenuButton>
                   <MenuList>
                     <MenuItem> <Loggedin /> </MenuItem>

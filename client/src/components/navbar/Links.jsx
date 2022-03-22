@@ -41,7 +41,7 @@ export default function Links({ isOpen, toggleColorMode, color }) {
             {Pages.map((page) => (
                <NavLink key={page.name} name={page.name} url={page.url} />
             ))}
-            {data ? <Profile /> : <LoginRegister />}
+            {data ? <Profile id={data.id} picture={data.picture} /> : <LoginRegister />}
          </Stack>
       </Box>
    );
