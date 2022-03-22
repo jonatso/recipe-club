@@ -3,7 +3,7 @@ import PageContainer from "../../core_ui/PageContainer";
 import ProfilePicture from "./ProfilePicture";
 import UserInfo from "./UserInfo";
 import RecipeTabs from "./RecipeTabs";
-import { HStack, Center, Text, useColorModeValue, Tabs, TabPanel, TabPanels, TabList, Tab } from "@chakra-ui/react";
+import { Stack, HStack, Center, Text, useColorModeValue, Tabs, TabPanel, TabPanels, TabList, Tab } from "@chakra-ui/react";
 //import { Box } from '@chakra-ui/react'
 
 export default function ProfileDetails({ profile }) {
