@@ -7,6 +7,7 @@ import { Button, ButtonGroup, IconButton } from "@chakra-ui/react";
 import { ArrowBackIcon, DeleteIcon, EditIcon, StarIcon } from "@chakra-ui/icons";
 import LinkButton from "../../core_ui/LinkButton";
 import RecipeDetails from "../../components/RecipeDetails";
+import RecipeDeleteButton from "../../components/recipedetails/RecipeDeleteButton";
 
 export default function Recipe() {
    const router = useRouter();
@@ -96,11 +97,7 @@ export default function Recipe() {
                <>
                   {meData.id === recipeData.creatorId || meData.isSuperuser ? (
                      <>
-                        <Button
-                           colorScheme={"red"}
-                           size={"md"}
-                           ml={2}
-                           onClick={async () => {
+                        <RecipeDeleteButton deleteAction={async () => {
                               try {
                                  const response = await deleteMutation.mutateAsync(pid, {
                                     onSuccess: () => {
@@ -114,11 +111,7 @@ export default function Recipe() {
                                  console.log(err);
                                  deleteMutation.reset();
                               }
-                           }}
-                           leftIcon={<DeleteIcon />}
-                        >
-                           Delete
-                        </Button>
+                           }}/>
                         {/* <LinkButton
                            text={"Edit"}
                            textColor={"white"}
