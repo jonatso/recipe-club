@@ -67,12 +67,13 @@ export default function Profile({id, picture}) {
                     <Button colorScheme='teal' variant='link'>
                     <NavLink name="Profile" url={`/profile/${me.data.id}`} style={{textDecoration:"none"}}/>
                     </Button> </MenuItem>
-                    <MenuItem> <Loggedin /> </MenuItem>
-                    <MenuDivider />
                     <MenuItem>
                     <Button colorScheme='teal' variant='link'>
                     <NavLink name="Users" url={"/users"} style={{textDecoration:"none"}}/>
                     </Button> </MenuItem>
+                    
+                    <MenuDivider />
+                    <MenuItem> <Loggedin /> </MenuItem>
                   </MenuList>
                 </Menu>
               </Flex>
