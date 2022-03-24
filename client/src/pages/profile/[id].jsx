@@ -43,7 +43,7 @@ export default function UserProfile() {
     return response.data;
   };
 
-   const profile = useQuery("profile", () => fetchProfile(pid), {
+   const profile = useQuery(`profile${pid}`, () => fetchProfile(pid), {
     enabled: router.isReady,
     });
 

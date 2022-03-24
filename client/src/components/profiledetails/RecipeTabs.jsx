@@ -7,8 +7,9 @@ import { useQueryClient } from "react-query";
 
 export default function RecipeTabs({id, profile}) {
    const queryClient = useQueryClient();
-   queryClient.invalidateQueries("userRecipes");
-   queryClient.invalidateQueries("savedRecipes");
+
+   
+   
     const fetchUserRecipes = async () => {
 
         try {
@@ -34,8 +35,8 @@ export default function RecipeTabs({id, profile}) {
         }
      };
   
-     const userRecipes = useQuery("userRecipes", fetchUserRecipes);
-     const savedRecipes = useQuery("savedRecipes", fetchSavedRecipes);
+     const userRecipes = useQuery(`userRecipes${id}`, fetchUserRecipes);
+     const savedRecipes = useQuery(`savedRecipes${id}`, fetchSavedRecipes);
 
      console.log(userRecipes);
     return (
