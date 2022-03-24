@@ -3,9 +3,12 @@ import { SimpleGrid, TabPanels, Tabs, Tab, TabPanel, TabList, useColorModeValue 
 import { useQuery } from "react-query";
 import RecipeCard from "../RecipeCard";
 import axios from "axios";
+import { useQueryClient } from "react-query";
 
 export default function RecipeTabs({id, profile}) {
-    
+   const queryClient = useQueryClient();
+   queryClient.invalidateQueries("userRecipes");
+   queryClient.invalidateQueries("savedRecipes");
     const fetchUserRecipes = async () => {
 
         try {

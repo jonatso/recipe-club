@@ -52,7 +52,7 @@ export default function UserDeleteButton({ id }) {
    return (
       <Popover returnFocusOnClose={false} isOpen={isOpen} onClose={close} closeOnBlur={false}>
          <PopoverTrigger>
-            <Button colorScheme={"red"} onClick={open}>
+            <Button colorScheme={"red"} onClick={open} ml={5}>
                Delete
             </Button>
          </PopoverTrigger>
@@ -61,7 +61,7 @@ export default function UserDeleteButton({ id }) {
             <PopoverArrow />
             <PopoverCloseButton />
             <PopoverBody>
-               {errMsg ? "Error: " + errMsg : null} Are you sure you want to continue with your action?
+               {errMsg ? "Error: " + errMsg : null} Are you sure you want to delete this user?
             </PopoverBody>
             <PopoverFooter d="flex" justifyContent="flex-end">
                <ButtonGroup size="sm">
