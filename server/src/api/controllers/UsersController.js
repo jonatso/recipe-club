@@ -38,7 +38,7 @@ const getUser = async (req, res) => {
 
 const register = async (req, res) => {
    try {
-      UsersValidator.validateInput({ ...req.body });
+      UsersValidator.validateInputCreate({ ...req.body });
       const hash = await argon2.hash(req.body.password);
       const user = await Users.create({
          username: req.body.username,
@@ -93,14 +93,11 @@ const updateUser = async (req, res) => {
       if (!validateParseInt(id)) {
          throw new Error(`id is not an integer`);
       }
-      UsersValidator.validateInput({ ...req.body });
+      UsersValidator.validateInputEdit({ ...req.body });
       await isAuthorized(parseInt(id, 10), req.session.userId);
-      const hashPassword = await argon2.hash(req.body.password);
       await Users.update(
          {
-            username: req.body.username,
-            email: req.body.email,
-            password: hashPassword,
+            ...req.body,
          },
          { where: { id } }
       );

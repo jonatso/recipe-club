@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
-import { IconButton } from "@chakra-ui/react";
-import { ArrowBackIcon, MinusIcon} from "@chakra-ui/icons";
+import { ButtonGroup, IconButton } from "@chakra-ui/react";
+import { ArrowBackIcon, EditIcon, MinusIcon} from "@chakra-ui/icons";
 import ProfileDetails from "../../components/ProfileDetails";
 import LinkButton from "../../core_ui/LinkButton";
 import { FaExclamationTriangle } from "react-icons/fa";
@@ -67,6 +67,7 @@ export default function UserProfile() {
 
     return (
     <>
+    <ButtonGroup>
     <LinkButton
                text={"Back"}
                textColor={"white"}
@@ -98,7 +99,22 @@ export default function UserProfile() {
                ml={5}
             />}
       
-      {(me.isSuccess && meData) && profileData && (meData.id === profileData.id || meData.isSuperuser) && <UserDeleteButton id={profileData.id} />}
+      {(me.isSuccess && meData) && profileData && (meData.id === profileData.id || meData.isSuperuser) && 
+         <>
+         <UserDeleteButton id={profileData.id} />
+         <LinkButton
+               text={"Edit"}
+               textColor={"white"}
+               bgColor={"yellow.400"}
+               bgColorHover={"yellow.300"}
+               url={`/profile/edit/${profileData.id}`}
+               leftIcon={<EditIcon />}
+               
+               ml={5}
+            />
+         </>
+      }
+      </ButtonGroup>
     {!profileData ? <div>Could not fetch this profile</div> : <ProfileDetails profile={profileData} />}
     
       </>

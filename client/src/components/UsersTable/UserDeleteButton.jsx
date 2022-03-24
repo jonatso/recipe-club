@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import Router from "next/router";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 export default function UserDeleteButton({ id }) {
    const [errMsg, setErrMsg] = useState("");
@@ -52,7 +53,7 @@ export default function UserDeleteButton({ id }) {
    return (
       <Popover returnFocusOnClose={false} isOpen={isOpen} onClose={close} closeOnBlur={false}>
          <PopoverTrigger>
-            <Button colorScheme={"red"} onClick={open} ml={5}>
+            <Button colorScheme={"red"} onClick={open} ml={5} leftIcon={<DeleteIcon/>}>
                Delete
             </Button>
          </PopoverTrigger>
