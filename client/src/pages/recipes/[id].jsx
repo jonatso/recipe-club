@@ -7,6 +7,7 @@ import { Button, ButtonGroup, IconButton } from "@chakra-ui/react";
 import { ArrowBackIcon, DeleteIcon, EditIcon, StarIcon } from "@chakra-ui/icons";
 import LinkButton from "../../core_ui/LinkButton";
 import RecipeDetails from "../../components/RecipeDetails";
+import SavedRecipe from "../../components/recipedetails/SavedRecipe.jsx";
 
 export default function Recipe() {
    const router = useRouter();
@@ -63,6 +64,34 @@ export default function Recipe() {
       }
    });
 
+
+   const saveMutation = useMutation(async (id) => {
+      try {
+         const response = await axios(`http://localhost:4000/recipes/save/${id}`, {
+         method: "POST", 
+         withCredentials: true,
+         });
+         return response.data;
+      } catch {
+      console.log(err);
+      return err;
+      }
+   });
+
+   const deletesaveMutation = useMutation(async (id) => {
+      try {
+         const response = await axios(`http://localhost:4000/recipes/deletesaved/${id}`, {
+         method: "DELETE", 
+         withCredentials: true,
+         });
+         return response.data;
+      } catch {
+      console.log(err);
+      return err;
+      }
+   });
+
+
    const me = useQuery("me", fetchMe, {
       enabled: router.isReady,
    });
@@ -77,7 +106,9 @@ export default function Recipe() {
 
    const meData = me.data;
    const recipeData = recipe.data;
+   
    return (
+      
       <>
          <ButtonGroup>
             <LinkButton
@@ -126,10 +157,7 @@ export default function Recipe() {
                            ml={2}
                         />
                      </>
-                  ) : <IconButton
-                        icon={true ? <AiOutlineStar /> : <AiFillStar />}
-                        color={"white"}
-                     />}
+                  ) : <SavedRecipe /> } 
                </>
             ) : null}
          </ButtonGroup>

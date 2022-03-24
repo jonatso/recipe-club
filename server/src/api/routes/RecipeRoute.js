@@ -17,12 +17,12 @@ router.put("/update/:id", RecipeController.updateRecipe);
 router.use("/delete/:id", isAuth);
 router.delete("/delete/:id", RecipeController.deleteRecipe);
 
-router.use("/saved/:userId", RecipeController.getSaved);
+router.get("/saved/:userId", RecipeController.getSaved);
 
 router.use("/save/:recipeId", isAuth);
-router.use("/save/:recipeId", RecipeController.saveRecipe);
+router.post("/save/:recipeId", RecipeController.saveRecipe); 
 
 router.use("/deletesaved/:recipeId", isAuth);
-router.use("/deletesaved/:recipeId", RecipeController.deleteSavedRecipe);
+router.delete("/deletesaved/:recipeId", RecipeController.deleteSavedRecipe);
 
 module.exports = router;
