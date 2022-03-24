@@ -94,7 +94,8 @@ export default function Recipe() {
                   {meData.id === recipeData.creatorId || meData.isSuperuser ? (
                      <>
                         <Button
-                           colorScheme={"red"}
+                           backgroundColor={"red"}
+                           color="white"
                            size={"md"}
                            ml={2}
                            onClick={async () => {
@@ -116,20 +117,19 @@ export default function Recipe() {
                         >
                            Delete
                         </Button>
-                        {/* <LinkButton
+                        <LinkButton
                            text={"Edit"}
                            textColor={"white"}
                            bgColor={"yellow.400"}
                            bgColorHover={"yellow.300"}
-                           url={"/"}
+                           url={`/recipes/edit/${recipe.data.id}`}
                            leftIcon={<EditIcon />}
                            ml={2}
-                        /> */}
+                        />
                      </>
-                  ) : <IconButton
-                        icon={true ? <AiOutlineStar /> : <AiFillStar />}
-                        color={"white"}
-                     />}
+                  ) : (
+                     <IconButton icon={true ? <AiOutlineStar /> : <AiFillStar />} color={"white"} />
+                  )}
                </>
             ) : null}
          </ButtonGroup>

@@ -21,6 +21,9 @@ import axios from "axios";
 import InputField from "../../../core_ui/InputField";
 import { useRouter } from "next/router";
 import { useQuery, useMutation, useQueryClient } from "react-query";
+import Router from "next/router";
+import LinkButton from "../../../core_ui/LinkButton";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export default function EditRecipe() {
    const router = useRouter();
@@ -75,8 +78,8 @@ export default function EditRecipe() {
 
    const recipeMutation = useMutation(async (newRecipe) => {
       try {
-         const response = await axios.post(
-            "http://localhost:4000/recipes/create",
+         const response = await axios.put(
+            `http://localhost:4000/recipes/update/${pid}`,
             { ...newRecipe },
             {
                withCredentials: true,
@@ -84,6 +87,7 @@ export default function EditRecipe() {
          );
          return response.data;
       } catch (err) {
+         console.log(err);
          if (!err?.response) {
             setErrMsg("No server");
             return err;
@@ -101,6 +105,18 @@ export default function EditRecipe() {
    }
    return (
       <>
+         <LinkButton
+            text={"Back"}
+            textColor={"white"}
+            bgColor={"orange.400"}
+            bgColorHover={"organge.300"}
+            url={"/"}
+            leftIcon={<ArrowBackIcon />}
+            ml={5}
+            onClick={() => {
+               router.back();
+            }}
+         />
          <Formik
             initialValues={initializeData(recipe.data, recipe.isSuccess)}
             onSubmit={async (values, actions) => {
@@ -109,8 +125,8 @@ export default function EditRecipe() {
                   const response = await recipeMutation.mutateAsync(values, {
                      onSuccess: () => {},
                   });
-                  if (response.id) {
-                     Router.push(`/recipes/${response.id}`);
+                  if (response.message) {
+                     Router.push(`/recipes/${pid}`);
                   }
                } catch (err) {
                   recipeMutation.reset();
