@@ -36,7 +36,7 @@ export default function Home() {
    }
 
    if (me.isError || recipes.isError) {
-      return <span>Error: {error}</span>;
+      return <span>Error</span>;
    }
 
    return (
