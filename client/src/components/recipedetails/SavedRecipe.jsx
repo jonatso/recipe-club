@@ -71,7 +71,22 @@ export default function SavedRecipe() {
          return false
       }
 
-      for (const recipe in recipes) {
+      console.log('Her kommer verdiene: ')
+
+      Object.entries(recipes).map(([key, value]) => {
+        Object.entries(value).map(([vKey, vValue]) => {
+            if(vKey === 'id') {
+                console.log('id:' + parseInt(id))
+                console.log('value key: ' + vKey + ', value value: ' + vValue)
+                if(vValue === parseInt(id) ) {
+                    return true
+                }
+            }
+        })  
+        return false 
+     }) 
+
+    /*   for (const recipe in recipes) {
           console.log(pid)
           console.log('recipe.id: ' + recipe.id)
           console.log('id: ' +parseInt(id))
@@ -80,7 +95,7 @@ export default function SavedRecipe() {
                return true
            } 
         }
-        return false
+        return false */
    }
     
     const [isSaved, setIsSaved] = useState(checkIfRecipeSaved(savedRecipes, pid, isSuccess));
@@ -108,7 +123,7 @@ export default function SavedRecipe() {
         setIsSaved(checkIfRecipeSaved(savedRecipes, pid, isSuccess))
         console.log("save", isSaved)
         }}
-    ></IconButton> ) : (<IconButton
+        ></IconButton> ) : (<IconButton
         icon={<AiOutlineStar />}
         color={"white"}
         onClick= {async () => {
