@@ -19,6 +19,17 @@ export default function Recipe() {
       setErrMsg("");
    }, []);
 
+   const fetchRatings = async (id) => {
+      try {
+         const response = await axios.get(`http://localhost:4000/recipes/ratings/${id}`, {
+            withCredentials: true,
+         });
+         return response.data;
+      } catch (err) {
+         return err;
+      }
+   };
+
    const fetchRecipe = async (id) => {
       try {
          const response = await axios.get(`http://localhost:4000/recipes/${id}`, {
@@ -67,16 +78,21 @@ export default function Recipe() {
       enabled: router.isReady,
    });
 
-   if (me.isLoading || recipe.isLoading) {
+   const ratings = useQuery("ratings", () => fetchRatings(pid), {
+      enabled: router.isReady,
+   });
+
+   if (me.isLoading || recipe.isLoading || ratings.isLoading) {
       return <span>Loading recipe...</span>;
    }
 
-   if (me.isError || recipe.isError) {
-      return <span>Error: {error}</span>;
+   if (me.isError || recipe.isError || ratings.isLoading) {
+      return <span>Error: </span>;
    }
 
    const meData = me.data;
    const recipeData = recipe.data;
+   const ratingsData = ratings.data;
    return (
       <>
          <ButtonGroup>
@@ -126,14 +142,17 @@ export default function Recipe() {
                            ml={2}
                         /> */}
                      </>
-                  ) : <IconButton
-                        icon={true ? <AiOutlineStar /> : <AiFillStar />}
-                        color={"white"}
-                     />}
+                  ) : (
+                     <IconButton icon={true ? <AiOutlineStar /> : <AiFillStar />} color={"white"} />
+                  )}
                </>
             ) : null}
          </ButtonGroup>
-         {!recipeData ? <div>Could not fetch curret recipe</div> : <RecipeDetails recipe={recipeData} />}
+         {!recipeData || !ratings ? (
+            <div>Could not fetch curret recipe</div>
+         ) : (
+            <RecipeDetails recipe={recipeData} ratings={ratingsData} />
+         )}
       </>
    );
 }

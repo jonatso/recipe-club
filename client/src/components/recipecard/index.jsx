@@ -3,7 +3,7 @@ import Container from "./Container";
 import PreviewPicture from "./PreviewPicture";
 import PreviewInfo from "./PreviewInfo";
 import Details from "./Details";
-import { useColorModeValue } from "@chakra-ui/react";
+import Rating from "../../core_ui/Rating";
 
 export default function RecipeCard({ recipe }) {
    const date = new Date(recipe.createdAt).toDateString();
@@ -19,6 +19,7 @@ export default function RecipeCard({ recipe }) {
             difficulty={recipe.difficulty}
             time={recipe.time}
          />
+         <Rating points={recipe.points} numberOfRatings={recipe.numberOfRatings} />
          <Details owner={recipe.creator.username} date={date} />
       </Container>
    );

@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Stack, Heading, Select, FormControl, FormLabel, Flex, IconButton, NumberInput,
+import {
+   Box,
+   Button,
+   Stack,
+   Heading,
+   Select,
+   FormControl,
+   FormLabel,
+   Flex,
+   IconButton,
+   NumberInput,
    NumberInputField,
    NumberInputStepper,
    NumberIncrementStepper,
-   NumberDecrementStepper, } from "@chakra-ui/react";
+   NumberDecrementStepper,
+} from "@chakra-ui/react";
 import { Formik, Form, FieldArray, Field } from "formik";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useMutation } from "react-query";
@@ -56,7 +67,6 @@ export default function NewRecipe() {
             time: "",
          }}
          onSubmit={async (values, actions) => {
-            console.log(values);
             try {
                actions.setSubmitting(true);
                const response = await recipeMutation.mutateAsync(values, {
@@ -171,7 +181,13 @@ export default function NewRecipe() {
                               <option value="3">Hard</option>
                            </Field>
                         </FormControl>
-                        <InputField name="time" placeholder="time estimate" label="Time estimate (minutes)" type="number" isRequired={true} />                        
+                        <InputField
+                           name="time"
+                           placeholder="time estimate"
+                           label="Time estimate (minutes)"
+                           type="number"
+                           isRequired={true}
+                        />
                         <Button mt={4} colorScheme="teal" isLoading={props.isSubmitting} type="submit">
                            Submit
                         </Button>
