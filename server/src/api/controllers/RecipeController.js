@@ -231,16 +231,17 @@ const rateRecipe = async (req, res) => {
    try {
       const newRating = await sequelize.transaction(async (t) => {
          try {
+            const rater = await Users.findOne({ where: { id: userId }, transaction: t });
             const newRating = await Rate.create(
                {
                   UserId: userId,
                   RecipeId: recipeId,
                   value: value,
                   comment: req.body.comment,
+                  username: rater.username,
                },
                { transaction: t }
             );
-            // const rater = await Users.findOne({ where: { id: userId }, transaction: t });
             // await newRating.setRater(rater, { transaction: t });
             // const recipe = await Recipe.findOne({ where: { id: recipeId }, transaction: t });
             // await newRating.setRecipe(recipe, { transaction: t });
