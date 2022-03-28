@@ -151,7 +151,7 @@ export default function Recipe() {
          {!recipeData || !ratings ? (
             <div>Could not fetch curret recipe</div>
          ) : (
-            <RecipeDetails recipe={recipeData} ratings={ratingsData} />
+            <RecipeDetails recipe={recipeData} ratings={ratingsData} me={meData} />
          )}
       </>
    );

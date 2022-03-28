@@ -32,4 +32,7 @@ router.post("/rate/:recipeId", RecipeController.rateRecipe);
 
 router.get("/ratings/:recipeId", RecipeController.getRatings);
 
+router.use("/deleteRate/:recipeId", isAuth);
+router.delete("/deleteRate/:recipeId", RecipeController.deleteRating);
+
 module.exports = router;

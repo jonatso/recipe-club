@@ -262,6 +262,40 @@ const rateRecipe = async (req, res) => {
    }
 };
 
+const deleteRating = async (req, res) => {
+   const { recipeId } = req.params;
+   const { userId } = req.session;
+   // Slow but works
+   const ratings = await Rate.findAll({ where: { RecipeId: recipeId } });
+   let sum = 0;
+   for (let i = 0; i < ratings.length; i++) {
+      console.log(ratings[i].value);
+      sum += ratings[i].value;
+   }
+   // A user can rate same recipe twice, no update so far.
+   try {
+      console.log("Here");
+      await sequelize.transaction(async (t) => {
+         try {
+            const raiting = await Rate.findOne({ where: { UserId: userId, RecipeId: recipeId }, transaction: t });
+            sum -= raiting.value;
+            const realValue = sum / (ratings.length - 1);
+            await Recipe.update(
+               { points: realValue, numberOfRatings: ratings.length - 1 },
+               { where: { id: recipeId }, transaction: t }
+            );
+            await raiting.destroy({ transaction: t });
+            return newRating;
+         } catch {
+            throw new Error("Transaction failed");
+         }
+      });
+      return res.status(200).json({ message: "Raiting deleted" });
+   } catch (err) {
+      return res.status(400).json({ error: err.message });
+   }
+};
+
 module.exports = {
    getRecipes,
    createRecipe,
@@ -274,4 +308,5 @@ module.exports = {
    searchRecipe,
    rateRecipe,
    getRatings,
+   deleteRating,
 };

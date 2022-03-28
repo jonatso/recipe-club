@@ -3,7 +3,7 @@ import { Stack, HStack, Heading, Button } from "@chakra-ui/react";
 import RatingCard from "./RatingCard";
 import RatingForm from "./RatingForm";
 
-export default function Ratings({ recipe, ratings }) {
+export default function Ratings({ recipe, ratings, me }) {
    const [open, setIsOpen] = useState(false);
    return (
       <Stack pb={5}>
@@ -17,7 +17,7 @@ export default function Ratings({ recipe, ratings }) {
          {ratings === undefined ? (
             <div>There are no ratings</div>
          ) : (
-            <>{ratings[0] ? ratings.map((rating) => <RatingCard key={rating.id} rating={rating} />) : null}</>
+            <>{ratings[0] ? ratings.map((rating) => <RatingCard key={rating.id} rating={rating} me={me} />) : null}</>
          )}
       </Stack>
    );
