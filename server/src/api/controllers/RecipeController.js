@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 const { Op } = require("sequelize");
-const { Recipe, Users } = require("../models");
+const { Recipe, Users, Rate, sequelize } = require("../models");
 const db = require("../models");
 const { validateParseInt } = require("../helpers");
 const { RecipeValidator } = require("../validations");
@@ -81,7 +81,14 @@ const deleteRecipe = async (req, res) => {
       console.log(recipe);
       await isAuthorized(recipe.creatorId, req.session.userId);
       console.log("is authorized");
-      await recipe.destroy();
+      await sequelize.transaction(async (t) => {
+         try {
+            await Rate.destroy({ where: { RecipeId: recipe.id } }, { transaction: t });
+            await recipe.destroy({ transaction: t });
+         } catch {
+            throw new Error("Transaction failed");
+         }
+      });
       return res.status(200).json({ message: "Recipe deleted" });
    } catch (err) {
       return res.status(400).json({ error: err.message });
@@ -166,7 +173,7 @@ const deleteSavedRecipe = async (req, res) => {
 
 const searchRecipe = async (req, res) => {
    try {
-      const { search } = req.params
+      const { search } = req.params;
       const recipe = await Recipe.findAll({
          where: {
             [Op.or]: [
@@ -192,6 +199,68 @@ const searchRecipe = async (req, res) => {
    }
 };
 
+const getRatings = async (req, res) => {
+   try {
+      const ratings = await Rate.findAll({
+         order: [["createdAt", "DESC"]],
+         where: {
+            RecipeId: req.params.recipeId,
+         },
+      });
+      if (ratings === undefined || ratings.length == 0) {
+         throw new Error("could not find any ratings");
+      }
+      return res.status(200).json(ratings);
+   } catch (err) {
+      return res.status(404).json({ error: err.message });
+   }
+};
+
+const rateRecipe = async (req, res) => {
+   const value = req.body.value;
+   const { recipeId } = req.params;
+   const { userId } = req.session;
+   // Slow but works
+   const ratings = await Rate.findAll({ where: { RecipeId: recipeId } });
+   let sum = 0;
+   for (let i = 0; i < ratings.length; i++) {
+      console.log(ratings[i].value);
+      sum += ratings[i].value;
+   }
+   // A user can rate same recipe twice, no update so far.
+   try {
+      const newRating = await sequelize.transaction(async (t) => {
+         try {
+            const newRating = await Rate.create(
+               {
+                  UserId: userId,
+                  RecipeId: recipeId,
+                  value: value,
+                  comment: req.body.comment,
+               },
+               { transaction: t }
+            );
+            // const rater = await Users.findOne({ where: { id: userId }, transaction: t });
+            // await newRating.setRater(rater, { transaction: t });
+            // const recipe = await Recipe.findOne({ where: { id: recipeId }, transaction: t });
+            // await newRating.setRecipe(recipe, { transaction: t });
+            sum += parseInt(value);
+            const realValue = sum / (ratings.length + 1);
+            await Recipe.update(
+               { points: realValue, numberOfRatings: ratings.length + 1 },
+               { where: { id: recipeId }, transaction: t }
+            );
+            return newRating;
+         } catch {
+            throw new Error("Transaction failed");
+         }
+      });
+      return res.status(200).json(newRating);
+   } catch (err) {
+      return res.status(400).json({ error: err.message });
+   }
+};
+
 module.exports = {
    getRecipes,
    createRecipe,
@@ -202,4 +271,6 @@ module.exports = {
    saveRecipe,
    deleteSavedRecipe,
    searchRecipe,
+   rateRecipe,
+   getRatings,
 };

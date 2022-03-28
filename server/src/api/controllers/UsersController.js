@@ -1,5 +1,5 @@
 const argon2 = require("argon2");
-const { Users, Recipe, sequelize } = require("../models");
+const { Users, Recipe, Rate, sequelize } = require("../models");
 const { validateParseInt } = require("../helpers");
 const { UsersValidator } = require("../validations");
 const isAuthorized = require("../helpers/isAuthorized");
@@ -63,6 +63,11 @@ const deleteUser = async (req, res) => {
       await isAuthorized(parseInt(id, 10), req.session.userId);
       await sequelize.transaction(async (t) => {
          try {
+            await Rate.destroy({ where: { userId: id } }, { transaction: t });
+            const recipes = await Recipe.findall({ where: { UserId: id } });
+            for (const recipe in recipes) {
+               Rate.destroy({ where: { recipeId: recipe.id } }, { transaction: t });
+            }
             await Recipe.destroy({ where: { UserId: id } }, { transaction: t });
             await Users.destroy(
                {

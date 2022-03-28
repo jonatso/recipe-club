@@ -27,4 +27,9 @@ router.use("/save/:recipeId", RecipeController.saveRecipe);
 router.use("/deletesaved/:recipeId", isAuth);
 router.use("/deletesaved/:recipeId", RecipeController.deleteSavedRecipe);
 
+router.use("/rate/:recipeId", isAuth);
+router.post("/rate/:recipeId", RecipeController.rateRecipe);
+
+router.get("/ratings/:recipeId", RecipeController.getRatings);
+
 module.exports = router;

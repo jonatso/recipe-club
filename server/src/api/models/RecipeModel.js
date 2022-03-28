@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
          allowNull: false,
       },
       method: {
-         type: DataTypes.STRING,
+         type: DataTypes.TEXT,
          allowNull: false,
       },
       picture: {
@@ -37,11 +37,22 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.INTEGER,
          allowNull: false,
       },
+      points: {
+         type: DataTypes.DOUBLE,
+         allowNull: false,
+         defaultValue: 0,
+      },
+      numberOfRatings: {
+         type: DataTypes.INTEGER,
+         allowNull: false,
+         defaultValue: 0,
+      },
    });
 
    Recipe.associate = (models) => {
       Recipe.belongsTo(models.Users, { as: "creator" });
       Recipe.belongsToMany(models.Users, { through: "save", as: "saver" });
+      Recipe.hasMany(models.Rate, { as: "rating" });
    };
 
    return Recipe;
