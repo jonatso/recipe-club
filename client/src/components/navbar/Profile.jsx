@@ -79,7 +79,7 @@ export default function Profile({ id, picture }) {
                            }}
                            style={{ textDecoration: "none" }}
                         >
-                           <NavLink name="Logout" url={""} style={{ textDecoration: "none" }} />
+                           <NavLink name="Logout" url={"/"} style={{ textDecoration: "none" }} />
                         </MenuItem>
                         <MenuDivider />
                         <MenuItem>

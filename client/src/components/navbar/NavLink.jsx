@@ -9,14 +9,7 @@ export default function NavLink({ name, url }) {
    return (
       <NextLink href={url} passHref>
          <Link _hover={{ textDecoration: "none" }}>
-            <Text
-               p={2}
-               display="block"
-               textDecoration={isCurrent ? "underline" : "none"}
-               _hover={{
-                  textDecoration: "underline",
-               }}
-            >
+            <Text p={2} display="block">
                {name}
             </Text>
          </Link>
