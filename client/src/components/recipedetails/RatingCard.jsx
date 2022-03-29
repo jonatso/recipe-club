@@ -48,7 +48,7 @@ export default function RatingCard({ rating, numberOfRatings, me, ...props }) {
       >
          <HStack justify={"space-between"}>
             <Text>Rated by: {rating.username}</Text>
-            {me.username === rating.username ? (
+            {me !== null && me.username !== null && me.username === rating.username ? (
                <Button
                   colorScheme={"red"}
                   onClick={async () => {

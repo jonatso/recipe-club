@@ -53,9 +53,16 @@ export default function UserDeleteButton({ id }) {
    return (
       <Popover returnFocusOnClose={false} isOpen={isOpen} onClose={close} closeOnBlur={false}>
          <PopoverTrigger>
-            <Button color={"white"} backgroundColor="red.500" _hover={{
-               backgroundColor: "red.700"
-            }} onClick={open} ml={5} leftIcon={<DeleteIcon/>}>
+            <Button
+               color={"white"}
+               backgroundColor="red.500"
+               _hover={{
+                  backgroundColor: "red.700",
+               }}
+               onClick={open}
+               ml={5}
+               leftIcon={<DeleteIcon />}
+            >
                Delete
             </Button>
          </PopoverTrigger>
@@ -63,9 +70,7 @@ export default function UserDeleteButton({ id }) {
             <PopoverHeader fontWeight="semibold">Confirmation</PopoverHeader>
             <PopoverArrow />
             <PopoverCloseButton />
-            <PopoverBody>
-               {errMsg ? "Error: " + errMsg : null} Are you sure you want to delete this user?
-            </PopoverBody>
+            <PopoverBody>{errMsg ? "Error: " + errMsg : null} Are you sure you want to delete this user?</PopoverBody>
             <PopoverFooter d="flex" justifyContent="flex-end">
                <ButtonGroup size="sm">
                   <Button variant="outline">Cancel</Button>
@@ -76,6 +81,10 @@ export default function UserDeleteButton({ id }) {
                               onSuccess: () => {
                                  queryClient.invalidateQueries("me");
                                  queryClient.invalidateQueries("users");
+                                 queryClient.invalidateQueries("user");
+                                 queryClient.invalidateQueries("recipes");
+                                 queryClient.invalidateQueries("recipe");
+                                 queryClient.invalidateQueries("ratings");
                               },
                            });
                            if (response.message.includes("User deleted")) {
@@ -87,8 +96,10 @@ export default function UserDeleteButton({ id }) {
                            return err;
                         }
                      }}
-                     color={"white"} backgroundColor="red.500" _hover={{
-                        backgroundColor: "red.700"
+                     color={"white"}
+                     backgroundColor="red.500"
+                     _hover={{
+                        backgroundColor: "red.700",
                      }}
                   >
                      Apply

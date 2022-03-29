@@ -63,28 +63,19 @@ const deleteUser = async (req, res) => {
       await isAuthorized(parseInt(id, 10), req.session.userId);
       await sequelize.transaction(async (t) => {
          try {
-            await Rate.destroy({ where: { userId: id } }, { transaction: t });
-            const recipes = await Recipe.findall({ where: { UserId: id } });
+            // technical debt ++
+            await Rate.destroy({ where: { UserId: id }, transaction: t });
+            const recipes = await Recipe.findAll({ where: { UserId: id } });
             for (const recipe in recipes) {
-               Rate.destroy({ where: { recipeId: recipe.id } }, { transaction: t });
+               Rate.destroy({ where: { RecipeId: recipe.id }, transaction: t });
             }
-            await Recipe.destroy({ where: { UserId: id } }, { transaction: t });
-            await Users.destroy(
-               {
-                  where: {
-                     id,
-                  },
-               },
-               { transaction: t }
-            );
+            await Recipe.destroy({ where: { UserId: id }, transaction: t });
+            await Users.destroy({ where: { id: id }, transaction: t });
          } catch (err) {
             throw new Error("Transaction failed");
          }
       });
 
-      if (req.session.userId === id) {
-         await logoutUser(req, res);
-      }
       return res.status(200).json({ message: "User deleted" });
    } catch (err) {
       console.log(err);
