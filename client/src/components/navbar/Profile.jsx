@@ -81,10 +81,6 @@ export default function Profile({ id, picture }) {
                         >
                            <NavLink name="Logout" url={"/"} style={{ textDecoration: "none" }} />
                         </MenuItem>
-                        <MenuDivider />
-                        <MenuItem>
-                           <NavLink name="Users" url={"/users"} style={{ textDecoration: "none" }} />
-                        </MenuItem>
                      </MenuList>
                   </Menu>
                </Flex>
