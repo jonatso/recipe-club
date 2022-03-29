@@ -20,10 +20,7 @@ export default function TitleDesc({
             <Heading lineHeight={1.1} fontWeight={800} fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}>
                {name}
             </Heading>
-            <Rating mt={5} points={points} numberOfRatings={numberOfRatings} />
-            <Text fontSize={"md"} pt={3} pb={3}>
-               Created by: {username}
-            </Text>
+            <Rating mt={5} mb={5} points={points} numberOfRatings={numberOfRatings} />
             <Text
                color={difficulty == 1 ? "green.500" : difficulty == 2 ? "yellow.500" : "red.500"}
                textTransform={"uppercase"}
