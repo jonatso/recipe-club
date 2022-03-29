@@ -69,7 +69,7 @@ export default function RatingCard({ rating, numberOfRatings, me, ...props }) {
                </Button>
             ) : null}
          </HStack>
-         <Rating points={rating.value} numberOfRatings={numberOfRatings} mt={2} mb={2} />
+         <Rating points={rating.value} numberOfRatings={undefined} mt={2} mb={2} />
          <Text>{rating.comment}</Text>
       </Box>
    );

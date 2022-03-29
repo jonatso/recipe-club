@@ -14,7 +14,7 @@ export default function Rating({ points, numberOfRatings, ...props }) {
    return (
       <HStack {...props}>
          {stars}
-         <div>({numberOfRatings !== 0 ? numberOfRatings : "No ratings"})</div>
+         {numberOfRatings !== undefined ? <div>({numberOfRatings !== 0 ? numberOfRatings : "No ratings"})</div> : null}
       </HStack>
    );
 }
