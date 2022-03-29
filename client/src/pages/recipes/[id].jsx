@@ -137,9 +137,7 @@ export default function Recipe() {
                            ml={2}
                         />
                      </>
-                  ) : (
-                     <IconButton icon={true ? <AiOutlineStar /> : <AiFillStar />} color={"white"} />
-                  )}
+                  ) : null}
                </>
             ) : null}
          </ButtonGroup>

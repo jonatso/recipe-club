@@ -61,7 +61,7 @@ export default function UserProfile() {
 
    return (
       <>
-         <ButtonGroup>
+         <ButtonGroup mb={8}>
             <LinkButton
                text={"Back"}
                textColor={"white"}
