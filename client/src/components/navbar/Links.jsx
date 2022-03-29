@@ -7,10 +7,11 @@ import Loggedin from "./Loggedin";
 import LoginRegister from "./LoginRegister";
 import MoonSun from "./MoonSun";
 import Search from "./Search";
+import Profile from "./Profile";
 
 const Pages = [
    /* { name: "About", url: "/about" } */
-   { name: "Users", url: "/users" },
+   /* { name: "Users", url: "/users" }, */
 ];
 
 export default function Links({ isOpen, toggleColorMode, color }) {
@@ -32,6 +33,7 @@ export default function Links({ isOpen, toggleColorMode, color }) {
             justify={["center", "space-between", "flex-end", "flex-end"]}
             direction={["column", "row", "row", "row"]}
          >
+            {/* <Profile />  */}
             <HStack spacing={6} alignItems={"center"}>
                <Search />
             </HStack>
@@ -39,8 +41,7 @@ export default function Links({ isOpen, toggleColorMode, color }) {
             {Pages.map((page) => (
                <NavLink key={page.name} name={page.name} url={page.url} />
             ))}
-
-            {data ? <Loggedin /> : <LoginRegister />}
+            {data ? <Profile id={data.id} picture={data.picture} /> : <LoginRegister />}
          </Stack>
       </Box>
    );

@@ -5,27 +5,11 @@ import { useMutation, useQueryClient } from "react-query";
 import Shopping from "./Shopping";
 
 export default function Loggedin() {
-   const queryClient = useQueryClient();
-   const logoutMutation = useMutation(
-      async () =>
-         axios("http://localhost:4000/logout", {
-            method: "POST",
-            withCredentials: true,
-         }),
-      {
-         onSuccess: () => {
-            queryClient.invalidateQueries("me");
-            queryClient.invalidateQueries("recipes");
-         },
-      }
-   );
-
    return (
       <>
          {/* <Shopping /> */}
          <Button
-            size="md"
-            colorScheme="teal"
+            variant="link"
             onClick={() => {
                logoutMutation.mutate();
             }}

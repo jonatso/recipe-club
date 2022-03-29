@@ -35,4 +35,6 @@ router.get("/ratings/:recipeId", RecipeController.getRatings);
 router.use("/deleteRate/:ratingId", isAuth);
 router.delete("/deleteRate/:ratingId", RecipeController.deleteRating);
 
+router.get("/user/:userId", RecipeController.getUserRecipes);
+
 module.exports = router;

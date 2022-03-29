@@ -102,6 +102,9 @@ export default function Recipe() {
                bgColor={"orange.400"}
                bgColorHover={"organge.300"}
                url={"/"}
+               onClick={() => {
+                  router.back();
+               }}
                leftIcon={<ArrowBackIcon />}
                ml={5}
             />

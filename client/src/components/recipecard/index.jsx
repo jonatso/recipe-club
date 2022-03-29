@@ -20,7 +20,7 @@ export default function RecipeCard({ recipe }) {
             time={recipe.time}
          />
          <Rating points={recipe.points} numberOfRatings={recipe.numberOfRatings} />
-         <Details owner={recipe.creator.username} date={date} />
+         <Details owner={recipe.creator.username} date={date} picture={recipe.creator.picture} />
       </Container>
    );
 }
