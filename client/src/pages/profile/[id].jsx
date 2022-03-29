@@ -26,7 +26,6 @@ export default function UserProfile() {
          const response = await axios.get(`http://localhost:4000/users/${id}`, {
             withCredentials: true,
          });
-         console.log(response.data);
          return response.data;
       } catch (err) {
          console.log(err);

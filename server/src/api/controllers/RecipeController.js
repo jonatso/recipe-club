@@ -56,17 +56,13 @@ const getRecipe = async (req, res) => {
 
 const createRecipe = async (req, res) => {
    try {
-      console.log(req.body);
       RecipeValidator.validateInput({ ...req.body });
-      console.log("---userid---");
-      console.log(req.session.userId);
       const recipe = await Recipe.create({ ...req.body });
 
       const creator = await Users.findOne({ where: { id: req.session.userId } });
       await recipe.setCreator(creator);
       return res.status(201).json(recipe);
    } catch (err) {
-      console.log("rip rip");
       return res.status(400).json({ error: err.message });
    }
 };
@@ -78,9 +74,7 @@ const deleteRecipe = async (req, res) => {
          throw new Error(`id is not an integer`);
       }
       const recipe = await Recipe.findOne({ where: { id } });
-      console.log(recipe);
       await isAuthorized(recipe.creatorId, req.session.userId);
-      console.log("is authorized");
       await sequelize.transaction(async (t) => {
          try {
             await Rate.destroy({ where: { RecipeId: recipe.id } }, { transaction: t });
@@ -179,7 +173,6 @@ const deleteSavedRecipe = async (req, res) => {
 };
 
 const searchRecipe = async (req, res) => {
-   console.log(req.query);
    try {
       const recipe = await Recipe.findAll({
          where: {
@@ -263,7 +256,6 @@ const rateRecipe = async (req, res) => {
    const ratings = await Rate.findAll({ where: { RecipeId: recipeId } });
    let sum = 0;
    for (let i = 0; i < ratings.length; i++) {
-      console.log(ratings[i].value);
       sum += ratings[i].value;
    }
    // A user can rate same recipe twice, no update so far.

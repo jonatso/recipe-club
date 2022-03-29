@@ -110,12 +110,9 @@ export default function EditRecipe() {
             textColor={"white"}
             bgColor={"orange.400"}
             bgColorHover={"organge.300"}
-            url={"/"}
+            url={`/recipes/${pid}`}
             leftIcon={<ArrowBackIcon />}
             ml={5}
-            onClick={() => {
-               router.back();
-            }}
          />
          <Formik
             initialValues={initializeData(recipe.data, recipe.isSuccess)}

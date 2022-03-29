@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { SimpleGrid, Icon } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 import axios from "axios";
@@ -7,35 +7,29 @@ import RecipeCard from "../components/RecipeCard";
 import PageContainer from "../core_ui/PageContainer";
 import LinkButton from "../core_ui/LinkButton";
 import SearchBar from "../components/navbar/Search";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 export default function Home() {
    const [recipes, setRecipes] = useState([]);
    const router = useRouter();
    const [query, setQuery] = useState("");
-   
-   useEffect(()=>{
-      if(!router.isReady) return;
-      console.log("Query : ", router.query.q);
+
+   useEffect(() => {
+      if (!router.isReady) return;
       setQuery(router.query.q);
-      fetchRecipes().then(res => {
-         console.log(res);
+      fetchRecipes().then((res) => {
          setRecipes(res);
-         
-
       });
-
    }, [router.isReady]);
 
    const fetchRecipes = async () => {
-
       console.log("fetching recipes", router.query.q);
       try {
          let url = `http://localhost:4000/recipes`;
          if (router.query.q) {
-            url += `/search/?q=${router.query.q}`
+            url += `/search/?q=${router.query.q}`;
          }
-         console.log(url)
+         console.log(url);
          const response = await axios.get(url, {
             withCredentials: true,
          });
@@ -47,9 +41,6 @@ export default function Home() {
    };
 
    // const recipes = useQuery("recipes", fetchRecipes);
-
-
-   console.log(recipes)
 
    const fetchMe = async () => {
       const response = await axios.get("http://localhost:4000/me", {
@@ -70,9 +61,9 @@ export default function Home() {
 
    return (
       <PageContainer>
-         <SearchBar q={query} setQuery={setQuery}/>
+         <SearchBar q={query} setQuery={setQuery} />
          <SimpleGrid columns={[1, 2, 3]} spacing={3} mt={5}>
-            {true  || recipes.isSuccess ? (
+            {true || recipes.isSuccess ? (
                <>
                   {recipes[0] ? (
                      recipes.map((recipe) => <RecipeCard key={recipe.name + recipe.id} recipe={recipe} />)
