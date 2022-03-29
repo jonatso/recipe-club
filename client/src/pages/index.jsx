@@ -12,13 +12,16 @@ import { useRouter } from 'next/router'
 export default function Home() {
    const [recipes, setRecipes] = useState([]);
    const router = useRouter();
+   const [query, setQuery] = useState("");
    
    useEffect(()=>{
       if(!router.isReady) return;
       console.log("Query : ", router.query.q);
+      setQuery(router.query.q);
       fetchRecipes().then(res => {
          console.log(res);
          setRecipes(res);
+         
 
       });
 
@@ -67,8 +70,8 @@ export default function Home() {
 
    return (
       <PageContainer>
-         <SearchBar />
-         <SimpleGrid columns={[1, 2, 3]} spacing={3}>
+         <SearchBar q={query} setQuery={setQuery}/>
+         <SimpleGrid columns={[1, 2, 3]} spacing={3} mt={5}>
             {true  || recipes.isSuccess ? (
                <>
                   {recipes[0] ? (

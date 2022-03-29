@@ -172,12 +172,12 @@ const searchRecipe = async (req, res) => {
             [Op.or]: [
                {
                   name: {
-                     [Op.like]: "%" + req.query.q + "%",
+                     [Op.iLike]: "%" + req.query.q + "%",
                   },
                },
                {
                   description: {
-                     [Op.like]: "%" + req.query.q + "%",
+                     [Op.iLike]: "%" + req.query.q + "%",
                   },
                },
             ],
