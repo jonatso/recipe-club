@@ -11,11 +11,10 @@ export default function Rating({ points, numberOfRatings, ...props }) {
          stars.push(<Icon key={i} as={AiOutlineStar} />);
       }
    }
-
    return (
       <HStack {...props}>
          {stars}
-         {numberOfRatings ? <div>({numberOfRatings !== 0 ? numberOfRatings : "No ratings"})</div> : null}
+         <div>({numberOfRatings !== 0 ? numberOfRatings : "No ratings"})</div>
       </HStack>
    );
 }

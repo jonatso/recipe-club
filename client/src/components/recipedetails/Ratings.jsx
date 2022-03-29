@@ -14,10 +14,16 @@ export default function Ratings({ recipe, ratings, me }) {
             Rate this recipe
          </Button>
          <RatingForm open={open} setIsOpen={setIsOpen} recipe={recipe} />
-         {ratings === undefined ? (
+         {recipe === undefined || ratings === undefined ? (
             <div>There are no ratings</div>
          ) : (
-            <>{ratings[0] ? ratings.map((rating) => <RatingCard key={rating.id} rating={rating} me={me} />) : null}</>
+            <>
+               {recipe.numberOfRatings && ratings[0]
+                  ? ratings.map((rating) => (
+                       <RatingCard key={rating.id} numberOfRatings={recipe.numberOfRatings} rating={rating} me={me} />
+                    ))
+                  : null}
+            </>
          )}
       </Stack>
    );

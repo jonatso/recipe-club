@@ -4,7 +4,7 @@ import Rating from "../../core_ui/Rating";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 
-export default function RatingCard({ rating, me, ...props }) {
+export default function RatingCard({ rating, numberOfRatings, me, ...props }) {
    const queryClient = useQueryClient();
 
    const [errMsg, setErrMsg] = useState("");
@@ -69,7 +69,7 @@ export default function RatingCard({ rating, me, ...props }) {
                </Button>
             ) : null}
          </HStack>
-         <Rating points={rating.value} mt={2} mb={2} />
+         <Rating points={rating.value} numberOfRatings={numberOfRatings} mt={2} mb={2} />
          <Text>{rating.comment}</Text>
       </Box>
    );
