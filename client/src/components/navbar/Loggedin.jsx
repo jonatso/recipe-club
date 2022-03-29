@@ -9,7 +9,9 @@ export default function Loggedin() {
       <>
          {/* <Shopping /> */}
          <Button
+            colorScheme="teal"
             variant="link"
+            pl={2}
             onClick={() => {
                logoutMutation.mutate();
             }}

@@ -53,7 +53,9 @@ export default function UserDeleteButton({ id }) {
    return (
       <Popover returnFocusOnClose={false} isOpen={isOpen} onClose={close} closeOnBlur={false}>
          <PopoverTrigger>
-            <Button colorScheme={"red"} onClick={open} ml={5} leftIcon={<DeleteIcon/>}>
+            <Button color={"white"} backgroundColor="red.500" _hover={{
+               backgroundColor: "red.700"
+            }} onClick={open} ml={5} leftIcon={<DeleteIcon/>}>
                Delete
             </Button>
          </PopoverTrigger>
@@ -85,7 +87,9 @@ export default function UserDeleteButton({ id }) {
                            return err;
                         }
                      }}
-                     colorScheme="red"
+                     color={"white"} backgroundColor="red.500" _hover={{
+                        backgroundColor: "red.700"
+                     }}
                   >
                      Apply
                   </Button>
