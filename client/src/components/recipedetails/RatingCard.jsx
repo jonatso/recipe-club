@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Stack, HStack, Heading, Button, Box, Text } from "@chakra-ui/react";
 import Rating from "../../core_ui/Rating";
 import { useQuery, useMutation, useQueryClient } from "react-query";
+import axios from "axios";
 
 export default function RatingCard({ rating, me, ...props }) {
    const queryClient = useQueryClient();
@@ -55,6 +56,7 @@ export default function RatingCard({ rating, me, ...props }) {
                         const response = await deleteMutation.mutateAsync(rating.id, {
                            onSuccess: () => {
                               queryClient.invalidateQueries("ratings");
+                              queryClient.invalidateQueries("recipe");
                            },
                         });
                      } catch (err) {

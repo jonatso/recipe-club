@@ -55,7 +55,7 @@ export default function RatingForm({ open, setIsOpen, recipe }) {
                const response = await rateMutation.mutateAsync(values, {
                   onSuccess: () => {
                      queryClient.invalidateQueries("ratings");
-                     queryClient.invalidateQueries("rater");
+                     queryClient.invalidateQueries("recipe");
                   },
                });
                if (response.id) {
