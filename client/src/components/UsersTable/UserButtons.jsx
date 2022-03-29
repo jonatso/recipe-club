@@ -25,7 +25,7 @@ export default function UserButtons({ id, name }) {
    }
 
    if (me.isError) {
-      return <span>Error: {error}</span>;
+      return <span>Error</span>;
    }
 
    return (
@@ -38,19 +38,27 @@ export default function UserButtons({ id, name }) {
                      <UserDeleteButton id={id} />
                   </ButtonGroup>
                ) : (
-                     <Link href={`mailto:owner@recipeclub.com?
-Subject=User report: `+name+`&body=My username (optional): `+me.data.username+`%0D%0A
-I wish to report user `+name+` for the following behaveour which is against website policy (add X where apropriate):%0D%0A
+                  <Link
+                     href={
+                        `mailto:owner@recipeclub.com?
+Subject=User report: ` +
+                        name +
+                        `&body=My username (optional): ` +
+                        me.data.username +
+                        `%0D%0A
+I wish to report user ` +
+                        name +
+                        ` for the following behaveour which is against website policy (add X where apropriate):%0D%0A
    - Offensive behaveour: %0D%0A
    - Rude language: %0D%0A
    - Personal attacks: %0D%0A
    - Impersonation: %0D%0A
    - Explicit content: %0D%0A
-   - Encouraging violence: `}>
+   - Encouraging violence: `
+                     }
+                  >
                      <ButtonGroup>
-                        <Button colorScheme={"yellow"} >
-                           Report
-                        </Button>
+                        <Button colorScheme={"yellow"}>Report</Button>
                      </ButtonGroup>
                   </Link>
                )}

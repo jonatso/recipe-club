@@ -53,7 +53,7 @@ export default function UserProfile() {
    }
 
    if (me.isError || profile.isError) {
-      return <span>Error: {error}</span>;
+      return <span>Error</span>;
    }
 
    const meData = me.data;

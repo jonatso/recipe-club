@@ -27,7 +27,7 @@ export default function Users() {
    }
 
    if (users.isError) {
-      return <span>Error: {error}</span>;
+      return <span>Error</span>;
    }
 
    return (
