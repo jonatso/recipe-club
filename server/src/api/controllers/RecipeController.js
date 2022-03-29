@@ -179,23 +179,30 @@ const deleteSavedRecipe = async (req, res) => {
 };
 
 const searchRecipe = async (req, res) => {
+   console.log(req.query);
    try {
-      const { search } = req.params;
       const recipe = await Recipe.findAll({
          where: {
             [Op.or]: [
                {
                   name: {
-                     [Op.like]: "%" + search + "%",
+                     [Op.iLike]: "%" + req.query.q + "%",
                   },
                },
                {
                   description: {
-                     [Op.like]: "%" + search + "%",
+                     [Op.iLike]: "%" + req.query.q + "%",
                   },
                },
             ],
          },
+         include: [
+            {
+               model: Users,
+               required: true,
+               as: "creator",
+            },
+         ],
       });
       if (!recipe) {
          throw new Error("no recipe with that id found");
