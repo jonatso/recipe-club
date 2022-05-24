@@ -58,7 +58,7 @@ export default function RecipeTabs({ id, profile }) {
                {profile.username}'s liked recipes
             </Tab>
          </TabList>
-         <TabPanels>
+         <TabPanels align="left">
             <TabPanel>
                <SimpleGrid columns={[1, 2, 3]} spacing={3}>
                   {userRecipes.isSuccess ? (
