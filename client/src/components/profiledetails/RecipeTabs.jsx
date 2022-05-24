@@ -47,7 +47,7 @@ export default function RecipeTabs({ id, profile }) {
             >
                {profile.username}'s recipes
             </Tab>
-            {/* <Tab
+            <Tab
                fontSize={{ base: "16px", lg: "18px" }}
                color={useColorModeValue("yellow.500", "yellow.300")}
                fontWeight={"500"}
@@ -56,7 +56,7 @@ export default function RecipeTabs({ id, profile }) {
                pt={5}
             >
                {profile.username}'s saved recipes
-            </Tab> */}
+            </Tab>
          </TabList>
          <TabPanels>
             <TabPanel>
