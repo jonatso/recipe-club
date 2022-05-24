@@ -43,8 +43,14 @@ const getRecipe = async (req, res) => {
                required: true,
                as: "creator",
             },
+            {
+               model: Users,
+               required: false,
+               as: "saver",
+            },
          ],
       });
+
       if (!recipe) {
          throw new Error("no recipe with that id found");
       }

@@ -2,6 +2,7 @@ import React from "react";
 import { HStack, Stack, Box, Heading, Text, useColorModeValue, Avatar, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Rating from "../../core_ui/Rating";
+import SavedModal from "./SavedModal";
 
 export default function TitleDesc({
    name,
@@ -13,6 +14,7 @@ export default function TitleDesc({
    picture,
    points,
    numberOfRatings,
+   savers,
 }) {
    return (
       <Stack spacing={2}>
@@ -21,6 +23,7 @@ export default function TitleDesc({
                {name}
             </Heading>
             <Rating mt={5} mb={5} points={points} numberOfRatings={numberOfRatings} />
+            <SavedModal savers={savers}></SavedModal>
             <Text
                color={difficulty == 1 ? "green.500" : difficulty == 2 ? "yellow.500" : "red.500"}
                textTransform={"uppercase"}
