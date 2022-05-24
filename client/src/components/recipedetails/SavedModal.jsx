@@ -21,11 +21,11 @@ export default function SavedModal({savers}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
       <>
-        <Button onClick={onOpen}>Saved by {savers.length} user{savers.length === 1 ? "" : "s"}</Button>
+        <Button onClick={() => {if (savers.length !== 0) {onOpen()}}}>♥ by {savers.length} user{savers.length === 1 ? "" : "s"}</Button>
         <Modal isOpen={isOpen} onClose={onClose} size={"xs"}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Saved by</ModalHeader>
+            <ModalHeader>♥ by</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               {savers.map(saver => (

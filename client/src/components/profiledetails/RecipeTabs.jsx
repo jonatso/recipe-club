@@ -55,7 +55,7 @@ export default function RecipeTabs({ id, profile }) {
                mb={"4"}
                pt={5}
             >
-               {profile.username}'s saved recipes
+               {profile.username}'s liked recipes
             </Tab>
          </TabList>
          <TabPanels>
