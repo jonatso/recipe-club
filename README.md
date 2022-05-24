@@ -2,7 +2,8 @@
 
 Recipe Club er en web-applikasjon hvor man kan dele sine egne mat oppskrifter og finne inspirasjon til sin neste middag.
 
-[url=https://postimg.cc/4Yyr0x5B][img]https://i.postimg.cc/4Yyr0x5B/Screenshot-2022-05-08-at-13-29-48.png[/img][/url]
+![Home page](https://i.postimg.cc/4Yyr0x5B/Screenshot-2022-05-08-at-13-29-48.png)
+
 
 Teknologiene som brukes:
 - PostgreSQL
